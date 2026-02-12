@@ -14,6 +14,28 @@
             --dark-blue: #0d1526;
             --glow: rgba(0, 255, 255, 0.5);
             --glow-pink: rgba(255, 0, 255, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --text-tertiary: rgba(255, 255, 255, 0.6);
+            --bg-card: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
+            --border-color: rgba(0, 255, 255, 0.3);
+            --grid-color: rgba(0, 255, 255, 0.03);
+        }
+
+        [data-theme="light"] {
+            --primary: #0088ff;
+            --secondary: #ff0088;
+            --accent: #00aa66;
+            --dark: #f5f5f7;
+            --dark-blue: #e8e8ea;
+            --glow: rgba(0, 136, 255, 0.3);
+            --glow-pink: rgba(255, 0, 136, 0.3);
+            --text-primary: #1a1a1a;
+            --text-secondary: rgba(0, 0, 0, 0.8);
+            --text-tertiary: rgba(0, 0, 0, 0.6);
+            --bg-card: linear-gradient(135deg, rgba(0, 136, 255, 0.08), rgba(255, 0, 136, 0.08));
+            --border-color: rgba(0, 136, 255, 0.4);
+            --grid-color: rgba(0, 136, 255, 0.05);
         }
 
         * {
@@ -25,9 +47,39 @@
         body {
             font-family: 'Rajdhani', sans-serif;
             background: var(--dark);
-            color: #ffffff;
+            color: var(--text-primary);
             overflow-x: hidden;
             cursor: crosshair;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 10001;
+            width: 60px;
+            height: 60px;
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 0 40px var(--glow);
+        }
+
+        .theme-toggle-icon {
+            font-size: 1.8rem;
+            transition: transform 0.3s ease;
         }
 
         /* Animated Background */
@@ -38,12 +90,13 @@
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+                linear-gradient(var(--grid-color) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: gridMove 20s linear infinite;
             z-index: 0;
             pointer-events: none;
+            transition: background 0.5s ease;
         }
 
         @keyframes gridMove {
@@ -69,6 +122,7 @@
             border-radius: 50%;
             animation: float 15s infinite;
             opacity: 0.3;
+            transition: background 0.5s ease;
         }
 
         @keyframes float {
@@ -119,6 +173,7 @@
             margin-bottom: 1rem;
             text-shadow: 0 0 40px var(--glow);
             animation: glowPulse 3s ease-in-out infinite;
+            transition: all 0.5s ease;
         }
 
         @keyframes glowPulse {
@@ -133,15 +188,17 @@
             text-transform: uppercase;
             margin-bottom: 3rem;
             animation: fadeInUp 1.5s ease-out 0.3s backwards;
+            transition: color 0.5s ease;
         }
 
         .subtitle {
             font-size: clamp(1.2rem, 2.5vw, 2rem);
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
             max-width: 800px;
             margin: 0 auto 3rem;
             line-height: 1.6;
             animation: fadeInUp 1.5s ease-out 0.6s backwards;
+            transition: color 0.5s ease;
         }
 
         .cta-button {
@@ -189,6 +246,7 @@
             padding: 8rem 2rem;
             background: linear-gradient(180deg, var(--dark) 0%, var(--dark-blue) 50%, var(--dark) 100%);
             z-index: 1;
+            transition: background 0.5s ease;
         }
 
         .section-title {
@@ -199,16 +257,18 @@
             color: var(--primary);
             text-transform: uppercase;
             letter-spacing: 0.15em;
+            transition: color 0.5s ease;
         }
 
         .section-subtitle {
             text-align: center;
             font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-tertiary);
             margin-bottom: 5rem;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            transition: color 0.5s ease;
         }
 
         .features-grid {
@@ -220,8 +280,8 @@
         }
 
         .feature-card {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             padding: 3rem 2rem;
             position: relative;
             overflow: hidden;
@@ -264,12 +324,14 @@
             color: var(--accent);
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            transition: color 0.5s ease;
         }
 
         .feature-description {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
             line-height: 1.8;
             font-size: 1.05rem;
+            transition: color 0.5s ease;
         }
 
         /* Tech Specs Section */
@@ -278,6 +340,7 @@
             padding: 8rem 2rem;
             background: var(--dark);
             z-index: 1;
+            transition: background 0.5s ease;
         }
 
         .specs-container {
@@ -289,16 +352,21 @@
         }
 
         .spec-item {
-            background: rgba(0, 255, 255, 0.03);
+            background: var(--bg-card);
             border-left: 3px solid var(--primary);
             padding: 2rem;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .spec-item:hover {
-            background: rgba(0, 255, 255, 0.08);
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
             border-left-color: var(--accent);
             transform: translateX(10px);
+        }
+
+        [data-theme="light"] .spec-item:hover {
+            background: linear-gradient(135deg, rgba(0, 136, 255, 0.15), rgba(255, 0, 136, 0.15));
         }
 
         .spec-label {
@@ -308,18 +376,21 @@
             text-transform: uppercase;
             letter-spacing: 0.15em;
             margin-bottom: 0.5rem;
+            transition: color 0.5s ease;
         }
 
         .spec-value {
             font-size: 1.8rem;
             font-weight: 600;
-            color: #ffffff;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
+            transition: color 0.5s ease;
         }
 
         .spec-description {
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-tertiary);
             font-size: 0.95rem;
+            transition: color 0.5s ease;
         }
 
         /* Medical Applications Section */
@@ -328,6 +399,7 @@
             padding: 8rem 2rem;
             background: linear-gradient(180deg, var(--dark) 0%, var(--dark-blue) 100%);
             z-index: 1;
+            transition: background 0.5s ease;
         }
 
         .applications-list {
@@ -336,13 +408,14 @@
         }
 
         .application-item {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 255, 255, 0.05));
-            border: 1px solid rgba(0, 255, 136, 0.2);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             padding: 2.5rem;
             margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
+            cursor: pointer;
         }
 
         .application-item::after {
@@ -376,6 +449,7 @@
             position: absolute;
             top: 1rem;
             right: 2rem;
+            transition: color 0.5s ease;
         }
 
         .application-title {
@@ -384,12 +458,14 @@
             margin-bottom: 1rem;
             color: var(--accent);
             text-transform: uppercase;
+            transition: color 0.5s ease;
         }
 
         .application-description {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
             line-height: 1.8;
             font-size: 1.05rem;
+            transition: color 0.5s ease;
         }
 
         /* Footer */
@@ -397,9 +473,10 @@
             position: relative;
             padding: 4rem 2rem 2rem;
             background: var(--dark);
-            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            border-top: 1px solid var(--border-color);
             text-align: center;
             z-index: 1;
+            transition: all 0.5s ease;
         }
 
         .footer-content {
@@ -413,12 +490,14 @@
             font-weight: 900;
             color: var(--primary);
             margin-bottom: 1rem;
+            transition: color 0.5s ease;
         }
 
         .footer-text {
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--text-tertiary);
             font-size: 0.9rem;
             letter-spacing: 0.1em;
+            transition: color 0.5s ease;
         }
 
         .scanner-line {
@@ -431,6 +510,7 @@
             z-index: 999;
             pointer-events: none;
             box-shadow: 0 0 20px var(--primary);
+            transition: background 0.5s ease, box-shadow 0.5s ease;
         }
 
         @keyframes scan {
@@ -459,6 +539,7 @@
             color: var(--primary);
             display: block;
             animation: glow 2s ease-in-out infinite;
+            transition: color 0.5s ease;
         }
 
         @keyframes glow {
@@ -466,7 +547,6 @@
             50% { text-shadow: 0 0 30px var(--primary), 0 0 50px var(--primary); }
         }
 
-        /* Responsive */
         /* Modal Styles */
         .modal-overlay {
             position: fixed;
@@ -483,6 +563,10 @@
             animation: fadeIn 0.3s ease-out;
         }
 
+        [data-theme="light"] .modal-overlay {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
         .modal-overlay.active {
             display: flex;
         }
@@ -493,7 +577,7 @@
         }
 
         .modal-content {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            background: var(--bg-card);
             border: 2px solid var(--primary);
             padding: 3rem;
             max-width: 90%;
@@ -502,6 +586,7 @@
             position: relative;
             box-shadow: 0 0 100px var(--glow), 0 0 200px var(--glow-pink);
             animation: modalZoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s ease;
         }
 
         @keyframes modalZoom {
@@ -560,27 +645,31 @@
             text-align: center;
             letter-spacing: 0.15em;
             text-shadow: 0 0 20px var(--glow);
+            transition: color 0.5s ease;
         }
 
         .modal-description {
             font-size: 1.3rem;
             line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-secondary);
             margin-bottom: 2rem;
             text-align: center;
+            transition: color 0.5s ease;
         }
 
         .modal-details {
-            background: rgba(0, 255, 255, 0.05);
+            background: var(--bg-card);
             border-left: 4px solid var(--primary);
             padding: 2rem;
             margin-top: 2rem;
+            transition: all 0.5s ease;
         }
 
         .modal-detail-item {
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            border-bottom: 1px solid var(--border-color);
+            transition: border-color 0.5s ease;
         }
 
         .modal-detail-item:last-child {
@@ -596,15 +685,28 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 0.5rem;
+            transition: color 0.5s ease;
         }
 
         .modal-detail-value {
             font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
             line-height: 1.6;
+            transition: color 0.5s ease;
         }
 
         @media (max-width: 768px) {
+            .theme-toggle {
+                width: 50px;
+                height: 50px;
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .theme-toggle-icon {
+                font-size: 1.5rem;
+            }
+
             .features-grid {
                 grid-template-columns: 1fr;
             }
@@ -629,6 +731,11 @@
     </style>
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-toggle-icon">🌙</span>
+    </button>
+
     <!-- Modal Overlay -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content" id="modalContent">
@@ -636,6 +743,7 @@
             <div id="modalBody"></div>
         </div>
     </div>
+
     <!-- Background Effects -->
     <div class="background-grid"></div>
     <div class="particles" id="particles"></div>
@@ -787,6 +895,29 @@
     </footer>
 
     <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('.theme-toggle-icon');
+        const html = document.documentElement;
+
+        // Load saved theme or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+        }
+
         // Modal functionality
         const modal = document.getElementById('modalOverlay');
         const modalBody = document.getElementById('modalBody');
@@ -1076,5 +1207,3 @@
     </script>
 </body>
 </html>
-
-
