@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS SKELETAL | Exosquelette Interne de Nouvelle Génération</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffff;
+            --secondary: #ff00ff;
+            --accent: #00ff88;
+            --dark: #0a0a0f;
+            --dark-blue: #0d1526;
+            --glow: rgba(0, 255, 255, 0.5);
+            --glow-pink: rgba(255, 0, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark);
+            color: #ffffff;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* Animated Background */
+        .background-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.3; }
+            50% { transform: translateY(-100vh) translateX(50px); opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { opacity: 0; }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px var(--glow);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1.5s ease-out 0.3s backwards;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            animation: fadeInUp 1.5s ease-out 0.6s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            border: 2px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1.5s ease-out 0.9s backwards;
+            cursor: pointer;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px var(--glow);
+        }
+
+        /* Features Section */
+        .features {
+            position: relative;
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-blue) 50%, var(--dark) 100%);
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px var(--glow);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .feature-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Tech Specs Section */
+        .tech-specs {
+            position: relative;
+            padding: 8rem 2rem;
+            background: var(--dark);
+            z-index: 1;
+        }
+
+        .specs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-item {
+            background: rgba(0, 255, 255, 0.03);
+            border-left: 3px solid var(--primary);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .spec-item:hover {
+            background: rgba(0, 255, 255, 0.08);
+            border-left-color: var(--accent);
+            transform: translateX(10px);
+        }
+
+        .spec-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-description {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        /* Medical Applications Section */
+        .applications {
+            position: relative;
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-blue) 100%);
+            z-index: 1;
+        }
+
+        .applications-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .application-item {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 255, 255, 0.05));
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .application-item::after {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--glow-pink), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .application-item:hover::after {
+            opacity: 0.3;
+        }
+
+        .application-item:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
+        }
+
+        .application-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            opacity: 0.2;
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+        }
+
+        .application-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .application-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            padding: 4rem 2rem 2rem;
+            background: var(--dark);
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            text-align: center;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        .scanner-line {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: scan 4s linear infinite;
+            z-index: 999;
+            pointer-events: none;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(20px); }
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 2rem;
+            color: var(--primary);
+            display: block;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px var(--primary); }
+            50% { text-shadow: 0 0 30px var(--primary), 0 0 50px var(--primary); }
+        }
+
+        /* Responsive */
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 2px solid var(--primary);
+            padding: 3rem;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 0 100px var(--glow), 0 0 200px var(--glow-pink);
+            animation: modalZoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalZoom {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: 2px solid var(--primary);
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .modal-icon {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 20px var(--glow);
+        }
+
+        .modal-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .modal-details {
+            background: rgba(0, 255, 255, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .modal-detail-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .modal-detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .modal-detail-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-detail-value {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .specs-container {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 2rem;
+                max-width: 95%;
+            }
+
+            .modal-title {
+                font-size: 1.8rem;
+            }
+
+            .modal-description {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content" id="modalContent">
+            <button class="modal-close" id="modalClose">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+    <!-- Background Effects -->
+    <div class="background-grid"></div>
+    <div class="particles" id="particles"></div>
+    <div class="scanner-line"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>NEXUS SKELETAL</h1>
+            <p class="tagline">Évolution Bio-Mécanique</p>
+            <p class="subtitle">L'exosquelette interne de nouvelle génération qui fusionne avec votre système musculo-squelettique pour une mobilité et une résistance surhumaines</p>
+            <a href="#features" class="cta-button">Découvrir la Technologie</a>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Technologie Révolutionnaire</h2>
+        <p class="section-subtitle">Une innovation médicale qui redéfinit les possibilités du corps humain</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">⚛️</span>
+                <h3 class="feature-title">Intégration Cellulaire</h3>
+                <p class="feature-description">Nano-fibres biocompatibles qui s'intègrent naturellement à votre structure osseuse via un processus d'ostéointégration accélérée. Fusion complète en 72 heures.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🧬</span>
+                <h3 class="feature-title">Adaptation Dynamique</h3>
+                <p class="feature-description">IA embarquée qui analyse vos mouvements en temps réel et ajuste la rigidité structurelle pour optimiser performance et protection selon l'activité.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">💎</span>
+                <h3 class="feature-title">Résistance Extrême</h3>
+                <p class="feature-description">Alliage de graphène et titane biocompatible offrant une résistance 200x supérieure à l'os naturel tout en conservant la flexibilité nécessaire.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3 class="feature-title">Régénération Active</h3>
+                <p class="feature-description">Système de micro-réparation autonome qui détecte et corrige les micro-fractures avant qu'elles ne deviennent problématiques. Auto-entretien permanent.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🔋</span>
+                <h3 class="feature-title">Énergie Bioélectrique</h3>
+                <p class="feature-description">Alimenté par votre propre activité métabolique. Conversion de l'énergie cinétique et thermique corporelle en puissance système sans source externe.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">📡</span>
+                <h3 class="feature-title">Monitoring Neural</h3>
+                <p class="feature-description">Interface neurale non-invasive permettant un contrôle intuitif et un feedback sensoriel en temps réel sur l'état structurel de votre corps.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Specs Section -->
+    <section class="tech-specs">
+        <h2 class="section-title">Spécifications Techniques</h2>
+        <p class="section-subtitle">Performance de niveau militaire, sécurité médicale certifiée</p>
+        
+        <div class="specs-container">
+            <div class="spec-item">
+                <div class="spec-label">Résistance à la Compression</div>
+                <div class="spec-value">42,000 N</div>
+                <div class="spec-description">Plus de 200x la résistance osseuse naturelle</div>
+            </div>
+
+            <div class="spec-item">
+                <div class="spec-label">Temps d'Intégration</div>
+                <div class="spec-value">72 Heures</div>
+                <div class="spec-description">Fusion complète avec le tissu osseux</div>
+            </div>
+
+            <div class="spec-item">
+                <div class="spec-label">Durée de Vie</div>
+                <div class="spec-value">50+ Ans</div>
+                <div class="spec-description">Sans maintenance ni remplacement</div>
+            </div>
+
+            <div class="spec-item">
+                <div class="spec-label">Biocompatibilité</div>
+                <div class="spec-value">99.97%</div>
+                <div class="spec-description">Taux de rejet quasi-nul</div>
+            </div>
+
+            <div class="spec-item">
+                <div class="spec-label">Poids Additionnel</div>
+                <div class="spec-value">< 2 kg</div>
+                <div class="spec-description">Système complet pour adulte moyen</div>
+            </div>
+
+            <div class="spec-item">
+                <div class="spec-label">Temps de Réponse</div>
+                <div class="spec-value">0.003 s</div>
+                <div class="spec-description">Adaptation instantanée aux contraintes</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications Section -->
+    <section class="applications">
+        <h2 class="section-title">Applications Médicales</h2>
+        <p class="section-subtitle">Transformer des vies à travers l'innovation biomédicale</p>
+        
+        <div class="applications-list">
+            <div class="application-item">
+                <span class="application-number">01</span>
+                <h3 class="application-title">Ostéoporose Avancée</h3>
+                <p class="application-description">Renforcement structurel complet pour les patients souffrant de fragilité osseuse sévère. Restauration complète de la mobilité et élimination du risque de fractures spontanées.</p>
+            </div>
+
+            <div class="application-item">
+                <span class="application-number">02</span>
+                <h3 class="application-title">Reconstruction Post-Traumatique</h3>
+                <p class="application-description">Alternative révolutionnaire aux implants métalliques traditionnels après accidents graves. Restauration fonctionnelle complète avec sensation naturelle préservée.</p>
+            </div>
+
+            <div class="application-item">
+                <span class="application-number">03</span>
+                <h3 class="application-title">Maladies Dégénératives</h3>
+                <p class="application-description">Support structurel pour patients atteints de pathologies osseuses progressives. Maintien de l'autonomie et de la qualité de vie sur le long terme.</p>
+            </div>
+
+            <div class="application-item">
+                <span class="application-number">04</span>
+                <h3 class="application-title">Optimisation Sportive</h3>
+                <p class="application-description">Protection avancée pour athlètes de haut niveau. Prévention des blessures tout en maintenant performance maximale et amplitude de mouvement naturelle.</p>
+            </div>
+
+            <div class="application-item">
+                <span class="application-number">05</span>
+                <h3 class="application-title">Vieillissement Actif</h3>
+                <p class="application-description">Préservation de la mobilité et de l'indépendance pour les seniors. Prévention des chutes et des fractures liées à l'âge, prolongation de l'autonomie.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">NEXUS SKELETAL</div>
+            <p class="footer-text">L'AVENIR DE LA MÉDECINE RÉGÉNÉRATIVE | © 2026 NEXUS BIOTECH SYSTEMS</p>
+        </div>
+    </footer>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('modalOverlay');
+        const modalBody = document.getElementById('modalBody');
+        const modalClose = document.getElementById('modalClose');
+
+        // Detailed content for each feature
+        const featureDetails = {
+            'Intégration Cellulaire': {
+                icon: '⚛️',
+                description: 'La technologie d\'intégration cellulaire représente une avancée majeure dans le domaine de la bio-ingénierie. Nos nano-fibres de graphène biocompatible sont conçues pour mimer la structure de l\'os trabéculaire naturel.',
+                details: [
+                    { label: 'Processus d\'ostéointégration', value: 'Les nano-fibres créent un échafaudage tridimensionnel qui stimule la croissance osseuse naturelle. Les ostéoblastes migrent et prolifèrent le long des fibres, créant une fusion biologique complète.' },
+                    { label: 'Biocompatibilité', value: 'Revêtement en hydroxyapatite biomimétique qui favorise l\'adhésion cellulaire et prévient toute réaction immunitaire. Taux de rejet inférieur à 0.03%.' },
+                    { label: 'Timeline d\'intégration', value: 'Jour 1-24: Adhésion cellulaire initiale | Jour 2-3: Prolifération ostéoblastique | Jour 3+: Maturation osseuse et fusion structurelle complète.' }
+                ]
+            },
+            'Adaptation Dynamique': {
+                icon: '🧬',
+                description: 'L\'intelligence artificielle embarquée utilise des réseaux neuronaux profonds pour analyser et prédire vos mouvements avec une précision inégalée.',
+                details: [
+                    { label: 'Capteurs Piézoélectriques', value: '10,000+ micro-capteurs distribués le long de la structure détectent les contraintes mécaniques en temps réel avec une précision de 0.001 Newton.' },
+                    { label: 'Algorithme d\'apprentissage', value: 'Le système apprend vos patterns de mouvement uniques et optimise la réponse structurelle pour chaque activité: marche, course, saut, etc.' },
+                    { label: 'Ajustement en temps réel', value: 'Modification de la rigidité structurelle en 3 millisecondes, permettant une protection maximale lors d\'impacts tout en préservant la flexibilité naturelle.' }
+                ]
+            },
+            'Résistance Extrême': {
+                icon: '💎',
+                description: 'L\'alliage composite propriétaire combine graphène, nanotubes de carbone et titane de grade médical pour créer le matériau biocompatible le plus résistant jamais développé.',
+                details: [
+                    { label: 'Résistance à la compression', value: '42,000 Newtons - équivalent au poids d\'une voiture compacte réparti sur un os unique. 200x supérieur à l\'os cortical humain.' },
+                    { label: 'Résistance à la traction', value: '2,400 MPa - permet de supporter des forces d\'étirement extrêmes sans déformation permanente.' },
+                    { label: 'Module de Young', value: '350 GPa avec capacité d\'ajustement dynamique entre 50-500 GPa selon les besoins. Combine rigidité et flexibilité adaptative.' }
+                ]
+            },
+            'Régénération Active': {
+                icon: '⚡',
+                description: 'Système de micro-réparation inspiré des processus biologiques de guérison osseuse, mais 1000x plus rapide et efficace.',
+                details: [
+                    { label: 'Détection des dommages', value: 'Réseau de capteurs à effet Hall détecte les micro-fractures de moins de 10 microns en temps réel, avant qu\'elles ne deviennent structurellement problématiques.' },
+                    { label: 'Processus de réparation', value: 'Injection localisée de nano-particules d\'alliage en suspension qui fusionnent avec la structure endommagée. Polymérisation contrôlée par stimulation électromagnétique.' },
+                    { label: 'Temps de guérison', value: 'Micro-fractures: 2-4 heures | Fractures mineures: 24-48 heures | Dommages majeurs: 72 heures. Pas d\'intervention externe nécessaire.' }
+                ]
+            },
+            'Énergie Bioélectrique': {
+                icon: '🔋',
+                description: 'Révolution énergétique: le premier système médical implanté totalement autonome, alimenté exclusivement par votre propre corps.',
+                details: [
+                    { label: 'Génération piézoélectrique', value: 'Chaque mouvement génère de l\'électricité via cristaux piézoélectriques intégrés. Marche normale: 2-3 Watts | Course: 8-12 Watts.' },
+                    { label: 'Récupération thermique', value: 'Modules thermoélectriques convertissent la différence de température corps/environnement en énergie. Production continue de 0.5-1 Watt.' },
+                    { label: 'Stockage et gestion', value: 'Super-condensateurs au graphène stockent jusqu\'à 48 heures d\'énergie de réserve. Système de gestion intelligent optimise la consommation selon l\'activité.' }
+                ]
+            },
+            'Monitoring Neural': {
+                icon: '📡',
+                description: 'Interface cerveau-machine non-invasive qui crée un lien direct entre votre système nerveux et l\'exosquelette interne.',
+                details: [
+                    { label: 'Interface neurale capacitive', value: 'Capteurs EEG haute résolution détectent l\'activité cérébrale sans pénétration cutanée. Reconnaissance de patterns d\'intention motrice avec 98% de précision.' },
+                    { label: 'Feedback haptique', value: 'Stimulation nerveuse périphérique non-invasive fournit des informations sensorielles sur l\'état structurel: tension, contrainte, température.' },
+                    { label: 'Application mobile', value: 'Dashboard en temps réel affichant: charge structurelle, énergie disponible, historique d\'activité, alertes préventives, et recommandations personnalisées.' }
+                ]
+            },
+            'Ostéoporose Avancée': {
+                icon: '01',
+                description: 'Solution définitive pour les patients souffrant de fragilité osseuse sévère. Le NEXUS SKELETAL remplace structurellement la matrice osseuse déficiente.',
+                details: [
+                    { label: 'Bénéfices cliniques', value: 'Élimination complète du risque de fractures spontanées, restauration de la capacité de charge osseuse, amélioration significative de la mobilité et de la qualité de vie.' },
+                    { label: 'Implantation ciblée', value: 'Zones critiques: vertèbres lombaires et thoraciques, col fémoral, poignets, côtes. Installation progressive sur 3-6 mois selon la sévérité.' },
+                    { label: 'Résultats cliniques', value: 'Études sur 5 ans: 0% de fractures post-implantation, 95% des patients retrouvent une mobilité normale, 98% de satisfaction patient.' }
+                ]
+            },
+            'Reconstruction Post-Traumatique': {
+                icon: '02',
+                description: 'Alternative révolutionnaire aux plaques et vis métalliques après traumatismes majeurs. Restauration fonctionnelle complète avec sensation naturelle.',
+                details: [
+                    { label: 'Avantages vs implants traditionnels', value: 'Pas de corps étrangers métalliques visibles en radiographie, croissance osseuse naturelle préservée, aucune limite de mouvement, absence de douleur chronique.' },
+                    { label: 'Cas d\'usage typiques', value: 'Fractures complexes multi-fragmentaires, pseudarthroses, pertes de substance osseuse, échecs de consolidation, reconstructions après tumeurs osseuses.' },
+                    { label: 'Protocole chirurgical', value: 'Intervention mini-invasive sous guidage 3D. Injection locale de nano-fibres qui auto-assemblent la structure en 72h. Récupération ambulatoire.' }
+                ]
+            },
+            'Maladies Dégénératives': {
+                icon: '03',
+                description: 'Support structurel pour patients atteints de pathologies osseuses progressives: ostéogenèse imparfaite, maladie de Paget, ostéomalacie.',
+                details: [
+                    { label: 'Approche préventive', value: 'Installation anticipée avant dégradation critique permet de maintenir la structure osseuse existante tout en apportant un renforcement progressif.' },
+                    { label: 'Adaptation à la progression', value: 'Le système évolue avec la maladie, compensant automatiquement la perte de densité osseuse naturelle par augmentation de la rigidité structurelle.' },
+                    { label: 'Qualité de vie', value: 'Maintien de l\'autonomie sur 20-30+ ans, réduction massive des hospitalisations, préservation des activités quotidiennes normales.' }
+                ]
+            },
+            'Optimisation Sportive': {
+                icon: '04',
+                description: 'Protection de niveau militaire pour athlètes professionnels sans compromis sur la performance. Approuvé par les fédérations sportives internationales.',
+                details: [
+                    { label: 'Sports à haut risque', value: 'Football américain, rugby, arts martiaux, ski alpin, motocross - toutes disciplines avec risque de fractures multiples ou de traumatismes répétés.' },
+                    { label: 'Performance maintenue', value: 'Poids additionnel < 2kg compensé par réduction de la fatigue musculaire. Amplitude de mouvement: 100% préservée. Temps de réaction: aucun impact.' },
+                    { label: 'Prévention des blessures', value: 'Réduction de 94% des fractures, 78% des entorses graves, 65% du temps de récupération post-traumatisme. Carrière sportive prolongée de 3-5 ans en moyenne.' }
+                ]
+            },
+            'Vieillissement Actif': {
+                icon: '05',
+                description: 'Programme spécifique pour seniors actifs souhaitant préserver leur mobilité et indépendance face au déclin osseux lié à l\'âge.',
+                details: [
+                    { label: 'Prévention des chutes', value: 'Détection des pertes d\'équilibre et ajustement structurel préventif. Alertes envoyées aux proches en cas de chute détectée. Réduction de 89% des fractures du col fémoral.' },
+                    { label: 'Protocole d\'installation senior', value: 'Procédure ambulatoire ultra-mini-invasive adaptée aux patients âgés. Anesthésie locale uniquement. Retour à domicile le jour même.' },
+                    { label: 'Autonomie prolongée', value: 'Maintien des activités quotidiennes: marche, jardinage, voyage. Indépendance préservée 10-15 ans de plus que la moyenne. Impact majeur sur la dignité et le bien-être.' }
+                ]
+            }
+        };
+
+        // Add click handlers to feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.feature-title').textContent;
+                const details = featureDetails[title];
+                if (details) {
+                    showModal(title, details);
+                }
+            });
+        });
+
+        // Add click handlers to application items
+        document.querySelectorAll('.application-item').forEach(item => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', function() {
+                const title = this.querySelector('.application-title').textContent;
+                const details = featureDetails[title];
+                if (details) {
+                    showModal(title, details);
+                }
+            });
+        });
+
+        // Add click handlers to spec items
+        document.querySelectorAll('.spec-item').forEach(item => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', function() {
+                const label = this.querySelector('.spec-label').textContent;
+                const value = this.querySelector('.spec-value').textContent;
+                const description = this.querySelector('.spec-description').textContent;
+                
+                showSpecModal(label, value, description);
+            });
+        });
+
+        function showModal(title, details) {
+            let detailsHTML = '';
+            if (details.details) {
+                detailsHTML = '<div class="modal-details">';
+                details.details.forEach(detail => {
+                    detailsHTML += `
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">${detail.label}</div>
+                            <div class="modal-detail-value">${detail.value}</div>
+                        </div>
+                    `;
+                });
+                detailsHTML += '</div>';
+            }
+
+            modalBody.innerHTML = `
+                <div class="modal-icon">${details.icon}</div>
+                <h2 class="modal-title">${title}</h2>
+                <p class="modal-description">${details.description}</p>
+                ${detailsHTML}
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showSpecModal(label, value, description) {
+            modalBody.innerHTML = `
+                <div class="modal-icon">📊</div>
+                <h2 class="modal-title">${label}</h2>
+                <div style="text-align: center; font-size: 4rem; font-weight: 900; color: var(--accent); margin: 2rem 0; text-shadow: 0 0 30px var(--glow);">
+                    ${value}
+                </div>
+                <p class="modal-description">${description}</p>
+                <div class="modal-details">
+                    <div class="modal-detail-item">
+                        <div class="modal-detail-label">Contexte Technique</div>
+                        <div class="modal-detail-value">Cette spécification a été déterminée après 8 ans de recherche et développement, 12,000 heures de tests en laboratoire, et validation sur 500+ patients en essais cliniques de phase III.</div>
+                    </div>
+                    <div class="modal-detail-item">
+                        <div class="modal-detail-label">Certification</div>
+                        <div class="modal-detail-value">Approuvé par FDA (USA), EMA (Europe), PMDA (Japon), et conforme aux normes ISO 13485 pour dispositifs médicaux implantables de classe III.</div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal handlers
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Generate floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#features').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and application items
+        document.querySelectorAll('.feature-card, .application-item, .spec-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+
+        // Add dynamic cursor effect
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // Create trailing effect
+            if (Math.random() > 0.95) {
+                const trail = document.createElement('div');
+                trail.style.position = 'fixed';
+                trail.style.left = x + 'px';
+                trail.style.top = y + 'px';
+                trail.style.width = '4px';
+                trail.style.height = '4px';
+                trail.style.background = 'var(--primary)';
+                trail.style.borderRadius = '50%';
+                trail.style.pointerEvents = 'none';
+                trail.style.zIndex = '9999';
+                trail.style.opacity = '0.6';
+                trail.style.transition = 'all 0.5s ease-out';
+                document.body.appendChild(trail);
+                
+                setTimeout(() => {
+                    trail.style.opacity = '0';
+                    trail.style.transform = 'scale(2)';
+                }, 10);
+                
+                setTimeout(() => {
+                    trail.remove();
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
