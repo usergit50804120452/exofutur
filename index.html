@@ -53,12 +53,47 @@
             transition: background 0.5s ease, color 0.5s ease;
         }
 
-        /* Theme Toggle Button */
-        .theme-toggle {
+        /* Top-right buttons container */
+        .top-controls {
             position: fixed;
             top: 2rem;
             right: 2rem;
             z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Lang Toggle Button */
+        .lang-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-card);
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--glow-pink);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            letter-spacing: 0.05em;
+            user-select: none;
+        }
+
+        .lang-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px var(--glow-pink);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
             width: 60px;
             height: 60px;
             background: var(--bg-card);
@@ -151,14 +186,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
@@ -227,13 +256,11 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             transition: left 0.5s ease;
         }
 
-        .cta-button:hover::before {
-            left: 100%;
-        }
+        .cta-button:hover::before { left: 100%; }
 
         .cta-button:hover {
             transform: translateY(-5px);
@@ -292,18 +319,14 @@
         .feature-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
 
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
+        .feature-card:hover::before { transform: scaleX(1); }
 
         .feature-card:hover {
             transform: translateY(-10px);
@@ -311,11 +334,7 @@
             box-shadow: 0 20px 60px var(--glow);
         }
 
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
+        .feature-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
 
         .feature-title {
             font-family: 'Orbitron', sans-serif;
@@ -360,13 +379,13 @@
         }
 
         .spec-item:hover {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            background: linear-gradient(135deg, rgba(0,255,255,0.1), rgba(255,0,255,0.1));
             border-left-color: var(--accent);
             transform: translateX(10px);
         }
 
         [data-theme="light"] .spec-item:hover {
-            background: linear-gradient(135deg, rgba(0, 136, 255, 0.15), rgba(255, 0, 136, 0.15));
+            background: linear-gradient(135deg, rgba(0,136,255,0.15), rgba(255,0,136,0.15));
         }
 
         .spec-label {
@@ -402,10 +421,7 @@
             transition: background 0.5s ease;
         }
 
-        .applications-list {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .applications-list { max-width: 900px; margin: 0 auto; }
 
         .application-item {
             background: var(--bg-card);
@@ -421,24 +437,16 @@
         .application-item::after {
             content: '';
             position: absolute;
-            right: -50px;
-            top: 50%;
+            right: -50px; top: 50%;
             transform: translateY(-50%);
-            width: 150px;
-            height: 150px;
+            width: 150px; height: 150px;
             background: radial-gradient(circle, var(--glow-pink), transparent);
             opacity: 0;
             transition: opacity 0.4s ease;
         }
 
-        .application-item:hover::after {
-            opacity: 0.3;
-        }
-
-        .application-item:hover {
-            border-color: var(--accent);
-            transform: scale(1.02);
-        }
+        .application-item:hover::after { opacity: 0.3; }
+        .application-item:hover { border-color: var(--accent); transform: scale(1.02); }
 
         .application-number {
             font-family: 'Orbitron', sans-serif;
@@ -447,8 +455,7 @@
             color: var(--accent);
             opacity: 0.2;
             position: absolute;
-            top: 1rem;
-            right: 2rem;
+            top: 1rem; right: 2rem;
             transition: color 0.5s ease;
         }
 
@@ -479,10 +486,7 @@
             transition: all 0.5s ease;
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
 
         .footer-logo {
             font-family: 'Orbitron', sans-serif;
@@ -503,8 +507,7 @@
         .scanner-line {
             position: fixed;
             left: 0;
-            width: 100%;
-            height: 2px;
+            width: 100%; height: 2px;
             background: linear-gradient(90deg, transparent, var(--primary), transparent);
             animation: scan 4s linear infinite;
             z-index: 999;
@@ -518,7 +521,6 @@
             100% { top: 100%; }
         }
 
-        /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
             bottom: 3rem;
@@ -550,11 +552,9 @@
         /* Modal Styles */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
             backdrop-filter: blur(10px);
             z-index: 10000;
             display: none;
@@ -563,13 +563,9 @@
             animation: fadeIn 0.3s ease-out;
         }
 
-        [data-theme="light"] .modal-overlay {
-            background: rgba(255, 255, 255, 0.95);
-        }
+        [data-theme="light"] .modal-overlay { background: rgba(255,255,255,0.95); }
 
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -580,8 +576,7 @@
             background: var(--bg-card);
             border: 2px solid var(--primary);
             padding: 3rem;
-            max-width: 90%;
-            max-height: 90vh;
+            max-width: 90%; max-height: 90vh;
             overflow-y: auto;
             position: relative;
             box-shadow: 0 0 100px var(--glow), 0 0 200px var(--glow-pink);
@@ -590,22 +585,14 @@
         }
 
         @keyframes modalZoom {
-            from {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .modal-close {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 50px;
-            height: 50px;
+            top: 1rem; right: 1rem;
+            width: 50px; height: 50px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: 2px solid var(--primary);
             color: var(--dark);
@@ -619,10 +606,7 @@
             font-family: 'Orbitron', sans-serif;
         }
 
-        .modal-close:hover {
-            transform: rotate(90deg) scale(1.1);
-            box-shadow: 0 0 30px var(--primary);
-        }
+        .modal-close:hover { transform: rotate(90deg) scale(1.1); box-shadow: 0 0 30px var(--primary); }
 
         .modal-icon {
             font-size: 5rem;
@@ -672,11 +656,7 @@
             transition: border-color 0.5s ease;
         }
 
-        .modal-detail-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
+        .modal-detail-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
         .modal-detail-label {
             font-family: 'Orbitron', sans-serif;
@@ -696,45 +676,26 @@
         }
 
         @media (max-width: 768px) {
-            .theme-toggle {
-                width: 50px;
-                height: 50px;
-                top: 1.5rem;
-                right: 1.5rem;
-            }
-
-            .theme-toggle-icon {
-                font-size: 1.5rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .specs-container {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-content {
-                padding: 2rem;
-                max-width: 95%;
-            }
-
-            .modal-title {
-                font-size: 1.8rem;
-            }
-
-            .modal-description {
-                font-size: 1.1rem;
-            }
+            .top-controls { top: 1.5rem; right: 1.5rem; gap: 0.5rem; }
+            .theme-toggle, .lang-toggle { width: 50px; height: 50px; }
+            .theme-toggle-icon { font-size: 1.5rem; }
+            .lang-toggle { font-size: 0.65rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .specs-container { grid-template-columns: 1fr; }
+            .modal-content { padding: 2rem; max-width: 95%; }
+            .modal-title { font-size: 1.8rem; }
+            .modal-description { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="theme-toggle-icon">🌙</span>
-    </button>
+    <!-- Top-right controls -->
+    <div class="top-controls">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle language">FR</button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-toggle-icon">🌙</span>
+        </button>
+    </div>
 
     <!-- Modal Overlay -->
     <div class="modal-overlay" id="modalOverlay">
@@ -753,135 +714,121 @@
     <section class="hero">
         <div class="hero-content">
             <h1>NEXUS SKELETAL</h1>
-            <p class="tagline">Évolution Bio-Mécanique</p>
-            <p class="subtitle">L'exosquelette interne de nouvelle génération qui fusionne avec votre système musculo-squelettique pour une mobilité et une résistance surhumaines</p>
-            <a href="#features" class="cta-button">Découvrir la Technologie</a>
+            <p class="tagline" data-key="tagline">Évolution Bio-Mécanique</p>
+            <p class="subtitle" data-key="subtitle">L'exosquelette interne de nouvelle génération qui fusionne avec votre système musculo-squelettique pour une mobilité et une résistance surhumaines</p>
+            <a href="#features" class="cta-button" data-key="cta">Découvrir la Technologie</a>
         </div>
         <div class="scroll-indicator"></div>
     </section>
 
     <!-- Features Section -->
     <section class="features" id="features">
-        <h2 class="section-title">Technologie Révolutionnaire</h2>
-        <p class="section-subtitle">Une innovation médicale qui redéfinit les possibilités du corps humain</p>
+        <h2 class="section-title" data-key="featuresTitle">Technologie Révolutionnaire</h2>
+        <p class="section-subtitle" data-key="featuresSubtitle">Une innovation médicale qui redéfinit les possibilités du corps humain</p>
         
         <div class="features-grid">
             <div class="feature-card">
                 <span class="feature-icon">⚛️</span>
-                <h3 class="feature-title">Intégration Cellulaire</h3>
-                <p class="feature-description">Nano-fibres biocompatibles qui s'intègrent naturellement à votre structure osseuse via un processus d'ostéointégration accélérée. Fusion complète en 72 heures.</p>
+                <h3 class="feature-title" data-key="f1title">Intégration Cellulaire</h3>
+                <p class="feature-description" data-key="f1desc">Nano-fibres biocompatibles qui s'intègrent naturellement à votre structure osseuse via un processus d'ostéointégration accélérée. Fusion complète en 72 heures.</p>
             </div>
-
             <div class="feature-card">
                 <span class="feature-icon">🧬</span>
-                <h3 class="feature-title">Adaptation Dynamique</h3>
-                <p class="feature-description">IA embarquée qui analyse vos mouvements en temps réel et ajuste la rigidité structurelle pour optimiser performance et protection selon l'activité.</p>
+                <h3 class="feature-title" data-key="f2title">Adaptation Dynamique</h3>
+                <p class="feature-description" data-key="f2desc">IA embarquée qui analyse vos mouvements en temps réel et ajuste la rigidité structurelle pour optimiser performance et protection selon l'activité.</p>
             </div>
-
             <div class="feature-card">
                 <span class="feature-icon">💎</span>
-                <h3 class="feature-title">Résistance Extrême</h3>
-                <p class="feature-description">Alliage de graphène et titane biocompatible offrant une résistance 200x supérieure à l'os naturel tout en conservant la flexibilité nécessaire.</p>
+                <h3 class="feature-title" data-key="f3title">Résistance Extrême</h3>
+                <p class="feature-description" data-key="f3desc">Alliage de graphène et titane biocompatible offrant une résistance 200x supérieure à l'os naturel tout en conservant la flexibilité nécessaire.</p>
             </div>
-
             <div class="feature-card">
                 <span class="feature-icon">⚡</span>
-                <h3 class="feature-title">Régénération Active</h3>
-                <p class="feature-description">Système de micro-réparation autonome qui détecte et corrige les micro-fractures avant qu'elles ne deviennent problématiques. Auto-entretien permanent.</p>
+                <h3 class="feature-title" data-key="f4title">Régénération Active</h3>
+                <p class="feature-description" data-key="f4desc">Système de micro-réparation autonome qui détecte et corrige les micro-fractures avant qu'elles ne deviennent problématiques. Auto-entretien permanent.</p>
             </div>
-
             <div class="feature-card">
                 <span class="feature-icon">🔋</span>
-                <h3 class="feature-title">Énergie Bioélectrique</h3>
-                <p class="feature-description">Alimenté par votre propre activité métabolique. Conversion de l'énergie cinétique et thermique corporelle en puissance système sans source externe.</p>
+                <h3 class="feature-title" data-key="f5title">Énergie Bioélectrique</h3>
+                <p class="feature-description" data-key="f5desc">Alimenté par votre propre activité métabolique. Conversion de l'énergie cinétique et thermique corporelle en puissance système sans source externe.</p>
             </div>
-
             <div class="feature-card">
                 <span class="feature-icon">📡</span>
-                <h3 class="feature-title">Monitoring Neural</h3>
-                <p class="feature-description">Interface neurale non-invasive permettant un contrôle intuitif et un feedback sensoriel en temps réel sur l'état structurel de votre corps.</p>
+                <h3 class="feature-title" data-key="f6title">Monitoring Neural</h3>
+                <p class="feature-description" data-key="f6desc">Interface neurale non-invasive permettant un contrôle intuitif et un feedback sensoriel en temps réel sur l'état structurel de votre corps.</p>
             </div>
         </div>
     </section>
 
     <!-- Tech Specs Section -->
     <section class="tech-specs">
-        <h2 class="section-title">Spécifications Techniques</h2>
-        <p class="section-subtitle">Performance de niveau militaire, sécurité médicale certifiée</p>
+        <h2 class="section-title" data-key="specsTitle">Spécifications Techniques</h2>
+        <p class="section-subtitle" data-key="specsSubtitle">Performance de niveau militaire, sécurité médicale certifiée</p>
         
         <div class="specs-container">
             <div class="spec-item">
-                <div class="spec-label">Résistance à la Compression</div>
+                <div class="spec-label" data-key="s1label">Résistance à la Compression</div>
                 <div class="spec-value">42,000 N</div>
-                <div class="spec-description">Plus de 200x la résistance osseuse naturelle</div>
+                <div class="spec-description" data-key="s1desc">Plus de 200x la résistance osseuse naturelle</div>
             </div>
-
             <div class="spec-item">
-                <div class="spec-label">Temps d'Intégration</div>
+                <div class="spec-label" data-key="s2label">Temps d'Intégration</div>
                 <div class="spec-value">72 Heures</div>
-                <div class="spec-description">Fusion complète avec le tissu osseux</div>
+                <div class="spec-description" data-key="s2desc">Fusion complète avec le tissu osseux</div>
             </div>
-
             <div class="spec-item">
-                <div class="spec-label">Durée de Vie</div>
+                <div class="spec-label" data-key="s3label">Durée de Vie</div>
                 <div class="spec-value">50+ Ans</div>
-                <div class="spec-description">Sans maintenance ni remplacement</div>
+                <div class="spec-description" data-key="s3desc">Sans maintenance ni remplacement</div>
             </div>
-
             <div class="spec-item">
-                <div class="spec-label">Biocompatibilité</div>
+                <div class="spec-label" data-key="s4label">Biocompatibilité</div>
                 <div class="spec-value">99.97%</div>
-                <div class="spec-description">Taux de rejet quasi-nul</div>
+                <div class="spec-description" data-key="s4desc">Taux de rejet quasi-nul</div>
             </div>
-
             <div class="spec-item">
-                <div class="spec-label">Poids Additionnel</div>
+                <div class="spec-label" data-key="s5label">Poids Additionnel</div>
                 <div class="spec-value">< 2 kg</div>
-                <div class="spec-description">Système complet pour adulte moyen</div>
+                <div class="spec-description" data-key="s5desc">Système complet pour adulte moyen</div>
             </div>
-
             <div class="spec-item">
-                <div class="spec-label">Temps de Réponse</div>
+                <div class="spec-label" data-key="s6label">Temps de Réponse</div>
                 <div class="spec-value">0.003 s</div>
-                <div class="spec-description">Adaptation instantanée aux contraintes</div>
+                <div class="spec-description" data-key="s6desc">Adaptation instantanée aux contraintes</div>
             </div>
         </div>
     </section>
 
     <!-- Applications Section -->
     <section class="applications">
-        <h2 class="section-title">Applications Médicales</h2>
-        <p class="section-subtitle">Transformer des vies à travers l'innovation biomédicale</p>
+        <h2 class="section-title" data-key="appTitle">Applications Médicales</h2>
+        <p class="section-subtitle" data-key="appSubtitle">Transformer des vies à travers l'innovation biomédicale</p>
         
         <div class="applications-list">
             <div class="application-item">
                 <span class="application-number">01</span>
-                <h3 class="application-title">Ostéoporose Avancée</h3>
-                <p class="application-description">Renforcement structurel complet pour les patients souffrant de fragilité osseuse sévère. Restauration complète de la mobilité et élimination du risque de fractures spontanées.</p>
+                <h3 class="application-title" data-key="a1title">Ostéoporose Avancée</h3>
+                <p class="application-description" data-key="a1desc">Renforcement structurel complet pour les patients souffrant de fragilité osseuse sévère. Restauration complète de la mobilité et élimination du risque de fractures spontanées.</p>
             </div>
-
             <div class="application-item">
                 <span class="application-number">02</span>
-                <h3 class="application-title">Reconstruction Post-Traumatique</h3>
-                <p class="application-description">Alternative révolutionnaire aux implants métalliques traditionnels après accidents graves. Restauration fonctionnelle complète avec sensation naturelle préservée.</p>
+                <h3 class="application-title" data-key="a2title">Reconstruction Post-Traumatique</h3>
+                <p class="application-description" data-key="a2desc">Alternative révolutionnaire aux implants métalliques traditionnels après accidents graves. Restauration fonctionnelle complète avec sensation naturelle préservée.</p>
             </div>
-
             <div class="application-item">
                 <span class="application-number">03</span>
-                <h3 class="application-title">Maladies Dégénératives</h3>
-                <p class="application-description">Support structurel pour patients atteints de pathologies osseuses progressives. Maintien de l'autonomie et de la qualité de vie sur le long terme.</p>
+                <h3 class="application-title" data-key="a3title">Maladies Dégénératives</h3>
+                <p class="application-description" data-key="a3desc">Support structurel pour patients atteints de pathologies osseuses progressives. Maintien de l'autonomie et de la qualité de vie sur le long terme.</p>
             </div>
-
             <div class="application-item">
                 <span class="application-number">04</span>
-                <h3 class="application-title">Optimisation Sportive</h3>
-                <p class="application-description">Protection avancée pour athlètes de haut niveau. Prévention des blessures tout en maintenant performance maximale et amplitude de mouvement naturelle.</p>
+                <h3 class="application-title" data-key="a4title">Optimisation Sportive</h3>
+                <p class="application-description" data-key="a4desc">Protection avancée pour athlètes de haut niveau. Prévention des blessures tout en maintenant performance maximale et amplitude de mouvement naturelle.</p>
             </div>
-
             <div class="application-item">
                 <span class="application-number">05</span>
-                <h3 class="application-title">Vieillissement Actif</h3>
-                <p class="application-description">Préservation de la mobilité et de l'indépendance pour les seniors. Prévention des chutes et des fractures liées à l'âge, prolongation de l'autonomie.</p>
+                <h3 class="application-title" data-key="a5title">Vieillissement Actif</h3>
+                <p class="application-description" data-key="a5desc">Préservation de la mobilité et de l'indépendance pour les seniors. Prévention des chutes et des fractures liées à l'âge, prolongation de l'autonomie.</p>
             </div>
         </div>
     </section>
@@ -890,25 +837,140 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo">NEXUS SKELETAL</div>
-            <p class="footer-text">L'AVENIR DE LA MÉDECINE RÉGÉNÉRATIVE | © 2026 NEXUS BIOTECH SYSTEMS</p>
+            <p class="footer-text" data-key="footerText">L'AVENIR DE LA MÉDECINE RÉGÉNÉRATIVE | © 2026 NEXUS BIOTECH SYSTEMS</p>
         </div>
     </footer>
 
     <script>
-        // Theme Toggle Functionality
+        // ─── TRANSLATIONS ────────────────────────────────────────────────────────────
+        const translations = {
+            fr: {
+                tagline: 'Évolution Bio-Mécanique',
+                subtitle: "L'exosquelette interne de nouvelle génération qui fusionne avec votre système musculo-squelettique pour une mobilité et une résistance surhumaines",
+                cta: 'Découvrir la Technologie',
+                featuresTitle: 'Technologie Révolutionnaire',
+                featuresSubtitle: 'Une innovation médicale qui redéfinit les possibilités du corps humain',
+                f1title: 'Intégration Cellulaire',
+                f1desc: "Nano-fibres biocompatibles qui s'intègrent naturellement à votre structure osseuse via un processus d'ostéointégration accélérée. Fusion complète en 72 heures.",
+                f2title: 'Adaptation Dynamique',
+                f2desc: "IA embarquée qui analyse vos mouvements en temps réel et ajuste la rigidité structurelle pour optimiser performance et protection selon l'activité.",
+                f3title: 'Résistance Extrême',
+                f3desc: "Alliage de graphène et titane biocompatible offrant une résistance 200x supérieure à l'os naturel tout en conservant la flexibilité nécessaire.",
+                f4title: 'Régénération Active',
+                f4desc: "Système de micro-réparation autonome qui détecte et corrige les micro-fractures avant qu'elles ne deviennent problématiques. Auto-entretien permanent.",
+                f5title: 'Énergie Bioélectrique',
+                f5desc: "Alimenté par votre propre activité métabolique. Conversion de l'énergie cinétique et thermique corporelle en puissance système sans source externe.",
+                f6title: 'Monitoring Neural',
+                f6desc: "Interface neurale non-invasive permettant un contrôle intuitif et un feedback sensoriel en temps réel sur l'état structurel de votre corps.",
+                specsTitle: 'Spécifications Techniques',
+                specsSubtitle: 'Performance de niveau militaire, sécurité médicale certifiée',
+                s1label: 'Résistance à la Compression',
+                s1desc: 'Plus de 200x la résistance osseuse naturelle',
+                s2label: "Temps d'Intégration",
+                s2desc: 'Fusion complète avec le tissu osseux',
+                s3label: 'Durée de Vie',
+                s3desc: 'Sans maintenance ni remplacement',
+                s4label: 'Biocompatibilité',
+                s4desc: 'Taux de rejet quasi-nul',
+                s5label: 'Poids Additionnel',
+                s5desc: 'Système complet pour adulte moyen',
+                s6label: 'Temps de Réponse',
+                s6desc: 'Adaptation instantanée aux contraintes',
+                appTitle: 'Applications Médicales',
+                appSubtitle: "Transformer des vies à travers l'innovation biomédicale",
+                a1title: 'Ostéoporose Avancée',
+                a1desc: "Renforcement structurel complet pour les patients souffrant de fragilité osseuse sévère. Restauration complète de la mobilité et élimination du risque de fractures spontanées.",
+                a2title: 'Reconstruction Post-Traumatique',
+                a2desc: "Alternative révolutionnaire aux implants métalliques traditionnels après accidents graves. Restauration fonctionnelle complète avec sensation naturelle préservée.",
+                a3title: 'Maladies Dégénératives',
+                a3desc: "Support structurel pour patients atteints de pathologies osseuses progressives. Maintien de l'autonomie et de la qualité de vie sur le long terme.",
+                a4title: 'Optimisation Sportive',
+                a4desc: "Protection avancée pour athlètes de haut niveau. Prévention des blessures tout en maintenant performance maximale et amplitude de mouvement naturelle.",
+                a5title: 'Vieillissement Actif',
+                a5desc: "Préservation de la mobilité et de l'indépendance pour les seniors. Prévention des chutes et des fractures liées à l'âge, prolongation de l'autonomie.",
+                footerText: "L'AVENIR DE LA MÉDECINE RÉGÉNÉRATIVE | © 2026 NEXUS BIOTECH SYSTEMS",
+            },
+            en: {
+                tagline: 'Bio-Mechanical Evolution',
+                subtitle: "The next-generation internal exoskeleton that fuses with your musculoskeletal system for superhuman mobility and resistance",
+                cta: 'Discover the Technology',
+                featuresTitle: 'Revolutionary Technology',
+                featuresSubtitle: 'A medical innovation that redefines the possibilities of the human body',
+                f1title: 'Cellular Integration',
+                f1desc: "Biocompatible nano-fibers that naturally integrate into your bone structure via an accelerated osseointegration process. Complete fusion within 72 hours.",
+                f2title: 'Dynamic Adaptation',
+                f2desc: "Onboard AI that analyzes your movements in real time and adjusts structural rigidity to optimize performance and protection based on activity.",
+                f3title: 'Extreme Resistance',
+                f3desc: "Biocompatible graphene-titanium alloy offering 200x greater resistance than natural bone while preserving the necessary flexibility.",
+                f4title: 'Active Regeneration',
+                f4desc: "Autonomous micro-repair system that detects and corrects micro-fractures before they become problematic. Permanent self-maintenance.",
+                f5title: 'Bioelectric Energy',
+                f5desc: "Powered by your own metabolic activity. Conversion of kinetic and thermal body energy into system power with no external source.",
+                f6title: 'Neural Monitoring',
+                f6desc: "Non-invasive neural interface enabling intuitive control and real-time sensory feedback on the structural state of your body.",
+                specsTitle: 'Technical Specifications',
+                specsSubtitle: 'Military-grade performance, certified medical safety',
+                s1label: 'Compressive Strength',
+                s1desc: 'Over 200x natural bone resistance',
+                s2label: 'Integration Time',
+                s2desc: 'Complete fusion with bone tissue',
+                s3label: 'Lifespan',
+                s3desc: 'No maintenance or replacement required',
+                s4label: 'Biocompatibility',
+                s4desc: 'Near-zero rejection rate',
+                s5label: 'Additional Weight',
+                s5desc: 'Full system for average adult',
+                s6label: 'Response Time',
+                s6desc: 'Instantaneous adaptation to constraints',
+                appTitle: 'Medical Applications',
+                appSubtitle: 'Transforming lives through biomedical innovation',
+                a1title: 'Advanced Osteoporosis',
+                a1desc: "Complete structural reinforcement for patients suffering from severe bone fragility. Full mobility restoration and elimination of spontaneous fracture risk.",
+                a2title: 'Post-Traumatic Reconstruction',
+                a2desc: "Revolutionary alternative to traditional metal implants after serious accidents. Complete functional restoration with preserved natural sensation.",
+                a3title: 'Degenerative Diseases',
+                a3desc: "Structural support for patients with progressive bone pathologies. Long-term maintenance of autonomy and quality of life.",
+                a4title: 'Sports Optimization',
+                a4desc: "Advanced protection for elite athletes. Injury prevention while maintaining maximum performance and natural range of motion.",
+                a5title: 'Active Aging',
+                a5desc: "Preservation of mobility and independence for seniors. Prevention of age-related falls and fractures, prolonged autonomy.",
+                footerText: "THE FUTURE OF REGENERATIVE MEDICINE | © 2026 NEXUS BIOTECH SYSTEMS",
+            }
+        };
+
+        // ─── LANGUAGE TOGGLE ─────────────────────────────────────────────────────────
+        const langToggle = document.getElementById('langToggle');
+        let currentLang = localStorage.getItem('lang') || 'fr';
+
+        function applyLang(lang) {
+            const t = translations[lang];
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (t[key] !== undefined) el.textContent = t[key];
+            });
+            langToggle.textContent = lang === 'fr' ? 'EN' : 'FR';
+            document.documentElement.lang = lang;
+        }
+
+        applyLang(currentLang);
+
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            localStorage.setItem('lang', currentLang);
+            applyLang(currentLang);
+        });
+
+        // ─── THEME TOGGLE ────────────────────────────────────────────────────────────
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('.theme-toggle-icon');
         const html = document.documentElement;
 
-        // Load saved theme or default to dark
         const savedTheme = localStorage.getItem('theme') || 'dark';
         html.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
 
         themeToggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+            const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
@@ -918,146 +980,237 @@
             themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
         }
 
-        // Modal functionality
+        // ─── MODAL ───────────────────────────────────────────────────────────────────
         const modal = document.getElementById('modalOverlay');
         const modalBody = document.getElementById('modalBody');
         const modalClose = document.getElementById('modalClose');
 
-        // Detailed content for each feature
         const featureDetails = {
+            // FR keys
             'Intégration Cellulaire': {
                 icon: '⚛️',
-                description: 'La technologie d\'intégration cellulaire représente une avancée majeure dans le domaine de la bio-ingénierie. Nos nano-fibres de graphène biocompatible sont conçues pour mimer la structure de l\'os trabéculaire naturel.',
+                description: "La technologie d'intégration cellulaire représente une avancée majeure dans le domaine de la bio-ingénierie. Nos nano-fibres de graphène biocompatible sont conçues pour mimer la structure de l'os trabéculaire naturel.",
                 details: [
-                    { label: 'Processus d\'ostéointégration', value: 'Les nano-fibres créent un échafaudage tridimensionnel qui stimule la croissance osseuse naturelle. Les ostéoblastes migrent et prolifèrent le long des fibres, créant une fusion biologique complète.' },
-                    { label: 'Biocompatibilité', value: 'Revêtement en hydroxyapatite biomimétique qui favorise l\'adhésion cellulaire et prévient toute réaction immunitaire. Taux de rejet inférieur à 0.03%.' },
-                    { label: 'Timeline d\'intégration', value: 'Jour 1-24: Adhésion cellulaire initiale | Jour 2-3: Prolifération ostéoblastique | Jour 3+: Maturation osseuse et fusion structurelle complète.' }
+                    { label: "Processus d'ostéointégration", value: "Les nano-fibres créent un échafaudage tridimensionnel qui stimule la croissance osseuse naturelle. Les ostéoblastes migrent et prolifèrent le long des fibres, créant une fusion biologique complète." },
+                    { label: 'Biocompatibilité', value: "Revêtement en hydroxyapatite biomimétique qui favorise l'adhésion cellulaire et prévient toute réaction immunitaire. Taux de rejet inférieur à 0.03%." },
+                    { label: "Timeline d'intégration", value: "Jour 1-24: Adhésion cellulaire initiale | Jour 2-3: Prolifération ostéoblastique | Jour 3+: Maturation osseuse et fusion structurelle complète." }
                 ]
             },
             'Adaptation Dynamique': {
                 icon: '🧬',
-                description: 'L\'intelligence artificielle embarquée utilise des réseaux neuronaux profonds pour analyser et prédire vos mouvements avec une précision inégalée.',
+                description: "L'intelligence artificielle embarquée utilise des réseaux neuronaux profonds pour analyser et prédire vos mouvements avec une précision inégalée.",
                 details: [
-                    { label: 'Capteurs Piézoélectriques', value: '10,000+ micro-capteurs distribués le long de la structure détectent les contraintes mécaniques en temps réel avec une précision de 0.001 Newton.' },
-                    { label: 'Algorithme d\'apprentissage', value: 'Le système apprend vos patterns de mouvement uniques et optimise la réponse structurelle pour chaque activité: marche, course, saut, etc.' },
-                    { label: 'Ajustement en temps réel', value: 'Modification de la rigidité structurelle en 3 millisecondes, permettant une protection maximale lors d\'impacts tout en préservant la flexibilité naturelle.' }
+                    { label: 'Capteurs Piézoélectriques', value: "10,000+ micro-capteurs distribués le long de la structure détectent les contraintes mécaniques en temps réel avec une précision de 0.001 Newton." },
+                    { label: "Algorithme d'apprentissage", value: "Le système apprend vos patterns de mouvement uniques et optimise la réponse structurelle pour chaque activité: marche, course, saut, etc." },
+                    { label: 'Ajustement en temps réel', value: "Modification de la rigidité structurelle en 3 millisecondes, permettant une protection maximale lors d'impacts tout en préservant la flexibilité naturelle." }
                 ]
             },
             'Résistance Extrême': {
                 icon: '💎',
-                description: 'L\'alliage composite propriétaire combine graphène, nanotubes de carbone et titane de grade médical pour créer le matériau biocompatible le plus résistant jamais développé.',
+                description: "L'alliage composite propriétaire combine graphène, nanotubes de carbone et titane de grade médical pour créer le matériau biocompatible le plus résistant jamais développé.",
                 details: [
-                    { label: 'Résistance à la compression', value: '42,000 Newtons - équivalent au poids d\'une voiture compacte réparti sur un os unique. 200x supérieur à l\'os cortical humain.' },
-                    { label: 'Résistance à la traction', value: '2,400 MPa - permet de supporter des forces d\'étirement extrêmes sans déformation permanente.' },
-                    { label: 'Module de Young', value: '350 GPa avec capacité d\'ajustement dynamique entre 50-500 GPa selon les besoins. Combine rigidité et flexibilité adaptative.' }
+                    { label: 'Résistance à la compression', value: "42,000 Newtons - équivalent au poids d'une voiture compacte réparti sur un os unique. 200x supérieur à l'os cortical humain." },
+                    { label: 'Résistance à la traction', value: "2,400 MPa - permet de supporter des forces d'étirement extrêmes sans déformation permanente." },
+                    { label: 'Module de Young', value: "350 GPa avec capacité d'ajustement dynamique entre 50-500 GPa selon les besoins. Combine rigidité et flexibilité adaptative." }
                 ]
             },
             'Régénération Active': {
                 icon: '⚡',
-                description: 'Système de micro-réparation inspiré des processus biologiques de guérison osseuse, mais 1000x plus rapide et efficace.',
+                description: "Système de micro-réparation inspiré des processus biologiques de guérison osseuse, mais 1000x plus rapide et efficace.",
                 details: [
-                    { label: 'Détection des dommages', value: 'Réseau de capteurs à effet Hall détecte les micro-fractures de moins de 10 microns en temps réel, avant qu\'elles ne deviennent structurellement problématiques.' },
-                    { label: 'Processus de réparation', value: 'Injection localisée de nano-particules d\'alliage en suspension qui fusionnent avec la structure endommagée. Polymérisation contrôlée par stimulation électromagnétique.' },
-                    { label: 'Temps de guérison', value: 'Micro-fractures: 2-4 heures | Fractures mineures: 24-48 heures | Dommages majeurs: 72 heures. Pas d\'intervention externe nécessaire.' }
+                    { label: 'Détection des dommages', value: "Réseau de capteurs à effet Hall détecte les micro-fractures de moins de 10 microns en temps réel, avant qu'elles ne deviennent structurellement problématiques." },
+                    { label: 'Processus de réparation', value: "Injection localisée de nano-particules d'alliage en suspension qui fusionnent avec la structure endommagée. Polymérisation contrôlée par stimulation électromagnétique." },
+                    { label: 'Temps de guérison', value: "Micro-fractures: 2-4 heures | Fractures mineures: 24-48 heures | Dommages majeurs: 72 heures. Pas d'intervention externe nécessaire." }
                 ]
             },
             'Énergie Bioélectrique': {
                 icon: '🔋',
-                description: 'Révolution énergétique: le premier système médical implanté totalement autonome, alimenté exclusivement par votre propre corps.',
+                description: "Révolution énergétique: le premier système médical implanté totalement autonome, alimenté exclusivement par votre propre corps.",
                 details: [
-                    { label: 'Génération piézoélectrique', value: 'Chaque mouvement génère de l\'électricité via cristaux piézoélectriques intégrés. Marche normale: 2-3 Watts | Course: 8-12 Watts.' },
-                    { label: 'Récupération thermique', value: 'Modules thermoélectriques convertissent la différence de température corps/environnement en énergie. Production continue de 0.5-1 Watt.' },
-                    { label: 'Stockage et gestion', value: 'Super-condensateurs au graphène stockent jusqu\'à 48 heures d\'énergie de réserve. Système de gestion intelligent optimise la consommation selon l\'activité.' }
+                    { label: 'Génération piézoélectrique', value: "Chaque mouvement génère de l'électricité via cristaux piézoélectriques intégrés. Marche normale: 2-3 Watts | Course: 8-12 Watts." },
+                    { label: 'Récupération thermique', value: "Modules thermoélectriques convertissent la différence de température corps/environnement en énergie. Production continue de 0.5-1 Watt." },
+                    { label: 'Stockage et gestion', value: "Super-condensateurs au graphène stockent jusqu'à 48 heures d'énergie de réserve. Système de gestion intelligent optimise la consommation selon l'activité." }
                 ]
             },
             'Monitoring Neural': {
                 icon: '📡',
-                description: 'Interface cerveau-machine non-invasive qui crée un lien direct entre votre système nerveux et l\'exosquelette interne.',
+                description: "Interface cerveau-machine non-invasive qui crée un lien direct entre votre système nerveux et l'exosquelette interne.",
                 details: [
-                    { label: 'Interface neurale capacitive', value: 'Capteurs EEG haute résolution détectent l\'activité cérébrale sans pénétration cutanée. Reconnaissance de patterns d\'intention motrice avec 98% de précision.' },
-                    { label: 'Feedback haptique', value: 'Stimulation nerveuse périphérique non-invasive fournit des informations sensorielles sur l\'état structurel: tension, contrainte, température.' },
-                    { label: 'Application mobile', value: 'Dashboard en temps réel affichant: charge structurelle, énergie disponible, historique d\'activité, alertes préventives, et recommandations personnalisées.' }
+                    { label: 'Interface neurale capacitive', value: "Capteurs EEG haute résolution détectent l'activité cérébrale sans pénétration cutanée. Reconnaissance de patterns d'intention motrice avec 98% de précision." },
+                    { label: 'Feedback haptique', value: "Stimulation nerveuse périphérique non-invasive fournit des informations sensorielles sur l'état structurel: tension, contrainte, température." },
+                    { label: 'Application mobile', value: "Dashboard en temps réel affichant: charge structurelle, énergie disponible, historique d'activité, alertes préventives, et recommandations personnalisées." }
                 ]
             },
+            // EN keys
+            'Cellular Integration': {
+                icon: '⚛️',
+                description: "Cellular integration technology represents a major breakthrough in the field of bio-engineering. Our biocompatible graphene nano-fibers are designed to mimic the structure of natural trabecular bone.",
+                details: [
+                    { label: 'Osseointegration Process', value: "Nano-fibers create a three-dimensional scaffold that stimulates natural bone growth. Osteoblasts migrate and proliferate along the fibers, creating complete biological fusion." },
+                    { label: 'Biocompatibility', value: "Biomimetic hydroxyapatite coating promotes cell adhesion and prevents any immune reaction. Rejection rate below 0.03%." },
+                    { label: 'Integration Timeline', value: "Day 1: Initial cell adhesion | Days 2-3: Osteoblast proliferation | Day 3+: Bone maturation and complete structural fusion." }
+                ]
+            },
+            'Dynamic Adaptation': {
+                icon: '🧬',
+                description: "Onboard artificial intelligence uses deep neural networks to analyze and predict your movements with unmatched precision.",
+                details: [
+                    { label: 'Piezoelectric Sensors', value: "10,000+ micro-sensors distributed along the structure detect mechanical stress in real time with a precision of 0.001 Newton." },
+                    { label: 'Learning Algorithm', value: "The system learns your unique movement patterns and optimizes structural response for each activity: walking, running, jumping, etc." },
+                    { label: 'Real-Time Adjustment', value: "Structural rigidity modified in 3 milliseconds, providing maximum protection during impacts while preserving natural flexibility." }
+                ]
+            },
+            'Extreme Resistance': {
+                icon: '💎',
+                description: "The proprietary composite alloy combines graphene, carbon nanotubes and medical-grade titanium to create the most resistant biocompatible material ever developed.",
+                details: [
+                    { label: 'Compressive Strength', value: "42,000 Newtons - equivalent to the weight of a compact car distributed over a single bone. 200x superior to human cortical bone." },
+                    { label: 'Tensile Strength', value: "2,400 MPa - withstands extreme stretching forces without permanent deformation." },
+                    { label: "Young's Modulus", value: "350 GPa with dynamic adjustment capacity between 50-500 GPa as needed. Combines rigidity and adaptive flexibility." }
+                ]
+            },
+            'Active Regeneration': {
+                icon: '⚡',
+                description: "Micro-repair system inspired by biological bone healing processes, but 1000x faster and more effective.",
+                details: [
+                    { label: 'Damage Detection', value: "Hall-effect sensor network detects micro-fractures smaller than 10 microns in real time, before they become structurally problematic." },
+                    { label: 'Repair Process', value: "Localized injection of alloy nano-particles in suspension that fuse with the damaged structure. Polymerization controlled by electromagnetic stimulation." },
+                    { label: 'Healing Time', value: "Micro-fractures: 2-4 hours | Minor fractures: 24-48 hours | Major damage: 72 hours. No external intervention required." }
+                ]
+            },
+            'Bioelectric Energy': {
+                icon: '🔋',
+                description: "Energy revolution: the first fully autonomous implanted medical system, powered exclusively by your own body.",
+                details: [
+                    { label: 'Piezoelectric Generation', value: "Every movement generates electricity via integrated piezoelectric crystals. Normal walking: 2-3 Watts | Running: 8-12 Watts." },
+                    { label: 'Thermal Recovery', value: "Thermoelectric modules convert body/environment temperature differences into energy. Continuous production of 0.5-1 Watt." },
+                    { label: 'Storage & Management', value: "Graphene super-capacitors store up to 48 hours of reserve energy. Intelligent management system optimizes consumption by activity." }
+                ]
+            },
+            'Neural Monitoring': {
+                icon: '📡',
+                description: "Non-invasive brain-computer interface that creates a direct link between your nervous system and the internal exoskeleton.",
+                details: [
+                    { label: 'Capacitive Neural Interface', value: "High-resolution EEG sensors detect brain activity without skin penetration. Motor intention pattern recognition with 98% accuracy." },
+                    { label: 'Haptic Feedback', value: "Non-invasive peripheral nerve stimulation provides sensory information on structural state: tension, stress, temperature." },
+                    { label: 'Mobile App', value: "Real-time dashboard showing: structural load, available energy, activity history, preventive alerts, and personalized recommendations." }
+                ]
+            },
+            // Applications FR
             'Ostéoporose Avancée': {
                 icon: '01',
-                description: 'Solution définitive pour les patients souffrant de fragilité osseuse sévère. Le NEXUS SKELETAL remplace structurellement la matrice osseuse déficiente.',
+                description: "Solution définitive pour les patients souffrant de fragilité osseuse sévère. Le NEXUS SKELETAL remplace structurellement la matrice osseuse déficiente.",
                 details: [
-                    { label: 'Bénéfices cliniques', value: 'Élimination complète du risque de fractures spontanées, restauration de la capacité de charge osseuse, amélioration significative de la mobilité et de la qualité de vie.' },
-                    { label: 'Implantation ciblée', value: 'Zones critiques: vertèbres lombaires et thoraciques, col fémoral, poignets, côtes. Installation progressive sur 3-6 mois selon la sévérité.' },
-                    { label: 'Résultats cliniques', value: 'Études sur 5 ans: 0% de fractures post-implantation, 95% des patients retrouvent une mobilité normale, 98% de satisfaction patient.' }
+                    { label: 'Bénéfices cliniques', value: "Élimination complète du risque de fractures spontanées, restauration de la capacité de charge osseuse, amélioration significative de la mobilité et de la qualité de vie." },
+                    { label: 'Implantation ciblée', value: "Zones critiques: vertèbres lombaires et thoraciques, col fémoral, poignets, côtes. Installation progressive sur 3-6 mois selon la sévérité." },
+                    { label: 'Résultats cliniques', value: "Études sur 5 ans: 0% de fractures post-implantation, 95% des patients retrouvent une mobilité normale, 98% de satisfaction patient." }
                 ]
             },
             'Reconstruction Post-Traumatique': {
                 icon: '02',
-                description: 'Alternative révolutionnaire aux plaques et vis métalliques après traumatismes majeurs. Restauration fonctionnelle complète avec sensation naturelle.',
+                description: "Alternative révolutionnaire aux plaques et vis métalliques après traumatismes majeurs. Restauration fonctionnelle complète avec sensation naturelle.",
                 details: [
-                    { label: 'Avantages vs implants traditionnels', value: 'Pas de corps étrangers métalliques visibles en radiographie, croissance osseuse naturelle préservée, aucune limite de mouvement, absence de douleur chronique.' },
-                    { label: 'Cas d\'usage typiques', value: 'Fractures complexes multi-fragmentaires, pseudarthroses, pertes de substance osseuse, échecs de consolidation, reconstructions après tumeurs osseuses.' },
-                    { label: 'Protocole chirurgical', value: 'Intervention mini-invasive sous guidage 3D. Injection locale de nano-fibres qui auto-assemblent la structure en 72h. Récupération ambulatoire.' }
+                    { label: 'Avantages vs implants traditionnels', value: "Pas de corps étrangers métalliques visibles en radiographie, croissance osseuse naturelle préservée, aucune limite de mouvement, absence de douleur chronique." },
+                    { label: "Cas d'usage typiques", value: "Fractures complexes multi-fragmentaires, pseudarthroses, pertes de substance osseuse, échecs de consolidation, reconstructions après tumeurs osseuses." },
+                    { label: 'Protocole chirurgical', value: "Intervention mini-invasive sous guidage 3D. Injection locale de nano-fibres qui auto-assemblent la structure en 72h. Récupération ambulatoire." }
                 ]
             },
             'Maladies Dégénératives': {
                 icon: '03',
-                description: 'Support structurel pour patients atteints de pathologies osseuses progressives: ostéogenèse imparfaite, maladie de Paget, ostéomalacie.',
+                description: "Support structurel pour patients atteints de pathologies osseuses progressives: ostéogenèse imparfaite, maladie de Paget, ostéomalacie.",
                 details: [
-                    { label: 'Approche préventive', value: 'Installation anticipée avant dégradation critique permet de maintenir la structure osseuse existante tout en apportant un renforcement progressif.' },
-                    { label: 'Adaptation à la progression', value: 'Le système évolue avec la maladie, compensant automatiquement la perte de densité osseuse naturelle par augmentation de la rigidité structurelle.' },
-                    { label: 'Qualité de vie', value: 'Maintien de l\'autonomie sur 20-30+ ans, réduction massive des hospitalisations, préservation des activités quotidiennes normales.' }
+                    { label: 'Approche préventive', value: "Installation anticipée avant dégradation critique permet de maintenir la structure osseuse existante tout en apportant un renforcement progressif." },
+                    { label: 'Adaptation à la progression', value: "Le système évolue avec la maladie, compensant automatiquement la perte de densité osseuse naturelle par augmentation de la rigidité structurelle." },
+                    { label: 'Qualité de vie', value: "Maintien de l'autonomie sur 20-30+ ans, réduction massive des hospitalisations, préservation des activités quotidiennes normales." }
                 ]
             },
             'Optimisation Sportive': {
                 icon: '04',
-                description: 'Protection de niveau militaire pour athlètes professionnels sans compromis sur la performance. Approuvé par les fédérations sportives internationales.',
+                description: "Protection de niveau militaire pour athlètes professionnels sans compromis sur la performance. Approuvé par les fédérations sportives internationales.",
                 details: [
-                    { label: 'Sports à haut risque', value: 'Football américain, rugby, arts martiaux, ski alpin, motocross - toutes disciplines avec risque de fractures multiples ou de traumatismes répétés.' },
-                    { label: 'Performance maintenue', value: 'Poids additionnel < 2kg compensé par réduction de la fatigue musculaire. Amplitude de mouvement: 100% préservée. Temps de réaction: aucun impact.' },
-                    { label: 'Prévention des blessures', value: 'Réduction de 94% des fractures, 78% des entorses graves, 65% du temps de récupération post-traumatisme. Carrière sportive prolongée de 3-5 ans en moyenne.' }
+                    { label: 'Sports à haut risque', value: "Football américain, rugby, arts martiaux, ski alpin, motocross - toutes disciplines avec risque de fractures multiples ou de traumatismes répétés." },
+                    { label: 'Performance maintenue', value: "Poids additionnel < 2kg compensé par réduction de la fatigue musculaire. Amplitude de mouvement: 100% préservée. Temps de réaction: aucun impact." },
+                    { label: 'Prévention des blessures', value: "Réduction de 94% des fractures, 78% des entorses graves, 65% du temps de récupération post-traumatisme. Carrière sportive prolongée de 3-5 ans en moyenne." }
                 ]
             },
             'Vieillissement Actif': {
                 icon: '05',
-                description: 'Programme spécifique pour seniors actifs souhaitant préserver leur mobilité et indépendance face au déclin osseux lié à l\'âge.',
+                description: "Programme spécifique pour seniors actifs souhaitant préserver leur mobilité et indépendance face au déclin osseux lié à l'âge.",
                 details: [
-                    { label: 'Prévention des chutes', value: 'Détection des pertes d\'équilibre et ajustement structurel préventif. Alertes envoyées aux proches en cas de chute détectée. Réduction de 89% des fractures du col fémoral.' },
-                    { label: 'Protocole d\'installation senior', value: 'Procédure ambulatoire ultra-mini-invasive adaptée aux patients âgés. Anesthésie locale uniquement. Retour à domicile le jour même.' },
-                    { label: 'Autonomie prolongée', value: 'Maintien des activités quotidiennes: marche, jardinage, voyage. Indépendance préservée 10-15 ans de plus que la moyenne. Impact majeur sur la dignité et le bien-être.' }
+                    { label: 'Prévention des chutes', value: "Détection des pertes d'équilibre et ajustement structurel préventif. Alertes envoyées aux proches en cas de chute détectée. Réduction de 89% des fractures du col fémoral." },
+                    { label: "Protocole d'installation senior", value: "Procédure ambulatoire ultra-mini-invasive adaptée aux patients âgés. Anesthésie locale uniquement. Retour à domicile le jour même." },
+                    { label: 'Autonomie prolongée', value: "Maintien des activités quotidiennes: marche, jardinage, voyage. Indépendance préservée 10-15 ans de plus que la moyenne. Impact majeur sur la dignité et le bien-être." }
+                ]
+            },
+            // Applications EN
+            'Advanced Osteoporosis': {
+                icon: '01',
+                description: "Definitive solution for patients suffering from severe bone fragility. NEXUS SKELETAL structurally replaces the deficient bone matrix.",
+                details: [
+                    { label: 'Clinical Benefits', value: "Complete elimination of spontaneous fracture risk, restoration of bone load capacity, significant improvement in mobility and quality of life." },
+                    { label: 'Targeted Implantation', value: "Critical zones: lumbar and thoracic vertebrae, femoral neck, wrists, ribs. Progressive installation over 3-6 months depending on severity." },
+                    { label: 'Clinical Results', value: "5-year studies: 0% post-implantation fractures, 95% of patients regain normal mobility, 98% patient satisfaction." }
+                ]
+            },
+            'Post-Traumatic Reconstruction': {
+                icon: '02',
+                description: "Revolutionary alternative to metal plates and screws after major trauma. Complete functional restoration with preserved natural sensation.",
+                details: [
+                    { label: 'Advantages vs. Traditional Implants', value: "No metallic foreign bodies visible on X-ray, preserved natural bone growth, no movement restrictions, absence of chronic pain." },
+                    { label: 'Typical Use Cases', value: "Complex multi-fragment fractures, pseudarthrosis, bone substance loss, consolidation failures, reconstructions after bone tumors." },
+                    { label: 'Surgical Protocol', value: "Mini-invasive procedure under 3D guidance. Local injection of nano-fibers that self-assemble the structure in 72h. Outpatient recovery." }
+                ]
+            },
+            'Degenerative Diseases': {
+                icon: '03',
+                description: "Structural support for patients with progressive bone pathologies: osteogenesis imperfecta, Paget's disease, osteomalacia.",
+                details: [
+                    { label: 'Preventive Approach', value: "Early installation before critical degradation maintains existing bone structure while providing progressive reinforcement." },
+                    { label: 'Adaptation to Progression', value: "The system evolves with the disease, automatically compensating for natural bone density loss by increasing structural rigidity." },
+                    { label: 'Quality of Life', value: "Autonomy maintained for 20-30+ years, massive reduction in hospitalizations, preservation of normal daily activities." }
+                ]
+            },
+            'Sports Optimization': {
+                icon: '04',
+                description: "Military-grade protection for professional athletes with no performance compromise. Approved by international sports federations.",
+                details: [
+                    { label: 'High-Risk Sports', value: "American football, rugby, martial arts, alpine skiing, motocross - all disciplines with risk of multiple fractures or repeated trauma." },
+                    { label: 'Performance Maintained', value: "Additional weight < 2kg offset by reduced muscle fatigue. Range of motion: 100% preserved. Reaction time: no impact." },
+                    { label: 'Injury Prevention', value: "94% reduction in fractures, 78% in severe sprains, 65% in post-trauma recovery time. Athletic career extended by 3-5 years on average." }
+                ]
+            },
+            'Active Aging': {
+                icon: '05',
+                description: "Specific program for active seniors wishing to preserve their mobility and independence against age-related bone decline.",
+                details: [
+                    { label: 'Fall Prevention', value: "Balance loss detection and preventive structural adjustment. Alerts sent to relatives when a fall is detected. 89% reduction in femoral neck fractures." },
+                    { label: 'Senior Installation Protocol', value: "Ultra-minimally invasive outpatient procedure adapted for elderly patients. Local anesthesia only. Same-day return home." },
+                    { label: 'Extended Autonomy', value: "Daily activities maintained: walking, gardening, travel. Independence preserved 10-15 years longer than average. Major impact on dignity and well-being." }
                 ]
             }
         };
 
-        // Add click handlers to feature cards
         document.querySelectorAll('.feature-card').forEach(card => {
-            card.style.cursor = 'pointer';
             card.addEventListener('click', function() {
                 const title = this.querySelector('.feature-title').textContent;
                 const details = featureDetails[title];
-                if (details) {
-                    showModal(title, details);
-                }
+                if (details) showModal(title, details);
             });
         });
 
-        // Add click handlers to application items
         document.querySelectorAll('.application-item').forEach(item => {
-            item.style.cursor = 'pointer';
             item.addEventListener('click', function() {
                 const title = this.querySelector('.application-title').textContent;
                 const details = featureDetails[title];
-                if (details) {
-                    showModal(title, details);
-                }
+                if (details) showModal(title, details);
             });
         });
 
-        // Add click handlers to spec items
         document.querySelectorAll('.spec-item').forEach(item => {
-            item.style.cursor = 'pointer';
             item.addEventListener('click', function() {
                 const label = this.querySelector('.spec-label').textContent;
                 const value = this.querySelector('.spec-value').textContent;
                 const description = this.querySelector('.spec-description').textContent;
-                
                 showSpecModal(label, value, description);
             });
         });
@@ -1066,96 +1219,72 @@
             let detailsHTML = '';
             if (details.details) {
                 detailsHTML = '<div class="modal-details">';
-                details.details.forEach(detail => {
-                    detailsHTML += `
-                        <div class="modal-detail-item">
-                            <div class="modal-detail-label">${detail.label}</div>
-                            <div class="modal-detail-value">${detail.value}</div>
-                        </div>
-                    `;
+                details.details.forEach(d => {
+                    detailsHTML += `<div class="modal-detail-item"><div class="modal-detail-label">${d.label}</div><div class="modal-detail-value">${d.value}</div></div>`;
                 });
                 detailsHTML += '</div>';
             }
-
-            modalBody.innerHTML = `
-                <div class="modal-icon">${details.icon}</div>
-                <h2 class="modal-title">${title}</h2>
-                <p class="modal-description">${details.description}</p>
-                ${detailsHTML}
-            `;
-            
+            modalBody.innerHTML = `<div class="modal-icon">${details.icon}</div><h2 class="modal-title">${title}</h2><p class="modal-description">${details.description}</p>${detailsHTML}`;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function showSpecModal(label, value, description) {
+            const isEN = currentLang === 'en';
+            const contextLabel = isEN ? 'Technical Context' : 'Contexte Technique';
+            const contextValue = isEN
+                ? 'This specification was determined after 8 years of R&D, 12,000 hours of laboratory testing, and validation on 500+ patients in Phase III clinical trials.'
+                : 'Cette spécification a été déterminée après 8 ans de recherche et développement, 12,000 heures de tests en laboratoire, et validation sur 500+ patients en essais cliniques de phase III.';
+            const certLabel = isEN ? 'Certification' : 'Certification';
+            const certValue = isEN
+                ? 'Approved by FDA (USA), EMA (Europe), PMDA (Japan), and compliant with ISO 13485 standards for Class III implantable medical devices.'
+                : 'Approuvé par FDA (USA), EMA (Europe), PMDA (Japon), et conforme aux normes ISO 13485 pour dispositifs médicaux implantables de classe III.';
+
             modalBody.innerHTML = `
                 <div class="modal-icon">📊</div>
                 <h2 class="modal-title">${label}</h2>
-                <div style="text-align: center; font-size: 4rem; font-weight: 900; color: var(--accent); margin: 2rem 0; text-shadow: 0 0 30px var(--glow);">
-                    ${value}
-                </div>
+                <div style="text-align:center;font-size:4rem;font-weight:900;color:var(--accent);margin:2rem 0;text-shadow:0 0 30px var(--glow);">${value}</div>
                 <p class="modal-description">${description}</p>
                 <div class="modal-details">
                     <div class="modal-detail-item">
-                        <div class="modal-detail-label">Contexte Technique</div>
-                        <div class="modal-detail-value">Cette spécification a été déterminée après 8 ans de recherche et développement, 12,000 heures de tests en laboratoire, et validation sur 500+ patients en essais cliniques de phase III.</div>
+                        <div class="modal-detail-label">${contextLabel}</div>
+                        <div class="modal-detail-value">${contextValue}</div>
                     </div>
                     <div class="modal-detail-item">
-                        <div class="modal-detail-label">Certification</div>
-                        <div class="modal-detail-value">Approuvé par FDA (USA), EMA (Europe), PMDA (Japon), et conforme aux normes ISO 13485 pour dispositifs médicaux implantables de classe III.</div>
+                        <div class="modal-detail-label">${certLabel}</div>
+                        <div class="modal-detail-value">${certValue}</div>
                     </div>
-                </div>
-            `;
-            
+                </div>`;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        // Close modal handlers
         modalClose.addEventListener('click', closeModal);
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
         function closeModal() {
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        // Generate floating particles
+        // ─── PARTICLES ───────────────────────────────────────────────────────────────
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            particlesContainer.appendChild(particle);
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 15 + 's';
+            p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(p);
         }
 
-        // Smooth scroll for CTA button
-        document.querySelector('.cta-button').addEventListener('click', (e) => {
+        document.querySelector('.cta-button').addEventListener('click', e => {
             e.preventDefault();
-            document.querySelector('#features').scrollIntoView({ 
-                behavior: 'smooth' 
-            });
+            document.querySelector('#features').scrollIntoView({ behavior: 'smooth' });
         });
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
+        // ─── SCROLL ANIMATIONS ───────────────────────────────────────────────────────
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1163,9 +1292,8 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
 
-        // Observe all feature cards and application items
         document.querySelectorAll('.feature-card, .application-item, .spec-item').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(50px)';
@@ -1173,35 +1301,14 @@
             observer.observe(el);
         });
 
-        // Add dynamic cursor effect
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            // Create trailing effect
+        // ─── CURSOR TRAIL ────────────────────────────────────────────────────────────
+        document.addEventListener('mousemove', e => {
             if (Math.random() > 0.95) {
                 const trail = document.createElement('div');
-                trail.style.position = 'fixed';
-                trail.style.left = x + 'px';
-                trail.style.top = y + 'px';
-                trail.style.width = '4px';
-                trail.style.height = '4px';
-                trail.style.background = 'var(--primary)';
-                trail.style.borderRadius = '50%';
-                trail.style.pointerEvents = 'none';
-                trail.style.zIndex = '9999';
-                trail.style.opacity = '0.6';
-                trail.style.transition = 'all 0.5s ease-out';
+                trail.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:4px;height:4px;background:var(--primary);border-radius:50%;pointer-events:none;z-index:9999;opacity:0.6;transition:all 0.5s ease-out;`;
                 document.body.appendChild(trail);
-                
-                setTimeout(() => {
-                    trail.style.opacity = '0';
-                    trail.style.transform = 'scale(2)';
-                }, 10);
-                
-                setTimeout(() => {
-                    trail.remove();
-                }, 500);
+                setTimeout(() => { trail.style.opacity = '0'; trail.style.transform = 'scale(2)'; }, 10);
+                setTimeout(() => trail.remove(), 500);
             }
         });
     </script>
