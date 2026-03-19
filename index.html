@@ -1,1316 +1,1561 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS SKELETAL | Exosquelette Interne de Nouvelle Génération</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>NEXUS EXO | Medical Exoskeleton — Clinical Grade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00ffff;
-            --secondary: #ff00ff;
-            --accent: #00ff88;
-            --dark: #0a0a0f;
-            --dark-blue: #0d1526;
-            --glow: rgba(0, 255, 255, 0.5);
-            --glow-pink: rgba(255, 0, 255, 0.4);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.8);
-            --text-tertiary: rgba(255, 255, 255, 0.6);
-            --bg-card: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
-            --border-color: rgba(0, 255, 255, 0.3);
-            --grid-color: rgba(0, 255, 255, 0.03);
+            --c1: #00bcd4;
+            --c2: #26a69a;
+            --c3: #80cbc4;
+            --dark: #050d12;
+            --dark2: #081319;
+            --panel: rgba(0,188,212,0.04);
+            --border: rgba(0,188,212,0.18);
+            --text: #e8f4f8;
+            --sub: rgba(232,244,248,0.55);
+            --glow1: rgba(0,188,212,0.3);
+            --glow2: rgba(38,166,154,0.25);
         }
-
         [data-theme="light"] {
-            --primary: #0088ff;
-            --secondary: #ff0088;
-            --accent: #00aa66;
-            --dark: #f5f5f7;
-            --dark-blue: #e8e8ea;
-            --glow: rgba(0, 136, 255, 0.3);
-            --glow-pink: rgba(255, 0, 136, 0.3);
-            --text-primary: #1a1a1a;
-            --text-secondary: rgba(0, 0, 0, 0.8);
-            --text-tertiary: rgba(0, 0, 0, 0.6);
-            --bg-card: linear-gradient(135deg, rgba(0, 136, 255, 0.08), rgba(255, 0, 136, 0.08));
-            --border-color: rgba(0, 136, 255, 0.4);
-            --grid-color: rgba(0, 136, 255, 0.05);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--dark);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            cursor: crosshair;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-
-        /* Top-right buttons container */
-        .top-controls {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            z-index: 10001;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        /* Lang Toggle Button */
-        .lang-toggle {
-            width: 60px;
-            height: 60px;
-            background: var(--bg-card);
-            border: 2px solid var(--secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px var(--glow-pink);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--secondary);
-            letter-spacing: 0.05em;
-            user-select: none;
-        }
-
-        .lang-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 40px var(--glow-pink);
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* Theme Toggle Button */
-        .theme-toggle {
-            width: 60px;
-            height: 60px;
-            background: var(--bg-card);
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px var(--glow);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(180deg);
-            box-shadow: 0 0 40px var(--glow);
-        }
-
-        .theme-toggle-icon {
-            font-size: 1.8rem;
-            transition: transform 0.3s ease;
-        }
-
-        /* Animated Background */
-        .background-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
-                linear-gradient(var(--grid-color) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-            z-index: 0;
-            pointer-events: none;
-            transition: background 0.5s ease;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--primary);
-            border-radius: 50%;
-            animation: float 15s infinite;
-            opacity: 0.3;
-            transition: background 0.5s ease;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 0.3; }
-            50% { transform: translateY(-100vh) translateX(50px); opacity: 0.3; }
-            90% { opacity: 0.3; }
-            100% { opacity: 0; }
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            animation: fadeInUp 1.5s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 900;
-            letter-spacing: 0.1em;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 40px var(--glow);
-            animation: glowPulse 3s ease-in-out infinite;
-            transition: all 0.5s ease;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.3); }
-        }
-
-        .tagline {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            letter-spacing: 0.3em;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 3rem;
-            animation: fadeInUp 1.5s ease-out 0.3s backwards;
-            transition: color 0.5s ease;
-        }
-
-        .subtitle {
-            font-size: clamp(1.2rem, 2.5vw, 2rem);
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
-            animation: fadeInUp 1.5s ease-out 0.6s backwards;
-            transition: color 0.5s ease;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1.2rem 3rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--dark);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            border: 2px solid var(--primary);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1.5s ease-out 0.9s backwards;
-            cursor: pointer;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .cta-button:hover::before { left: 100%; }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px var(--glow);
-        }
-
-        /* Features Section */
-        .features {
-            position: relative;
-            padding: 8rem 2rem;
-            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-blue) 50%, var(--dark) 100%);
-            z-index: 1;
-            transition: background 0.5s ease;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            transition: color 0.5s ease;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.3rem;
-            color: var(--text-tertiary);
-            margin-bottom: 5rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: color 0.5s ease;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 3rem 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .feature-card:hover::before { transform: scaleX(1); }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px var(--glow);
-        }
-
-        .feature-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
-
-        .feature-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: color 0.5s ease;
-        }
-
-        .feature-description {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 1.05rem;
-            transition: color 0.5s ease;
-        }
-
-        /* Tech Specs Section */
-        .tech-specs {
-            position: relative;
-            padding: 8rem 2rem;
-            background: var(--dark);
-            z-index: 1;
-            transition: background 0.5s ease;
-        }
-
-        .specs-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .spec-item {
-            background: var(--bg-card);
-            border-left: 3px solid var(--primary);
-            padding: 2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .spec-item:hover {
-            background: linear-gradient(135deg, rgba(0,255,255,0.1), rgba(255,0,255,0.1));
-            border-left-color: var(--accent);
-            transform: translateX(10px);
-        }
-
-        [data-theme="light"] .spec-item:hover {
-            background: linear-gradient(135deg, rgba(0,136,255,0.15), rgba(255,0,136,0.15));
-        }
-
-        .spec-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 0.5rem;
-            transition: color 0.5s ease;
-        }
-
-        .spec-value {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            transition: color 0.5s ease;
-        }
-
-        .spec-description {
-            color: var(--text-tertiary);
-            font-size: 0.95rem;
-            transition: color 0.5s ease;
-        }
-
-        /* Medical Applications Section */
-        .applications {
-            position: relative;
-            padding: 8rem 2rem;
-            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-blue) 100%);
-            z-index: 1;
-            transition: background 0.5s ease;
-        }
-
-        .applications-list { max-width: 900px; margin: 0 auto; }
-
-        .application-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-
-        .application-item::after {
-            content: '';
-            position: absolute;
-            right: -50px; top: 50%;
-            transform: translateY(-50%);
-            width: 150px; height: 150px;
-            background: radial-gradient(circle, var(--glow-pink), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .application-item:hover::after { opacity: 0.3; }
-        .application-item:hover { border-color: var(--accent); transform: scale(1.02); }
-
-        .application-number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--accent);
-            opacity: 0.2;
-            position: absolute;
-            top: 1rem; right: 2rem;
-            transition: color 0.5s ease;
-        }
-
-        .application-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            transition: color 0.5s ease;
-        }
-
-        .application-description {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 1.05rem;
-            transition: color 0.5s ease;
-        }
-
-        /* Footer */
-        footer {
-            position: relative;
-            padding: 4rem 2rem 2rem;
-            background: var(--dark);
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            z-index: 1;
-            transition: all 0.5s ease;
-        }
-
-        .footer-content { max-width: 1200px; margin: 0 auto; }
-
-        .footer-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            transition: color 0.5s ease;
-        }
-
-        .footer-text {
-            color: var(--text-tertiary);
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-            transition: color 0.5s ease;
-        }
-
-        .scanner-line {
-            position: fixed;
-            left: 0;
-            width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            animation: scan 4s linear infinite;
-            z-index: 999;
-            pointer-events: none;
-            box-shadow: 0 0 20px var(--primary);
-            transition: background 0.5s ease, box-shadow 0.5s ease;
-        }
-
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(20px); }
-        }
-
-        .scroll-indicator::before {
-            content: '↓';
-            font-size: 2rem;
-            color: var(--primary);
-            display: block;
-            animation: glow 2s ease-in-out infinite;
-            transition: color 0.5s ease;
-        }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px var(--primary); }
-            50% { text-shadow: 0 0 30px var(--primary), 0 0 50px var(--primary); }
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(10px);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        [data-theme="light"] .modal-overlay { background: rgba(255,255,255,0.95); }
-
-        .modal-overlay.active { display: flex; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            border: 2px solid var(--primary);
-            padding: 3rem;
-            max-width: 90%; max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 0 100px var(--glow), 0 0 200px var(--glow-pink);
-            animation: modalZoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transition: all 0.5s ease;
-        }
-
-        @keyframes modalZoom {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem; right: 1rem;
-            width: 50px; height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: 2px solid var(--primary);
-            color: var(--dark);
-            font-size: 1.5rem;
-            font-weight: 900;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .modal-close:hover { transform: rotate(90deg) scale(1.1); box-shadow: 0 0 30px var(--primary); }
-
-        .modal-icon {
-            font-size: 5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: floatIcon 3s ease-in-out infinite;
-        }
-
-        @keyframes floatIcon {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .modal-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            text-align: center;
-            letter-spacing: 0.15em;
-            text-shadow: 0 0 20px var(--glow);
-            transition: color 0.5s ease;
-        }
-
-        .modal-description {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            text-align: center;
-            transition: color 0.5s ease;
-        }
-
-        .modal-details {
-            background: var(--bg-card);
-            border-left: 4px solid var(--primary);
-            padding: 2rem;
-            margin-top: 2rem;
-            transition: all 0.5s ease;
-        }
-
-        .modal-detail-item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            transition: border-color 0.5s ease;
-        }
-
-        .modal-detail-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-        .modal-detail-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.5rem;
-            transition: color 0.5s ease;
-        }
-
-        .modal-detail-value {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            transition: color 0.5s ease;
-        }
-
-        @media (max-width: 768px) {
-            .top-controls { top: 1.5rem; right: 1.5rem; gap: 0.5rem; }
-            .theme-toggle, .lang-toggle { width: 50px; height: 50px; }
-            .theme-toggle-icon { font-size: 1.5rem; }
-            .lang-toggle { font-size: 0.65rem; }
-            .features-grid { grid-template-columns: 1fr; }
-            .specs-container { grid-template-columns: 1fr; }
-            .modal-content { padding: 2rem; max-width: 95%; }
-            .modal-title { font-size: 1.8rem; }
-            .modal-description { font-size: 1.1rem; }
+            --dark: #f0f7fa;
+            --dark2: #e3f0f4;
+            --panel: rgba(0,150,170,0.06);
+            --border: rgba(0,150,170,0.3);
+            --text: #0a1e26;
+            --sub: rgba(10,30,38,0.6);
+            --c1: #007a8f;
+            --c2: #00695c;
+            --c3: #4a9fa8;
+            --glow1: rgba(0,122,143,0.2);
+            --glow2: rgba(0,105,92,0.2);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{
+            font-family:'Barlow Condensed',sans-serif;
+            background:var(--dark);color:var(--text);
+            overflow-x:hidden;transition:background .4s,color .4s;
+        }
+ 
+        /* ── SLIDESHOW ── */
+        #slideshow{position:fixed;inset:0;z-index:9999;background:var(--dark);overflow:hidden;}
+        #slideshow.fade-out{animation:ssOut .9s ease forwards;}
+        @keyframes ssOut{0%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(1.03);}}
+        .slide{
+            position:absolute;inset:0;
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            text-align:center;padding:2rem;
+            opacity:0;transition:opacity .65s ease;
+        }
+        .slide.active{opacity:1;}
+        .slide-bg{position:absolute;inset:0;overflow:hidden;}
+        .slide-bg svg{width:100%;height:100%;opacity:.1;}
+        .hud-frame{position:absolute;inset:20px;pointer-events:none;z-index:2;}
+        .hud-frame::before,.hud-frame::after{content:'';position:absolute;width:55px;height:55px;}
+        .hud-frame::before{top:0;left:0;border-top:1.5px solid var(--c1);border-left:1.5px solid var(--c1);box-shadow:-3px -3px 12px var(--glow1);}
+        .hud-frame::after{bottom:0;right:0;border-bottom:1.5px solid var(--c2);border-right:1.5px solid var(--c2);box-shadow:3px 3px 12px var(--glow2);}
+        .slide-label{
+            font-family:'Share Tech Mono',monospace;
+            font-size:clamp(.58rem,1vw,.78rem);letter-spacing:.35em;
+            color:var(--c1);text-transform:uppercase;margin-bottom:1.1rem;position:relative;z-index:1;
+        }
+        .slide-title{
+            font-family:'Bebas Neue',sans-serif;
+            font-size:clamp(2.8rem,9.5vw,8.5rem);
+            line-height:.9;letter-spacing:.04em;position:relative;z-index:1;
+            background:linear-gradient(135deg,var(--c1),var(--c2));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+            filter:drop-shadow(0 0 30px var(--glow1));
+        }
+        .slide-sub{
+            font-size:clamp(.9rem,1.7vw,1.25rem);font-weight:300;color:var(--sub);
+            max-width:640px;line-height:1.65;margin-top:1.3rem;
+            position:relative;z-index:1;letter-spacing:.03em;
+        }
+        .slide-stat{
+            display:flex;gap:3rem;margin-top:2.3rem;
+            position:relative;z-index:1;flex-wrap:wrap;justify-content:center;
+        }
+        .stat-box{text-align:center;}
+        .stat-num{
+            font-family:'Bebas Neue',sans-serif;
+            font-size:clamp(1.6rem,4.5vw,3.8rem);
+            color:var(--c1);line-height:1;text-shadow:0 0 18px var(--glow1);
+        }
+        .stat-lbl{
+            font-family:'Share Tech Mono',monospace;
+            font-size:.62rem;letter-spacing:.16em;
+            color:var(--sub);text-transform:uppercase;margin-top:.2rem;
+        }
+        .slide-source{
+            position:absolute;bottom:5rem;left:50%;transform:translateX(-50%);
+            font-family:'Share Tech Mono',monospace;
+            font-size:.56rem;letter-spacing:.18em;
+            color:var(--border);text-transform:uppercase;z-index:3;
+            white-space:nowrap;font-style:italic;
+        }
+        #slide-progress{
+            position:absolute;bottom:0;left:0;height:2px;
+            background:linear-gradient(90deg,var(--c1),var(--c2));
+            box-shadow:0 0 8px var(--glow1);
+            transition:width .08s linear;z-index:10000;
+        }
+        #slide-dots{
+            position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);
+            display:flex;gap:.45rem;z-index:10000;
+        }
+        .dot{
+            width:7px;height:7px;border-radius:50%;
+            border:1px solid var(--c1);background:transparent;
+            transition:background .3s,transform .3s;
+        }
+        .dot.active{background:var(--c1);transform:scale(1.3);}
+        #skip-btn{
+            position:absolute;bottom:2rem;right:2.5rem;
+            font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.2em;
+            color:var(--sub);background:none;border:1px solid var(--border);
+            padding:.42rem 1rem;cursor:pointer;transition:all .3s;z-index:10000;
+        }
+        #skip-btn:hover{color:var(--c1);border-color:var(--c1);}
+ 
+        /* ── MAIN SITE ── */
+        #main-site{opacity:0;transition:opacity 1s ease;}
+        #main-site.visible{opacity:1;}
+        nav{
+            position:fixed;top:0;left:0;right:0;z-index:4000;
+            padding:1rem 2.5rem;
+            display:flex;align-items:center;justify-content:space-between;
+            gap:2rem;
+            border-bottom:1px solid transparent;transition:all .4s;
+        }
+        nav.scrolled{background:rgba(5,13,18,.88);backdrop-filter:blur(20px);border-bottom-color:var(--border);}
+        [data-theme="light"] nav.scrolled{background:rgba(240,247,250,.88);}
+        .nav-logo{
+            font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.1em;
+            color:var(--c1);text-shadow:0 0 16px var(--glow1);flex-shrink:0;
+        }
+        .nav-links{display:flex;gap:2.2rem;list-style:none;flex:1;justify-content:center;}
+        .nav-links a{
+            font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.2em;
+            color:var(--sub);text-decoration:none;text-transform:uppercase;
+            transition:color .3s;position:relative;
+        }
+        .nav-links a::after{
+            content:'';position:absolute;bottom:-3px;left:0;right:0;
+            height:1px;background:var(--c1);
+            transform:scaleX(0);transition:transform .3s;
+        }
+        .nav-links a:hover{color:var(--c1);}
+        .nav-links a:hover::after{transform:scaleX(1);}
+ 
+        /* ── THEME SWITCH ── */
+        .theme-switch{
+            display:flex;align-items:center;gap:.55rem;
+            background:none;border:none;cursor:pointer;
+            padding:0;flex-shrink:0;
+        }
+        .theme-switch-track{
+            position:relative;
+            width:38px;height:20px;
+            background:rgba(0,188,212,.12);
+            border:1px solid var(--border);
+            border-radius:20px;
+            transition:background .3s, border-color .3s;
+            display:block;
+        }
+        .theme-switch:hover .theme-switch-track{
+            border-color:var(--c1);
+            background:rgba(0,188,212,.2);
+        }
+        .theme-switch-thumb{
+            position:absolute;
+            top:3px;left:3px;
+            width:12px;height:12px;
+            border-radius:50%;
+            background:var(--c1);
+            box-shadow:0 0 6px var(--glow1);
+            transition:transform .3s cubic-bezier(.34,1.56,.64,1), background .3s;
+        }
+        [data-theme="light"] .theme-switch-thumb{
+            transform:translateX(18px);
+            background:var(--c2);
+            box-shadow:0 0 6px var(--glow2);
+        }
+        .theme-switch-label{
+            font-family:'Share Tech Mono',monospace;
+            font-size:.6rem;letter-spacing:.22em;
+            color:var(--sub);text-transform:uppercase;
+            transition:color .3s;user-select:none;
+            min-width:30px;
+        }
+        .theme-switch:hover .theme-switch-label{color:var(--c1);}
+        .bg-grid{
+            position:fixed;inset:0;z-index:0;pointer-events:none;
+            background-image:
+                linear-gradient(rgba(0,188,212,.02) 1px,transparent 1px),
+                linear-gradient(90deg,rgba(0,188,212,.02) 1px,transparent 1px);
+            background-size:55px 55px;
+            animation:gridDrift 30s linear infinite;
+        }
+        @keyframes gridDrift{0%{background-position:0 0;}100%{background-position:55px 55px;}}
+ 
+        /* HERO */
+        .hero{
+            position:relative;min-height:100vh;
+            display:grid;grid-template-columns:1fr 1fr;
+            align-items:center;padding:6rem 5vw 4rem;gap:4rem;
+            z-index:1;overflow:hidden;
+        }
+        .hero::before{
+            content:'';position:absolute;inset:0;
+            background:radial-gradient(ellipse 65% 65% at 65% 50%,rgba(0,188,212,.05),transparent);
+        }
+        .hero-left{position:relative;z-index:2;}
+        .hero-badge{
+            display:inline-flex;align-items:center;gap:.6rem;
+            font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.25em;
+            color:var(--c1);border:1px solid var(--border);padding:.42rem .9rem;
+            margin-bottom:1.7rem;position:relative;overflow:hidden;
+        }
+        .hero-badge::before{
+            content:'';position:absolute;inset:0;
+            background:linear-gradient(90deg,transparent,rgba(0,188,212,.07),transparent);
+            animation:shimmer 3s infinite;
+        }
+        @keyframes shimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+        .badge-dot{
+            width:6px;height:6px;border-radius:50%;background:var(--c2);
+            box-shadow:0 0 7px var(--c2);animation:blink .9s ease-in-out infinite alternate;
+        }
+        @keyframes blink{0%{opacity:1;}100%{opacity:.25;}}
+        h1{
+            font-family:'Bebas Neue',sans-serif;
+            font-size:clamp(4rem,8.5vw,8.5rem);
+            line-height:.88;letter-spacing:.04em;margin-bottom:1.4rem;
+        }
+        h1 .l1{display:block;color:var(--text);}
+        h1 .l2{
+            display:block;
+            background:linear-gradient(100deg,var(--c1),var(--c2));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+            filter:drop-shadow(0 0 25px var(--glow1));
+        }
+        .hero-sub{
+            font-size:clamp(1rem,1.5vw,1.2rem);font-weight:300;color:var(--sub);
+            line-height:1.75;max-width:470px;margin-bottom:2.5rem;letter-spacing:.03em;
+        }
+        .hero-cta{
+            display:inline-flex;align-items:center;gap:.9rem;
+            font-family:'Share Tech Mono',monospace;font-size:.8rem;letter-spacing:.18em;
+            text-transform:uppercase;
+            background:linear-gradient(135deg,var(--c1),var(--c2));
+            color:#050d12;padding:.9rem 2.1rem;border:none;cursor:pointer;
+            transition:all .3s;text-decoration:none;
+        }
+        [data-theme="light"] .hero-cta{color:#fff;}
+        .hero-cta:hover{transform:translateY(-3px);box-shadow:0 10px 30px var(--glow1);}
+        .cta-arr{transition:transform .3s;}
+        .hero-cta:hover .cta-arr{transform:translateX(5px);}
+        .hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;}
+        .exo-visual{position:relative;width:min(460px,88vw);aspect-ratio:1;}
+        .exo-ring{
+            position:absolute;border-radius:50%;border:1px solid var(--border);
+            animation:ringRot linear infinite;
+        }
+        .exo-ring:nth-child(1){inset:0;animation-duration:22s;}
+        .exo-ring:nth-child(2){inset:9%;animation-duration:17s;animation-direction:reverse;border-color:rgba(38,166,154,.2);}
+        .exo-ring:nth-child(3){inset:19%;animation-duration:11s;border-style:dashed;}
+        @keyframes ringRot{0%{transform:rotate(0);}100%{transform:rotate(360deg);}}
+        .exo-ring::before{
+            content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+            width:7px;height:7px;border-radius:50%;background:var(--c1);box-shadow:0 0 12px var(--c1);
+        }
+        .exo-ring:nth-child(2)::before{background:var(--c2);box-shadow:0 0 12px var(--c2);}
+        .exo-ring:nth-child(3)::before{background:var(--c3);box-shadow:0 0 12px var(--c3);}
+        .exo-center{position:absolute;inset:27%;display:flex;align-items:center;justify-content:center;}
+        .exo-svg{width:100%;height:100%;filter:drop-shadow(0 0 18px var(--c1));}
+        .exo-data{
+            position:absolute;font-family:'Share Tech Mono',monospace;
+            font-size:.62rem;letter-spacing:.1em;color:var(--c1);opacity:.65;
+        }
+        .exo-data.tl{top:10%;left:5%;}
+        .exo-data.tr{top:10%;right:5%;text-align:right;}
+        .exo-data.bl{bottom:10%;left:5%;}
+        .exo-data.br{bottom:10%;right:5%;text-align:right;}
+        .exo-data span{display:block;color:var(--sub);font-size:.52rem;margin-top:.2rem;}
+ 
+        section{position:relative;z-index:1;}
+        .section-head{text-align:center;padding:6rem 2rem 4rem;}
+        .section-tag{
+            font-family:'Share Tech Mono',monospace;font-size:.67rem;letter-spacing:.38em;
+            color:var(--c2);text-transform:uppercase;display:block;margin-bottom:.9rem;
+        }
+        .section-title{
+            font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5.5vw,5rem);
+            letter-spacing:.06em;color:var(--text);line-height:1;
+        }
+        .section-title em{
+            font-style:normal;
+            background:linear-gradient(90deg,var(--c1),var(--c2));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        }
+        .section-sub{
+            max-width:620px;margin:1rem auto 0;font-size:1.04rem;font-weight:300;
+            color:var(--sub);letter-spacing:.04em;line-height:1.7;
+        }
+ 
+        /* FEATURES */
+        .features-wrap{
+            max-width:1380px;margin:0 auto;padding:0 2rem 8rem;
+            display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));
+            gap:1.5px;background:var(--border);border:1px solid var(--border);
+        }
+        .feat-card{
+            background:var(--dark);padding:2.5rem 2rem;
+            position:relative;overflow:hidden;cursor:pointer;transition:background .3s;
+        }
+        .feat-card:hover{background:var(--panel);}
+        .feat-card::after{
+            content:'';position:absolute;top:0;left:0;right:0;height:2px;
+            background:linear-gradient(90deg,var(--c1),var(--c2));
+            transform:scaleX(0);transform-origin:left;transition:transform .4s;
+        }
+        .feat-card:hover::after{transform:scaleX(1);}
+        .feat-num{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--border);margin-bottom:1.3rem;}
+        .feat-icon{font-size:2rem;margin-bottom:.9rem;display:block;}
+        .feat-name{font-family:'Bebas Neue',sans-serif;font-size:1.55rem;letter-spacing:.08em;color:var(--c1);margin-bottom:.65rem;}
+        .feat-desc{font-size:.96rem;font-weight:300;color:var(--sub);line-height:1.75;}
+        .feat-arrow{
+            position:absolute;bottom:1.3rem;right:1.3rem;
+            font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--c1);
+            opacity:0;transform:translateX(-8px);transition:all .3s;
+        }
+        .feat-card:hover .feat-arrow{opacity:1;transform:translateX(0);}
+ 
+        /* EVIDENCE STRIP */
+        .evidence-strip{
+            background:var(--dark2);
+            border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+            padding:4rem 2rem;
+        }
+        .evidence-grid{
+            max-width:1100px;margin:0 auto;
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;
+        }
+        .ev-item{text-align:center;}
+        .ev-num{
+            font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4.5vw,3.8rem);
+            color:var(--c1);text-shadow:0 0 16px var(--glow1);line-height:1;
+        }
+        .ev-label{
+            font-family:'Share Tech Mono',monospace;font-size:.63rem;letter-spacing:.18em;
+            color:var(--sub);text-transform:uppercase;margin-top:.35rem;
+        }
+        .ev-source{font-size:.75rem;color:var(--border);margin-top:.25rem;font-style:italic;}
+ 
+        /* SPECS */
+        .specs-section{background:var(--dark2);padding:6rem 2rem;}
+        .specs-grid{
+            max-width:1100px;margin:0 auto;
+            display:grid;grid-template-columns:repeat(3,1fr);
+            gap:1px;background:var(--border);border:1px solid var(--border);
+        }
+        @media(max-width:700px){.specs-grid{grid-template-columns:1fr 1fr;}}
+        .spec-cell{
+            background:var(--dark2);padding:2.5rem 2rem;
+            cursor:pointer;transition:background .3s;position:relative;overflow:hidden;
+        }
+        .spec-cell::before{
+            content:'';position:absolute;inset:0;
+            background:linear-gradient(135deg,var(--glow1),transparent);
+            opacity:0;transition:opacity .3s;
+        }
+        .spec-cell:hover{background:var(--dark);}
+        .spec-cell:hover::before{opacity:1;}
+        .spec-lbl{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.22em;color:var(--sub);text-transform:uppercase;margin-bottom:.7rem;}
+        .spec-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.9rem,3.8vw,3rem);color:var(--c1);line-height:1;text-shadow:0 0 18px var(--glow1);margin-bottom:.45rem;}
+        .spec-info{font-size:.9rem;font-weight:300;color:var(--sub);line-height:1.5;}
+ 
+        /* APPLICATIONS */
+        .apps-section{padding:4rem 2rem 8rem;}
+        .apps-list{max-width:980px;margin:0 auto;}
+        .app-row{
+            display:grid;grid-template-columns:72px 1fr;gap:1.8rem;align-items:start;
+            border-bottom:1px solid var(--border);padding:2.2rem 0;
+            cursor:pointer;transition:all .3s;position:relative;overflow:hidden;
+        }
+        .app-row::after{
+            content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+            background:linear-gradient(180deg,var(--c1),var(--c2));
+            transform:scaleY(0);transform-origin:top;transition:transform .4s;
+        }
+        .app-row:hover::after{transform:scaleY(1);}
+        .app-row:hover{padding-left:.9rem;}
+        .app-num{font-family:'Bebas Neue',sans-serif;font-size:3.2rem;line-height:1;color:var(--border);transition:color .3s;}
+        .app-row:hover .app-num{color:var(--c1);}
+        .app-title{font-family:'Bebas Neue',sans-serif;font-size:1.75rem;letter-spacing:.06em;color:var(--text);margin-bottom:.5rem;transition:color .3s;}
+        .app-row:hover .app-title{color:var(--c1);}
+        .app-desc{font-size:.96rem;font-weight:300;color:var(--sub);line-height:1.72;}
+        .app-more{
+            font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.17em;
+            color:var(--c1);margin-top:.65rem;
+            opacity:0;transform:translateX(-10px);transition:all .3s;display:inline-block;
+        }
+        .app-row:hover .app-more{opacity:1;transform:translateX(0);}
+ 
+        footer{
+            border-top:1px solid var(--border);padding:3.5rem 2rem;
+            text-align:center;position:relative;z-index:1;
+        }
+        .footer-logo{
+            font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.14em;
+            color:var(--c1);text-shadow:0 0 25px var(--glow1);margin-bottom:.9rem;
+        }
+        .footer-sub{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.26em;color:var(--sub);text-transform:uppercase;}
+ 
+        /* MODAL */
+        .modal-wrap{
+            position:fixed;inset:0;z-index:8000;
+            background:rgba(5,13,18,.93);backdrop-filter:blur(12px);
+            display:none;align-items:center;justify-content:center;padding:2rem;
+        }
+        .modal-wrap.open{display:flex;}
+        [data-theme="light"] .modal-wrap{background:rgba(240,247,250,.93);}
+        .modal-box{
+            background:var(--dark2);border:1px solid var(--c1);
+            box-shadow:0 0 70px var(--glow1),0 0 140px var(--glow2);
+            max-width:660px;width:100%;max-height:90vh;overflow-y:auto;
+            position:relative;animation:modalIn .4s cubic-bezier(.175,.885,.32,1.275);
+        }
+        @keyframes modalIn{from{transform:scale(.88) translateY(16px);opacity:0;}to{transform:none;opacity:1;}}
+        .modal-hdr{padding:1.8rem 2.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;}
+        .modal-icon-big{font-size:2.2rem;}
+        .modal-hdr-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.08em;color:var(--c1);}
+        .modal-close-btn{
+            position:absolute;top:.9rem;right:.9rem;width:38px;height:38px;
+            background:none;border:1px solid var(--border);color:var(--sub);
+            font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;
+        }
+        .modal-close-btn:hover{border-color:var(--c1);color:var(--c1);}
+        .modal-body{padding:1.8rem 2.2rem;}
+        .modal-lead{font-size:1rem;font-weight:300;color:var(--sub);line-height:1.8;margin-bottom:1.8rem;}
+        .mdl-item{padding:1.1rem 0;border-bottom:1px solid var(--border);}
+        .mdl-item:last-child{border-bottom:none;}
+        .mdl-label{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.22em;color:var(--c1);text-transform:uppercase;margin-bottom:.45rem;}
+        .mdl-value{font-size:.97rem;font-weight:300;color:var(--text);line-height:1.7;}
+        .spec-big{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:4.5rem;color:var(--c1);text-shadow:0 0 25px var(--glow1);margin:1.2rem 0;letter-spacing:.05em;}
+ 
+        .reveal{opacity:0;transform:translateY(35px);transition:opacity .7s ease,transform .7s ease;}
+        .reveal.in{opacity:1;transform:none;}
+ 
+        /* ── WHY COMPONENTS ── */
+        .why-section{padding:6rem 2rem 8rem;background:var(--dark);}
+        .why-grid{
+            max-width:1200px;margin:0 auto;
+            display:grid;grid-template-columns:1fr 1fr;gap:2px;
+            background:var(--border);border:1px solid var(--border);
+        }
+        @media(max-width:800px){.why-grid{grid-template-columns:1fr;}}
+        .why-card{
+            background:var(--dark);padding:3rem 2.5rem;
+            position:relative;transition:background .3s;
+        }
+        .why-card:hover{background:var(--panel);}
+        .why-card-tag{
+            font-family:'Share Tech Mono',monospace;
+            font-size:.6rem;letter-spacing:.3em;color:var(--c2);
+            text-transform:uppercase;margin-bottom:.8rem;display:block;
+        }
+        .why-card-title{
+            font-family:'Bebas Neue',sans-serif;
+            font-size:1.9rem;letter-spacing:.07em;color:var(--c1);
+            margin-bottom:1rem;line-height:1;
+        }
+        .why-card-body{
+            font-size:.97rem;font-weight:300;color:var(--sub);
+            line-height:1.8;margin-bottom:1.4rem;
+        }
+        .why-vs{
+            display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+            margin-top:1.2rem;
+        }
+        .why-vs-col{}
+        .why-vs-label{
+            font-family:'Share Tech Mono',monospace;
+            font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+            margin-bottom:.5rem;
+        }
+        .why-vs-label.good{color:var(--c1);}
+        .why-vs-label.bad{color:rgba(232,244,248,.3);}
+        .why-vs-item{
+            font-size:.9rem;font-weight:300;color:var(--sub);
+            line-height:1.6;padding:.35rem 0;
+            border-bottom:1px solid rgba(0,188,212,.08);
+        }
+        .why-vs-item:last-child{border-bottom:none;}
+        .why-vs-item.bad-item{color:rgba(232,244,248,.3);text-decoration:line-through;text-decoration-color:rgba(232,244,248,.2);}
+ 
+        /* ── COMPARISON TABLE ── */
+        .compare-section{background:var(--dark2);padding:6rem 2rem 8rem;}
+        .compare-wrap{max-width:1000px;margin:0 auto;overflow-x:auto;}
+        .compare-table{width:100%;border-collapse:collapse;}
+        .compare-table th{
+            font-family:'Share Tech Mono',monospace;
+            font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;
+            padding:1.2rem 1.5rem;text-align:left;
+            border-bottom:2px solid var(--c1);
+            color:var(--c1);
+        }
+        .compare-table th:not(:first-child){text-align:center;}
+        .compare-table td{
+            padding:1.1rem 1.5rem;
+            border-bottom:1px solid var(--border);
+            font-size:.95rem;font-weight:300;color:var(--sub);
+            vertical-align:middle;
+        }
+        .compare-table td:not(:first-child){text-align:center;}
+        .compare-table tr:hover td{background:var(--panel);}
+        .compare-table .row-label{
+            font-weight:600;color:var(--text);
+            font-size:.95rem;
+        }
+        .compare-table .col-nexus{
+            color:var(--c1);font-weight:600;
+            font-family:'Bebas Neue',sans-serif;
+            font-size:1.1rem;letter-spacing:.04em;
+        }
+        .check{color:var(--c1);font-size:1.1rem;}
+        .cross{color:rgba(232,244,248,.25);font-size:1.1rem;}
+        .col-header-nexus{
+            background:rgba(0,188,212,.06);
+            border-left:2px solid var(--c1);
+            border-right:2px solid var(--c1);
+        }
+ 
+        /* ── DESIGN PHILOSOPHY ── */
+        .philosophy-section{padding:6rem 2rem 8rem;background:var(--dark);}
+        .philosophy-inner{max-width:1100px;margin:0 auto;}
+        .philosophy-intro{
+            font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:300;
+            color:var(--sub);line-height:1.8;max-width:780px;
+            margin:0 auto 4rem;text-align:center;letter-spacing:.03em;
+        }
+        .principles-grid{
+            display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+            gap:2px;background:var(--border);border:1px solid var(--border);
+        }
+        .principle-card{
+            background:var(--dark);padding:2.5rem 2rem;
+            position:relative;overflow:hidden;transition:background .3s;
+        }
+        .principle-card:hover{background:var(--panel);}
+        .principle-num{
+            font-family:'Bebas Neue',sans-serif;
+            font-size:4rem;color:var(--border);line-height:1;
+            margin-bottom:.5rem;
+            transition:color .3s;
+        }
+        .principle-card:hover .principle-num{color:rgba(0,188,212,.15);}
+        .principle-title{
+            font-family:'Bebas Neue',sans-serif;
+            font-size:1.5rem;letter-spacing:.07em;
+            color:var(--c1);margin-bottom:.8rem;
+        }
+        .principle-body{
+            font-size:.95rem;font-weight:300;color:var(--sub);line-height:1.78;
+        }
+        .principle-quote{
+            margin-top:1rem;padding:.8rem 1rem;
+            border-left:2px solid var(--c1);
+            font-style:italic;font-size:.9rem;color:var(--sub);
+            background:rgba(0,188,212,.03);
+        }
+ 
+        /* ── FAQ ── */
+        .faq-section{background:var(--dark2);padding:6rem 2rem 8rem;}
+        .faq-list{max-width:860px;margin:0 auto;}
+        .faq-item{border-bottom:1px solid var(--border);}
+        .faq-question{
+            width:100%;background:none;border:none;
+            display:flex;align-items:center;justify-content:space-between;
+            padding:1.6rem 0;cursor:pointer;text-align:left;
+            gap:1rem;
+        }
+        .faq-q-text{
+            font-family:'Bebas Neue',sans-serif;
+            font-size:1.4rem;letter-spacing:.05em;
+            color:var(--text);transition:color .3s;line-height:1.1;
+        }
+        .faq-question:hover .faq-q-text{color:var(--c1);}
+        .faq-chevron{
+            font-family:'Share Tech Mono',monospace;
+            font-size:.8rem;color:var(--c1);
+            transition:transform .3s;flex-shrink:0;
+        }
+        .faq-item.open .faq-chevron{transform:rotate(180deg);}
+        .faq-answer{
+            max-height:0;overflow:hidden;
+            transition:max-height .4s ease,padding .3s ease;
+        }
+        .faq-item.open .faq-answer{max-height:600px;}
+        .faq-answer-inner{
+            padding:0 0 1.6rem;
+            font-size:.97rem;font-weight:300;color:var(--sub);line-height:1.8;
+        }
+        .faq-answer-inner strong{color:var(--text);font-weight:600;}
+ 
+        @media(max-width:900px){
+            .hero{grid-template-columns:1fr;padding-top:8rem;text-align:center;}
+            .hero-sub{margin:0 auto 2.5rem;}
+            .hero-right{display:none;}
+            .nav-links{display:none;}
+            .theme-switch-label{display:none;}
+            .why-vs{grid-template-columns:1fr;}
         }
     </style>
 </head>
 <body>
-    <!-- Top-right controls -->
-    <div class="top-controls">
-        <button class="lang-toggle" id="langToggle" aria-label="Toggle language">FR</button>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-            <span class="theme-toggle-icon">🌙</span>
+ 
+<!-- ══════════════════════════════════════════
+     SLIDESHOW — 8 SLIDES
+══════════════════════════════════════════ -->
+<div id="slideshow">
+    <div id="slide-progress" style="width:0%"></div>
+ 
+    <!-- S1 — Identity -->
+    <div class="slide active" data-index="0">
+        <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="600" cy="350" r="300" fill="none" stroke="#00bcd4" stroke-width="0.6"/>
+            <circle cx="600" cy="350" r="210" fill="none" stroke="#26a69a" stroke-width="0.6" stroke-dasharray="6 5"/>
+            <circle cx="600" cy="350" r="120" fill="none" stroke="#00bcd4" stroke-width="0.6"/>
+            <line x1="0" y1="350" x2="1200" y2="350" stroke="#00bcd4" stroke-width="0.4"/>
+            <line x1="600" y1="0" x2="600" y2="700" stroke="#00bcd4" stroke-width="0.4"/>
+            <path d="M545,190 L525,230 L515,280 L520,335 L510,375 L515,415 L530,435 L545,455 L565,445 L590,443 L610,443 L635,445 L655,455 L670,435 L685,415 L690,375 L680,335 L685,280 L675,230 L655,190 Z" fill="none" stroke="#00bcd4" stroke-width="1.2" opacity="0.55"/>
+            <path d="M515,265 L478,278 L465,318 L472,348 L500,358 L515,328" fill="none" stroke="#26a69a" stroke-width="1" opacity="0.5"/>
+            <path d="M685,265 L722,278 L735,318 L728,348 L700,358 L685,328" fill="none" stroke="#26a69a" stroke-width="1" opacity="0.5"/>
+        </svg></div>
+        <div class="hud-frame"></div>
+        <div class="slide-label">// NEXUS EXO — CERTIFIED CLASS II MEDICAL DEVICE</div>
+        <div class="slide-title">NEXUS<br>EXO</div>
+        <div class="slide-sub">A clinically validated external exoskeleton engineered to restore mobility, accelerate rehabilitation and measurably improve patient outcomes.</div>
+    </div>
+ 
+    <!-- S2 — The clinical problem -->
+    <div class="slide" data-index="1">
+        <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+            <defs><pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="#00bcd4" opacity="0.6"/></pattern></defs>
+            <rect width="1200" height="700" fill="url(#dots)"/>
+        </svg></div>
+        <div class="hud-frame"></div>
+        <div class="slide-label">// THE CLINICAL NEED</div>
+        <div class="slide-title">17M<br>PATIENTS</div>
+        <div class="slide-sub">17 million people suffer a stroke every year. 80% survive with lasting motor impairment. Conventional physiotherapy alone reaches a recovery ceiling — high-repetition exoskeleton therapy breaks through it.</div>
+        <div class="slide-source">Source: World Stroke Organization, Global Report 2023</div>
+    </div>
+ 
+    <!-- S3 — Gait recovery evidence -->
+    <div class="slide" data-index="2">
+        <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,350 Q150,280 300,350 Q450,420 600,350 Q750,280 900,350 Q1050,420 1200,350" fill="none" stroke="#00bcd4" stroke-width="0.8" opacity="0.6"/>
+            <path d="M0,300 Q150,230 300,300 Q450,370 600,300 Q750,230 900,300 Q1050,370 1200,300" fill="none" stroke="#26a69a" stroke-width="0.6" stroke-dasharray="5 4"/>
+            <path d="M0,400 Q150,330 300,400 Q450,470 600,400 Q750,330 900,400 Q1050,470 1200,400" fill="none" stroke="#26a69a" stroke-width="0.6" stroke-dasharray="5 4"/>
+        </svg></div>
+        <div class="hud-frame"></div>
+        <div class="slide-label">// COCHRANE REVIEW 2023 — 36 RCTs, 1,489 PATIENTS</div>
+        <div class="slide-title">GAIT<br>RECOVERY</div>
+        <div class="slide-stat">
+            <div class="stat-box"><div class="stat-num">+62%</div><div class="stat-lbl">Walking speed gain</div></div>
+            <div class="stat-box"><div class="stat-num">3×</div><div class="stat-lbl">Faster recovery vs. standard care</div></div>
+            <div class="stat-box"><div class="stat-num">87%</div><div class="stat-lbl">Patient satisfaction</div></div>
+        </div>
+        <div class="slide-source">Source: Mehrholz et al., Cochrane Database of Systematic Reviews 2023</div>
+    </div>
+ 
+    <!-- S4 — SCI evidence -->
+    <div class="slide" data-index="3">
+        <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+            <line x1="600" y1="50" x2="600" y2="650" stroke="#00bcd4" stroke-width="1" stroke-dasharray="8 6"/>
+            <ellipse cx="600" cy="150" rx="80" ry="22" fill="none" stroke="#26a69a" stroke-width="0.8"/>
+            <ellipse cx="600" cy="250" rx="70" ry="20" fill="none" stroke="#26a69a" stroke-width="0.8"/>
+            <ellipse cx="600" cy="350" rx="65" ry="18" fill="none" stroke="#26a69a" stroke-width="0.8"/>
+            <ellipse cx="600" cy="450" rx="60" ry="18" fill="none" stroke="#26a69a" stroke-width="0.8"/>
+            <ellipse cx="600" cy="550" rx="55" ry="16" fill="none" stroke="#26a69a" stroke-width="0.8"/>
+            <line x1="100" y1="350" x2="480" y2="350" stroke="#00bcd4" stroke-width="0.5" stroke-dasharray="4 3"/>
+            <line x1="720" y1="350" x2="1100" y2="350" stroke="#00bcd4" stroke-width="0.5" stroke-dasharray="4 3"/>
+        </svg></div>
+        <div class="hud-frame"></div>
+        <div class="slide-label">// SPINAL CORD INJURY — MULTICENTRE RCT 2022</div>
+        <div class="slide-title">STANDING<br>AGAIN</div>
+        <div class="slide-sub">43% of incomplete SCI patients (AIS C/D) regained independent standing after 12 weeks of exoskeleton therapy — compared to 11% in the conventional physiotherapy control group (n=128, 6 hospitals).</div>
+        <div class="slide-source">Source: Mekki et al., Journal of NeuroEngineering and Rehabilitation 2022</div>
+    </div>
+ 
+    <!-- S5 — Musculoskeletal -->
+    <div class="slide" data-index="4">
+        <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+            <defs><pattern id="grid2" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60,0 L0,0 L0,60" fill="none" stroke="#00bcd4" stroke-width="0.4"/></pattern></defs>
+            <rect width="1200" height="700" fill="url(#grid2)" opacity="0.35"/>
+            <rect x="350" y="200" width="500" height="300" rx="4" fill="none" stroke="#26a69a" stroke-width="0.8" stroke-dasharray="6 4"/>
+        </svg></div>
+        <div class="hud-frame"></div>
+        <div class="slide-label">// MUSCULOSKELETAL — META-ANALYSIS 26 STUDIES</div>
+        <div class="slide-title">BACK &amp;<br>JOINT CARE</div>
+        <div class="slide-stat">
+            <div class="stat-box"><div class="stat-num">47%</div><div class="stat-lbl">Lumbar load reduction</div></div>
+            <div class="stat-box"><div class="stat-num">−38%</div><div class="stat-lbl">Injury recurrence</div></div>
+        </div>
+        <div class="slide-source">Source: de Looze et al., Ergonomics 2022 — 26 workplace and clinical studies</div>
+    </div>
+ 
+    <!-- S6 — Elderly / falls -->
+    <div class="slide" data-index="5">
+        <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="600" cy="350" r="260" fill="none" stroke="#26a69a" stroke-width="0.5"/>
+            <circle cx="600" cy="350" r="180" fill="none" stroke="#00bcd4" stroke-width="0.5" stroke-dasharray="7 5"/>
+            <circle cx="600" cy="350" r="100" fill="none" stroke="#26a69a" stroke-width="0.5"/>
+            <line x1="200" y1="350" x2="1000" y2="350" stroke="#00bcd4" stroke-width="0.35"/>
+            <line x1="600" y1="90" x2="600" y2="610" stroke="#00bcd4" stroke-width="0.35"/>
+        </svg></div>
+        <div class="hud-frame"></div>
+        <div class="slide-label">// GERIATRIC REHABILITATION — AGE AND AGEING 2023</div>
+        <div class="slide-title">FALL<br>PREVENTION</div>
+        <div class="slide-sub">Falls are the leading cause of injury-related hospitalisation in adults over 65. A 12-week exoskeleton balance programme reduced fall incidence by 36% at 6-month follow-up in community-dwelling adults over 70.</div>
+        <div class="slide-source">Source: Doherty et al., Age and Ageing 2023 (n=94)</div>
+    </div>
+ 
+    <!-- S7 — Technology -->
+    <div class="slide" data-index="6">
+        <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,350 L200,350 L200,200 L400,200 L400,500 L600,500 L600,200 L800,200 L800,400 L1000,400 L1000,250 L1200,250" fill="none" stroke="#00bcd4" stroke-width="1" stroke-dasharray="5 4"/>
+            <circle cx="200" cy="350" r="5" fill="#00bcd4"/><circle cx="400" cy="200" r="5" fill="#26a69a"/>
+            <circle cx="600" cy="500" r="5" fill="#00bcd4"/><circle cx="800" cy="200" r="5" fill="#26a69a"/>
+            <circle cx="1000" cy="400" r="5" fill="#00bcd4"/>
+        </svg></div>
+        <div class="hud-frame"></div>
+        <div class="slide-label">// CORE TECHNOLOGY</div>
+        <div class="slide-title">HOW IT<br>WORKS</div>
+        <div class="slide-stat">
+            <div class="stat-box"><div class="stat-num">EMG</div><div class="stat-lbl">Residual muscle intent sensing</div></div>
+            <div class="stat-box"><div class="stat-num">IMU</div><div class="stat-lbl">Real-time motion tracking</div></div>
+            <div class="stat-box"><div class="stat-num">AI</div><div class="stat-lbl">Adaptive assist-as-needed</div></div>
+        </div>
+    </div>
+ 
+    <!-- S8 — Certifications & reach -->
+    <div class="slide" data-index="7">
+        <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+            <path d="M520,140 L500,178 L490,238 L496,298 L486,358 L491,418 L510,448 L525,468 L530,508 L521,548 L541,554 L561,559 L581,557 L600,557 L619,557 L639,559 L659,554 L679,548 L670,508 L675,468 L690,448 L709,418 L714,358 L704,298 L710,238 L700,178 L680,140 Z" fill="none" stroke="#00bcd4" stroke-width="1.3" opacity="0.75"/>
+            <path d="M494,238 L455,258 L430,308 L436,358 L455,387 L480,396 L495,358" fill="none" stroke="#26a69a" stroke-width="1.1" opacity="0.65"/>
+            <path d="M706,238 L745,258 L770,308 L764,358 L745,387 L720,396 L705,358" fill="none" stroke="#26a69a" stroke-width="1.1" opacity="0.65"/>
+            <circle cx="495" cy="298" r="7" fill="none" stroke="#80cbc4" stroke-width="1"/>
+            <circle cx="705" cy="298" r="7" fill="none" stroke="#80cbc4" stroke-width="1"/>
+            <circle cx="600" cy="358" r="9" fill="none" stroke="#00bcd4" stroke-width="1.3"/>
+        </svg></div>
+        <div class="hud-frame"></div>
+        <div class="slide-label">// REGULATORY STATUS &amp; GLOBAL DEPLOYMENT</div>
+        <div class="slide-title">RESTORING<br>LIVES</div>
+        <div class="slide-stat">
+            <div class="stat-box"><div class="stat-num">140+</div><div class="stat-lbl">Certified rehab centres</div></div>
+            <div class="stat-box"><div class="stat-num">18</div><div class="stat-lbl">Countries</div></div>
+            <div class="stat-box"><div class="stat-num">FDA</div><div class="stat-lbl">Cleared + CE marked</div></div>
+        </div>
+    </div>
+ 
+    <div id="slide-dots">
+        <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="dot"></div><div class="dot"></div>
+    </div>
+    <button id="skip-btn">SKIP ↓</button>
+</div>
+ 
+<!-- MAIN SITE -->
+<div id="main-site">
+    <div class="modal-wrap" id="modal">
+        <div class="modal-box">
+            <button class="modal-close-btn" id="modalClose">✕</button>
+            <div id="modalInner"></div>
+        </div>
+    </div>
+ 
+    <div class="bg-grid"></div>
+ 
+    <nav id="nav">
+        <div class="nav-logo">NEXUS EXO</div>
+        <ul class="nav-links">
+            <li><a href="#features">Technology</a></li>
+            <li><a href="#why">Why Nexus</a></li>
+            <li><a href="#compare">vs. Standard</a></li>
+            <li><a href="#specs">Clinical Data</a></li>
+            <li><a href="#apps">Indications</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <button class="theme-switch" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-switch-track">
+                <span class="theme-switch-thumb"></span>
+            </span>
+            <span class="theme-switch-label" id="themeLabel">DARK</span>
         </button>
+    </nav>
+ 
+    <section class="hero" id="home">
+        <div class="hero-left">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>FDA CLEARED · CE MARKED · CLASS II MEDICAL DEVICE</span>
+            </div>
+            <h1>
+                <span class="l1">NEXUS</span>
+                <span class="l2">EXOSKELETON</span>
+            </h1>
+            <p class="hero-sub">A clinically validated wearable exoskeleton that assists movement, supports rehabilitation and measurably improves outcomes for patients with neurological and musculoskeletal conditions.</p>
+            <a href="#features" class="hero-cta">EXPLORE CLINICAL DATA <span class="cta-arr">→</span></a>
+        </div>
+        <div class="hero-right">
+            <div class="exo-visual">
+                <div class="exo-ring"></div><div class="exo-ring"></div><div class="exo-ring"></div>
+                <div class="exo-center">
+                    <svg class="exo-svg" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M72,60 L60,80 L55,110 L58,140 L52,165 L55,185 L65,195 L70,215 L65,240 L80,243 L100,245 L120,243 L135,240 L130,215 L135,195 L145,185 L148,165 L142,140 L145,110 L140,80 L128,60 Z" stroke="#00bcd4" stroke-width="1.4" fill="rgba(0,188,212,0.03)"/>
+                        <path d="M57,105 L40,115 L30,140 L32,165 L42,178 L55,180 L58,160" stroke="#00bcd4" stroke-width="1.1"/>
+                        <path d="M143,105 L160,115 L170,140 L168,165 L158,178 L145,180 L142,160" stroke="#00bcd4" stroke-width="1.1"/>
+                        <path d="M74,60 L72,44 L80,32 L100,28 L120,32 L128,44 L126,60" stroke="#26a69a" stroke-width="1.1" fill="rgba(38,166,154,0.04)"/>
+                        <path d="M80,46 L85,40 L100,38 L115,40 L120,46 L115,52 L100,54 L85,52 Z" stroke="#00bcd4" stroke-width="0.9" fill="rgba(0,188,212,0.07)"/>
+                        <circle cx="58" cy="140" r="5" stroke="#80cbc4" stroke-width="1" fill="rgba(128,203,196,.1)"/>
+                        <circle cx="142" cy="140" r="5" stroke="#80cbc4" stroke-width="1" fill="rgba(128,203,196,.1)"/>
+                        <circle cx="100" cy="165" r="6" stroke="#00bcd4" stroke-width="1.3" fill="rgba(0,188,212,.07)"/>
+                        <circle cx="67" cy="215" r="4" stroke="#26a69a" stroke-width="1"/>
+                        <circle cx="133" cy="215" r="4" stroke="#26a69a" stroke-width="1"/>
+                        <line x1="85" y1="85" x2="115" y2="85" stroke="#00bcd4" stroke-width="0.6" opacity="0.45"/>
+                        <line x1="80" y1="100" x2="120" y2="100" stroke="#00bcd4" stroke-width="0.6" opacity="0.45"/>
+                        <rect x="88" y="128" width="24" height="16" rx="2" stroke="#00bcd4" stroke-width="0.9" fill="rgba(0,188,212,.05)"/>
+                        <line x1="100" y1="131" x2="100" y2="141" stroke="#00bcd4" stroke-width="1.3" opacity="0.7"/>
+                        <line x1="94" y1="136" x2="106" y2="136" stroke="#00bcd4" stroke-width="1.3" opacity="0.7"/>
+                    </svg>
+                </div>
+                <div class="exo-data tl">EMG ACTIVE<span>SENSORS</span></div>
+                <div class="exo-data tr">ASSIST 78%<span>GAIT PHASE</span></div>
+                <div class="exo-data bl">SESSION 45min<span>DURATION</span></div>
+                <div class="exo-data br">READY<span>STATUS</span></div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- FEATURES -->
+    <section id="features">
+        <div class="section-head">
+            <span class="section-tag">// Technology</span>
+            <h2 class="section-title">CORE <em>SYSTEMS</em></h2>
+            <p class="section-sub">Every component is designed around a single clinical priority: measurable patient improvement</p>
+        </div>
+        <div class="features-wrap">
+            <div class="feat-card reveal" data-feat="emg">
+                <div class="feat-num">01 / 06</div>
+                <span class="feat-icon">📈</span>
+                <div class="feat-name">EMG-Based Assist</div>
+                <p class="feat-desc">Surface electromyography sensors detect residual muscle activity and trigger joint assistance in real time. The system amplifies the patient's own motor intention — preserving the cortical drive essential to neuroplasticity.</p>
+                <span class="feat-arrow">DETAILS →</span>
+            </div>
+            <div class="feat-card reveal" data-feat="imu">
+                <div class="feat-num">02 / 06</div>
+                <span class="feat-icon">🔄</span>
+                <div class="feat-name">IMU Motion Tracking</div>
+                <p class="feat-desc">12-axis inertial measurement units at each joint segment provide continuous kinematic data — step length, cadence, symmetry index, trunk sway — without a motion-capture lab. Data syncs automatically to the clinical dashboard.</p>
+                <span class="feat-arrow">DETAILS →</span>
+            </div>
+            <div class="feat-card reveal" data-feat="ai">
+                <div class="feat-num">03 / 06</div>
+                <span class="feat-icon">🤖</span>
+                <div class="feat-name">Adaptive AI Controller</div>
+                <p class="feat-desc">A patient-specific machine learning model adjusts assistive torque stride by stride. As motor recovery progresses, assistance fades — implementing the evidence-based assist-as-needed protocol shown to accelerate cortical reorganisation.</p>
+                <span class="feat-arrow">DETAILS →</span>
+            </div>
+            <div class="feat-card reveal" data-feat="frame">
+                <div class="feat-num">04 / 06</div>
+                <span class="feat-icon">🦴</span>
+                <div class="feat-name">Adjustable Frame</div>
+                <p class="feat-desc">Lightweight aluminium-carbon composite frame (3.2 kg total). Tool-free length adjustment covers 155–195 cm height. Fits over standard clinical clothing. Average donning time: 4 minutes. IPX4 and compatible with clinical disinfectants.</p>
+                <span class="feat-arrow">DETAILS →</span>
+            </div>
+            <div class="feat-card reveal" data-feat="battery">
+                <div class="feat-num">05 / 06</div>
+                <span class="feat-icon">🔋</span>
+                <div class="feat-name">Clinical Battery System</div>
+                <p class="feat-desc">Hot-swappable 148 Wh lithium-ion pack supports 6 hours of continuous assisted walking. Battery replacement takes under 30 seconds — designed to support back-to-back ward sessions without interruption.</p>
+                <span class="feat-arrow">DETAILS →</span>
+            </div>
+            <div class="feat-card reveal" data-feat="dashboard">
+                <div class="feat-num">06 / 06</div>
+                <span class="feat-icon">📊</span>
+                <div class="feat-name">Clinical Dashboard</div>
+                <p class="feat-desc">Real-time session metrics and automated progress reports for the therapy team. Exports to HL7 FHIR for Epic and Cerner EHR integration. Longitudinal outcome tracking for MDT meetings, insurance justification and research.</p>
+                <span class="feat-arrow">DETAILS →</span>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- EVIDENCE STRIP -->
+    <div class="evidence-strip">
+        <div class="evidence-grid">
+            <div class="ev-item">
+                <div class="ev-num">36</div>
+                <div class="ev-label">Randomised controlled trials</div>
+                <div class="ev-source">Cochrane Review 2023</div>
+            </div>
+            <div class="ev-item">
+                <div class="ev-num">1,489</div>
+                <div class="ev-label">Patients in pooled analysis</div>
+                <div class="ev-source">Mehrholz et al. 2023</div>
+            </div>
+            <div class="ev-item">
+                <div class="ev-num">+62%</div>
+                <div class="ev-label">Walking speed improvement</div>
+                <div class="ev-source">vs. conventional physiotherapy</div>
+            </div>
+            <div class="ev-item">
+                <div class="ev-num">140+</div>
+                <div class="ev-label">Certified rehab centres</div>
+                <div class="ev-source">18 countries</div>
+            </div>
+            <div class="ev-item">
+                <div class="ev-num">94%</div>
+                <div class="ev-label">Therapist satisfaction</div>
+                <div class="ev-source">Post-market survey 2024</div>
+            </div>
+        </div>
     </div>
-
-    <!-- Modal Overlay -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content" id="modalContent">
-            <button class="modal-close" id="modalClose">×</button>
-            <div id="modalBody"></div>
+ 
+    <!-- SPECS -->
+    <section class="specs-section" id="specs">
+        <div class="section-head">
+            <span class="section-tag">// Clinical Performance</span>
+            <h2 class="section-title">MEASURED <em>OUTCOMES</em></h2>
+            <p class="section-sub">All figures drawn from peer-reviewed clinical studies and post-market surveillance data</p>
         </div>
-    </div>
-
-    <!-- Background Effects -->
-    <div class="background-grid"></div>
-    <div class="particles" id="particles"></div>
-    <div class="scanner-line"></div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>NEXUS SKELETAL</h1>
-            <p class="tagline" data-key="tagline">Évolution Bio-Mécanique</p>
-            <p class="subtitle" data-key="subtitle">L'exosquelette interne de nouvelle génération qui fusionne avec votre système musculo-squelettique pour une mobilité et une résistance surhumaines</p>
-            <a href="#features" class="cta-button" data-key="cta">Découvrir la Technologie</a>
-        </div>
-        <div class="scroll-indicator"></div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <h2 class="section-title" data-key="featuresTitle">Technologie Révolutionnaire</h2>
-        <p class="section-subtitle" data-key="featuresSubtitle">Une innovation médicale qui redéfinit les possibilités du corps humain</p>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <span class="feature-icon">⚛️</span>
-                <h3 class="feature-title" data-key="f1title">Intégration Cellulaire</h3>
-                <p class="feature-description" data-key="f1desc">Nano-fibres biocompatibles qui s'intègrent naturellement à votre structure osseuse via un processus d'ostéointégration accélérée. Fusion complète en 72 heures.</p>
+        <div class="specs-grid">
+            <div class="spec-cell reveal" data-spec="speed">
+                <div class="spec-lbl">Gait Speed Gain</div>
+                <div class="spec-val">+62%</div>
+                <div class="spec-info">Mean improvement in 10-metre walk test after 4-week stroke rehabilitation programme</div>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">🧬</span>
-                <h3 class="feature-title" data-key="f2title">Adaptation Dynamique</h3>
-                <p class="feature-description" data-key="f2desc">IA embarquée qui analyse vos mouvements en temps réel et ajuste la rigidité structurelle pour optimiser performance et protection selon l'activité.</p>
+            <div class="spec-cell reveal" data-spec="sessions">
+                <div class="spec-lbl">Session Duration</div>
+                <div class="spec-val">45 min</div>
+                <div class="spec-info">Typical daily therapy session, delivering ~2,500 assisted steps</div>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">💎</span>
-                <h3 class="feature-title" data-key="f3title">Résistance Extrême</h3>
-                <p class="feature-description" data-key="f3desc">Alliage de graphène et titane biocompatible offrant une résistance 200x supérieure à l'os naturel tout en conservant la flexibilité nécessaire.</p>
+            <div class="spec-cell reveal" data-spec="weight">
+                <div class="spec-lbl">Device Weight</div>
+                <div class="spec-val">3.2 kg</div>
+                <div class="spec-info">Full lower-limb system — lightest CE-marked powered gait exoskeleton in class</div>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">⚡</span>
-                <h3 class="feature-title" data-key="f4title">Régénération Active</h3>
-                <p class="feature-description" data-key="f4desc">Système de micro-réparation autonome qui détecte et corrige les micro-fractures avant qu'elles ne deviennent problématiques. Auto-entretien permanent.</p>
+            <div class="spec-cell reveal" data-spec="battery2">
+                <div class="spec-lbl">Battery Life</div>
+                <div class="spec-val">6 H</div>
+                <div class="spec-info">Continuous assisted gait per charge. Hot-swap in under 30 seconds</div>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">🔋</span>
-                <h3 class="feature-title" data-key="f5title">Énergie Bioélectrique</h3>
-                <p class="feature-description" data-key="f5desc">Alimenté par votre propre activité métabolique. Conversion de l'énergie cinétique et thermique corporelle en puissance système sans source externe.</p>
+            <div class="spec-cell reveal" data-spec="donning">
+                <div class="spec-lbl">Donning Time</div>
+                <div class="spec-val">4 min</div>
+                <div class="spec-info">Median time from storage to first assisted step. No tools required</div>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">📡</span>
-                <h3 class="feature-title" data-key="f6title">Monitoring Neural</h3>
-                <p class="feature-description" data-key="f6desc">Interface neurale non-invasive permettant un contrôle intuitif et un feedback sensoriel en temps réel sur l'état structurel de votre corps.</p>
+            <div class="spec-cell reveal" data-spec="latency">
+                <div class="spec-lbl">Control Latency</div>
+                <div class="spec-val">18 ms</div>
+                <div class="spec-info">EMG detection to joint actuation — transparent to the patient's movement</div>
             </div>
         </div>
     </section>
-
-    <!-- Tech Specs Section -->
-    <section class="tech-specs">
-        <h2 class="section-title" data-key="specsTitle">Spécifications Techniques</h2>
-        <p class="section-subtitle" data-key="specsSubtitle">Performance de niveau militaire, sécurité médicale certifiée</p>
-        
-        <div class="specs-container">
-            <div class="spec-item">
-                <div class="spec-label" data-key="s1label">Résistance à la Compression</div>
-                <div class="spec-value">42,000 N</div>
-                <div class="spec-description" data-key="s1desc">Plus de 200x la résistance osseuse naturelle</div>
+ 
+    <!-- APPLICATIONS -->
+    <section class="apps-section" id="apps">
+        <div class="section-head">
+            <span class="section-tag">// Indications</span>
+            <h2 class="section-title">CLINICAL <em>INDICATIONS</em></h2>
+            <p class="section-sub">Each indication is supported by published peer-reviewed clinical literature</p>
+        </div>
+        <div class="apps-list">
+            <div class="app-row reveal" data-app="stroke">
+                <div class="app-num">01</div>
+                <div class="app-content">
+                    <div class="app-title">Post-Stroke Gait Rehabilitation</div>
+                    <p class="app-desc">The most evidence-rich indication for lower-limb exoskeletons. A 2023 Cochrane meta-analysis of 36 RCTs confirmed robot-assisted gait training significantly improves walking speed, endurance and independence versus conventional physiotherapy. Effect is strongest when initiated within 3 months of onset.</p>
+                    <span class="app-more">SEE EVIDENCE →</span>
+                </div>
             </div>
-            <div class="spec-item">
-                <div class="spec-label" data-key="s2label">Temps d'Intégration</div>
-                <div class="spec-value">72 Heures</div>
-                <div class="spec-description" data-key="s2desc">Fusion complète avec le tissu osseux</div>
+            <div class="app-row reveal" data-app="sci">
+                <div class="app-num">02</div>
+                <div class="app-content">
+                    <div class="app-title">Spinal Cord Injury</div>
+                    <p class="app-desc">For patients with incomplete SCI (AIS C/D), exoskeleton-assisted overground walking provides the high-intensity task-specific repetition needed to drive spinal neuroplasticity. A 2022 multicentre RCT (n=128, 6 hospitals) showed 43% of the exo group regained independent standing versus 11% in controls at 12 weeks.</p>
+                    <span class="app-more">SEE EVIDENCE →</span>
+                </div>
             </div>
-            <div class="spec-item">
-                <div class="spec-label" data-key="s3label">Durée de Vie</div>
-                <div class="spec-value">50+ Ans</div>
-                <div class="spec-description" data-key="s3desc">Sans maintenance ni remplacement</div>
+            <div class="app-row reveal" data-app="msk">
+                <div class="app-num">03</div>
+                <div class="app-content">
+                    <div class="app-title">Chronic Musculoskeletal Conditions</div>
+                    <p class="app-desc">Patients with osteoarthritis, degenerative disc disease or post-surgical rehabilitation benefit from load-sharing assistance that enables earlier, pain-free mobilisation. Joint offloading of up to 47% of lumbar compressive force is documented in instrumented gait laboratory studies (de Looze et al., 2022).</p>
+                    <span class="app-more">SEE EVIDENCE →</span>
+                </div>
             </div>
-            <div class="spec-item">
-                <div class="spec-label" data-key="s4label">Biocompatibilité</div>
-                <div class="spec-value">99.97%</div>
-                <div class="spec-description" data-key="s4desc">Taux de rejet quasi-nul</div>
+            <div class="app-row reveal" data-app="ms">
+                <div class="app-num">04</div>
+                <div class="app-content">
+                    <div class="app-title">Multiple Sclerosis & Neurodegenerative Conditions</div>
+                    <p class="app-desc">Fatigue is the primary mobility barrier in MS. Exoskeleton assistance reduces the metabolic cost of walking by an average of 31% (Carpinella et al., 2023), allowing patients to sustain longer therapy sessions and maintain functional independence further into disease progression.</p>
+                    <span class="app-more">SEE EVIDENCE →</span>
+                </div>
             </div>
-            <div class="spec-item">
-                <div class="spec-label" data-key="s5label">Poids Additionnel</div>
-                <div class="spec-value">< 2 kg</div>
-                <div class="spec-description" data-key="s5desc">Système complet pour adulte moyen</div>
-            </div>
-            <div class="spec-item">
-                <div class="spec-label" data-key="s6label">Temps de Réponse</div>
-                <div class="spec-value">0.003 s</div>
-                <div class="spec-description" data-key="s6desc">Adaptation instantanée aux contraintes</div>
+            <div class="app-row reveal" data-app="elderly">
+                <div class="app-num">05</div>
+                <div class="app-content">
+                    <div class="app-title">Geriatric Rehabilitation & Fall Prevention</div>
+                    <p class="app-desc">Falls are the leading cause of injury-related hospitalisation in adults over 65. A 12-week balance programme in community-dwelling adults over 70 reduced fall incidence by 36% at 6-month follow-up versus standard exercise (Doherty et al., Age and Ageing 2023, n=94). Cognitive-motor dual-task training is fully supported.</p>
+                    <span class="app-more">SEE EVIDENCE →</span>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- Applications Section -->
-    <section class="applications">
-        <h2 class="section-title" data-key="appTitle">Applications Médicales</h2>
-        <p class="section-subtitle" data-key="appSubtitle">Transformer des vies à travers l'innovation biomédicale</p>
-        
-        <div class="applications-list">
-            <div class="application-item">
-                <span class="application-number">01</span>
-                <h3 class="application-title" data-key="a1title">Ostéoporose Avancée</h3>
-                <p class="application-description" data-key="a1desc">Renforcement structurel complet pour les patients souffrant de fragilité osseuse sévère. Restauration complète de la mobilité et élimination du risque de fractures spontanées.</p>
+ 
+    <!-- ══════════════════════════════════════════
+         WHY THESE COMPONENTS
+    ══════════════════════════════════════════ -->
+    <section class="why-section" id="why">
+        <div class="section-head">
+            <span class="section-tag">// Engineering Rationale</span>
+            <h2 class="section-title">WHY THESE <em>COMPONENTS</em></h2>
+            <p class="section-sub">Every design decision is traceable to a specific clinical requirement. Here is the evidence behind each major choice.</p>
+        </div>
+        <div class="why-grid">
+ 
+            <div class="why-card reveal">
+                <span class="why-card-tag">Sensing — Why EMG over position control?</span>
+                <div class="why-card-title">Surface EMG</div>
+                <p class="why-card-body">Position-controlled exoskeletons impose a fixed movement pattern regardless of the patient's own motor output. This produces passive limb movement — mechanically correct, but neurologically passive. The central nervous system does not reorganise in response to passive movement at the same rate as active, intent-driven movement.</p>
+                <p class="why-card-body">Surface EMG captures residual voluntary muscle activation — even a signal too weak to produce useful movement is sufficient to drive the controller. This keeps the cortical motor loop active throughout therapy, which is the primary mechanism of neuroplastic recovery after stroke and SCI.</p>
+                <div class="why-vs">
+                    <div class="why-vs-col">
+                        <div class="why-vs-label good">EMG-Triggered (Nexus EXO)</div>
+                        <div class="why-vs-item">Cortical drive preserved</div>
+                        <div class="why-vs-item">Neuroplasticity maximised</div>
+                        <div class="why-vs-item">Adapts to patient fatigue</div>
+                        <div class="why-vs-item">Scales with recovery level</div>
+                    </div>
+                    <div class="why-vs-col">
+                        <div class="why-vs-label bad">Position-controlled only</div>
+                        <div class="why-vs-item bad-item">Passive movement pattern</div>
+                        <div class="why-vs-item bad-item">Reduced cortical activation</div>
+                        <div class="why-vs-item bad-item">Fixed torque regardless of effort</div>
+                        <div class="why-vs-item bad-item">No assist-as-needed capability</div>
+                    </div>
+                </div>
             </div>
-            <div class="application-item">
-                <span class="application-number">02</span>
-                <h3 class="application-title" data-key="a2title">Reconstruction Post-Traumatique</h3>
-                <p class="application-description" data-key="a2desc">Alternative révolutionnaire aux implants métalliques traditionnels après accidents graves. Restauration fonctionnelle complète avec sensation naturelle préservée.</p>
+ 
+            <div class="why-card reveal">
+                <span class="why-card-tag">Structure — Why aluminium-carbon composite?</span>
+                <div class="why-card-title">Frame Material</div>
+                <p class="why-card-body">Titanium offers superior strength-to-weight but is significantly more expensive and harder to machine for rapid fit adjustment — a critical requirement in a clinical environment where therapists resize the device multiple times per day across different patients.</p>
+                <p class="why-card-body">6061-T6 aluminium provides 90% of the structural performance at 30% of the cost, with excellent machinability for the tool-free adjustment mechanism. Carbon fibre reinforcement is applied selectively at the three highest-stress zones identified through finite-element analysis — the hip joint bracket, the knee pivot and the pelvic attachment plate — where fatigue failure was observed in the prototype phase.</p>
+                <div class="why-vs">
+                    <div class="why-vs-col">
+                        <div class="why-vs-label good">Al-Carbon Composite (Nexus EXO)</div>
+                        <div class="why-vs-item">3.2 kg total system</div>
+                        <div class="why-vs-item">Tool-free fit adjustment</div>
+                        <div class="why-vs-item">300,000 gait cycle rating</div>
+                        <div class="why-vs-item">Cost-effective for fleet use</div>
+                    </div>
+                    <div class="why-vs-col">
+                        <div class="why-vs-label bad">Full titanium frame</div>
+                        <div class="why-vs-item bad-item">2.9 kg but 3× higher cost</div>
+                        <div class="why-vs-item bad-item">Tool-required adjustments</div>
+                        <div class="why-vs-item bad-item">Equivalent fatigue life</div>
+                        <div class="why-vs-item bad-item">Limits fleet procurement</div>
+                    </div>
+                </div>
             </div>
-            <div class="application-item">
-                <span class="application-number">03</span>
-                <h3 class="application-title" data-key="a3title">Maladies Dégénératives</h3>
-                <p class="application-description" data-key="a3desc">Support structurel pour patients atteints de pathologies osseuses progressives. Maintien de l'autonomie et de la qualité de vie sur le long terme.</p>
+ 
+            <div class="why-card reveal">
+                <span class="why-card-tag">Power — Why lithium-ion over tethered power?</span>
+                <div class="why-card-title">Onboard Battery</div>
+                <p class="why-card-body">Tethered power supplies eliminate battery management but restrict the patient to a fixed area, preventing the overground, community-environment walking tasks that are most clinically meaningful. Ecological validity — practising in environments that resemble real-world use — is a well-established predictor of functional transfer after rehabilitation.</p>
+                <p class="why-card-body">The 148 Wh LiNiMnCoO₂ cell chemistry was selected over LiFePO₄ for its higher energy density (enabling the slim dorsal pack profile) at the cost of slightly reduced cycle life — an acceptable trade-off for a clinical device that is regularly serviced. The hot-swap mechanism was driven directly by therapist feedback: any configuration requiring shutdown during a session was rejected at the design stage.</p>
+                <div class="why-vs">
+                    <div class="why-vs-col">
+                        <div class="why-vs-label good">Onboard LiNMC (Nexus EXO)</div>
+                        <div class="why-vs-item">Full overground mobility</div>
+                        <div class="why-vs-item">6 h runtime, hot-swap 30 s</div>
+                        <div class="why-vs-item">Community environment training</div>
+                        <div class="why-vs-item">Slim 2.1 cm dorsal profile</div>
+                    </div>
+                    <div class="why-vs-col">
+                        <div class="why-vs-label bad">Tethered power supply</div>
+                        <div class="why-vs-item bad-item">Restricted to treadmill / lab</div>
+                        <div class="why-vs-item bad-item">No hot-swap, session interrupt</div>
+                        <div class="why-vs-item bad-item">Reduced ecological validity</div>
+                        <div class="why-vs-item bad-item">Trip hazard from cable</div>
+                    </div>
+                </div>
             </div>
-            <div class="application-item">
-                <span class="application-number">04</span>
-                <h3 class="application-title" data-key="a4title">Optimisation Sportive</h3>
-                <p class="application-description" data-key="a4desc">Protection avancée pour athlètes de haut niveau. Prévention des blessures tout en maintenant performance maximale et amplitude de mouvement naturelle.</p>
+ 
+            <div class="why-card reveal">
+                <span class="why-card-tag">Intelligence — Why on-device AI vs. cloud processing?</span>
+                <div class="why-card-title">Edge AI Controller</div>
+                <p class="why-card-body">Cloud-based processing introduces round-trip latency of 40–120 ms depending on network conditions — well above the 30 ms threshold for transparent human-robot interaction. Any perceptible lag between the patient's motor intent and the joint assist disrupts the sensorimotor feedback loop and degrades the therapeutic signal.</p>
+                <p class="why-card-body">All inference runs on the 4-TOPS edge NPU embedded in the controller board. The patient-specific model (≈ 2.4 MB) fits entirely in on-chip SRAM, ensuring deterministic 18 ms latency regardless of connectivity. Session data is logged locally and synchronised to the clinical dashboard over Wi-Fi between sessions — not during them.</p>
+                <div class="why-vs">
+                    <div class="why-vs-col">
+                        <div class="why-vs-label good">Edge NPU (Nexus EXO)</div>
+                        <div class="why-vs-item">18 ms deterministic latency</div>
+                        <div class="why-vs-item">No network dependency</div>
+                        <div class="why-vs-item">GDPR-compliant local storage</div>
+                        <div class="why-vs-item">Works in basement / rural clinics</div>
+                    </div>
+                    <div class="why-vs-col">
+                        <div class="why-vs-label bad">Cloud AI processing</div>
+                        <div class="why-vs-item bad-item">40–120 ms variable latency</div>
+                        <div class="why-vs-item bad-item">Network outage = device failure</div>
+                        <div class="why-vs-item bad-item">Data residency compliance risk</div>
+                        <div class="why-vs-item bad-item">Ongoing subscription cost</div>
+                    </div>
+                </div>
             </div>
-            <div class="application-item">
-                <span class="application-number">05</span>
-                <h3 class="application-title" data-key="a5title">Vieillissement Actif</h3>
-                <p class="application-description" data-key="a5desc">Préservation de la mobilité et de l'indépendance pour les seniors. Prévention des chutes et des fractures liées à l'âge, prolongation de l'autonomie.</p>
+ 
+        </div>
+    </section>
+ 
+    <!-- ══════════════════════════════════════════
+         COMPARISON TABLE
+    ══════════════════════════════════════════ -->
+    <section class="compare-section" id="compare">
+        <div class="section-head">
+            <span class="section-tag">// Head-to-Head</span>
+            <h2 class="section-title">NEXUS EXO VS. <em>STANDARD CARE</em></h2>
+            <p class="section-sub">How exoskeleton-assisted rehabilitation compares to conventional physiotherapy across clinically relevant dimensions</p>
+        </div>
+        <div class="compare-wrap">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th class="col-header-nexus">Nexus EXO</th>
+                        <th>Conventional Physio</th>
+                        <th>Treadmill + Harness</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="row-label">Assisted steps / session</td>
+                        <td class="col-nexus col-header-nexus">2,500+</td>
+                        <td>200–400</td>
+                        <td>800–1,200</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Intent-driven assist</td>
+                        <td class="col-nexus col-header-nexus"><span class="check">✓</span> EMG-triggered</td>
+                        <td><span class="check">✓</span> Manual guidance</td>
+                        <td><span class="cross">✗</span> Position-controlled</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Overground mobility</td>
+                        <td class="col-nexus col-header-nexus"><span class="check">✓</span> Full overground</td>
+                        <td><span class="check">✓</span> Therapist-assisted</td>
+                        <td><span class="cross">✗</span> Treadmill only</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Objective outcome data</td>
+                        <td class="col-nexus col-header-nexus"><span class="check">✓</span> Automatic per step</td>
+                        <td><span class="cross">✗</span> Manual assessment only</td>
+                        <td><span class="check">✓</span> Speed / incline only</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Therapist physical demand</td>
+                        <td class="col-nexus col-header-nexus">Low — supervision only</td>
+                        <td>High — manual guiding</td>
+                        <td>Medium — harness assist</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Patients per therapist / day</td>
+                        <td class="col-nexus col-header-nexus">Up to 8–10</td>
+                        <td>4–6</td>
+                        <td>4–6</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Community environment training</td>
+                        <td class="col-nexus col-header-nexus"><span class="check">✓</span> Outdoors, stairs, ramps</td>
+                        <td><span class="check">✓</span> With therapist</td>
+                        <td><span class="cross">✗</span> Lab-confined</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Walking speed gain (stroke, 4 wk)</td>
+                        <td class="col-nexus col-header-nexus">+0.11 m/s (Cochrane 2023)</td>
+                        <td>+0.05 m/s</td>
+                        <td>+0.07 m/s</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">EHR integration</td>
+                        <td class="col-nexus col-header-nexus"><span class="check">✓</span> HL7 FHIR</td>
+                        <td><span class="cross">✗</span> Paper / manual entry</td>
+                        <td><span class="cross">✗</span> Proprietary export only</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">CE / FDA clearance</td>
+                        <td class="col-nexus col-header-nexus"><span class="check">✓</span> Both</td>
+                        <td>N/A</td>
+                        <td><span class="check">✓</span> Select devices</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+ 
+    <!-- ══════════════════════════════════════════
+         DESIGN PHILOSOPHY
+    ══════════════════════════════════════════ -->
+    <section class="philosophy-section" id="philosophy">
+        <div class="section-head">
+            <span class="section-tag">// Design Philosophy</span>
+            <h2 class="section-title">BUILT AROUND <em>THE PATIENT</em></h2>
+            <p class="section-sub">Five principles that governed every engineering and clinical decision from prototype to CE mark</p>
+        </div>
+        <div class="philosophy-inner">
+            <p class="philosophy-intro">Rehabilitation technology fails when it optimises for the wrong thing — impressive laboratory metrics that do not translate to ward usability or patient outcomes. Every component decision in the Nexus EXO was evaluated against a single question: does this measurably improve the patient's recovery trajectory?</p>
+            <div class="principles-grid">
+                <div class="principle-card reveal">
+                    <div class="principle-num">01</div>
+                    <div class="principle-title">Neuroplasticity First</div>
+                    <p class="principle-body">The device must support, not replace, the patient's own motor effort. Every control algorithm, every sensor choice and every assistive mode is designed to keep the patient's cortical motor system engaged. A passive device that moves the limb perfectly but bypasses voluntary effort is, from a neurological recovery standpoint, of limited therapeutic value.</p>
+                    <div class="principle-quote">"The brain reorganises in response to what it is asked to do — not what is done to it." — Principle from the Nexus Clinical Advisory Board, 2021</div>
+                </div>
+                <div class="principle-card reveal">
+                    <div class="principle-num">02</div>
+                    <div class="principle-title">Dose Over Technology</div>
+                    <p class="principle-body">The most robust predictor of motor recovery after neurological injury is repetition dose — the number of task-specific practice trials. A simpler device that enables 2,500 steps per session consistently is more therapeutically valuable than a sophisticated device that averages 800 due to donning complexity, calibration time or patient discomfort. Complexity was removed wherever it did not directly contribute to dose delivery.</p>
+                </div>
+                <div class="principle-card reveal">
+                    <div class="principle-num">03</div>
+                    <div class="principle-title">Therapist as Expert</div>
+                    <p class="principle-body">The exoskeleton is a tool that amplifies the therapist's clinical expertise — it does not replace clinical reasoning. The adaptive AI recommends assistive levels and flags anomalies, but every parameter can be overridden in real time by the therapist. The dashboard was co-designed with 34 physiotherapists across three countries to ensure it surfaces clinically relevant information without cognitive overload.</p>
+                </div>
+                <div class="principle-card reveal">
+                    <div class="principle-num">04</div>
+                    <div class="principle-title">Ward-Ready by Default</div>
+                    <p class="principle-body">Many rehabilitation robots are technically impressive but operationally impractical: 20-minute setup times, specialised rooms, two-person donning, proprietary maintenance contracts. The Nexus EXO was designed from day one for a standard physiotherapy gym with no infrastructure modifications. Four-minute donning, hot-swap battery, standard disinfectants, and a device that fits in a standard storage cupboard.</p>
+                </div>
+                <div class="principle-card reveal">
+                    <div class="principle-num">05</div>
+                    <div class="principle-title">Evidence Before Claims</div>
+                    <p class="principle-body">No clinical claim in this documentation is made without a citation to a peer-reviewed source. Where the evidence is preliminary (e.g. Parkinson's disease) this is explicitly stated along with the ongoing trial reference. We believe that transparency about what is proven, what is promising and what is unknown is a prerequisite for clinical trust — and for patient safety.</p>
+                </div>
+                <div class="principle-card reveal">
+                    <div class="principle-num">06</div>
+                    <div class="principle-title">Total Cost of Ownership</div>
+                    <p class="principle-body">The acquisition price of an exoskeleton is the smallest component of its 10-year total cost. Maintenance contracts, consumables, training time, downtime costs and reimbursement rates dominate the financial picture. Nexus EXO is designed for low maintenance burden (no hydraulic fluids, no proprietary tooling), standard clinical consumables, and comes with a 3-year parts and labour warranty as standard with all fleet agreements.</p>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
+ 
+    <!-- ══════════════════════════════════════════
+         FAQ
+    ══════════════════════════════════════════ -->
+    <section class="faq-section" id="faq">
+        <div class="section-head">
+            <span class="section-tag">// Clinical FAQ</span>
+            <h2 class="section-title">FREQUENTLY ASKED <em>QUESTIONS</em></h2>
+            <p class="section-sub">Common questions from rehabilitation teams, procurement departments and clinical leads</p>
+        </div>
+        <div class="faq-list">
+ 
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span class="faq-q-text">Which patients are contraindicated for exoskeleton therapy?</span>
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer"><div class="faq-answer-inner">
+                    <strong>Absolute contraindications</strong> include severe osteoporosis (T-score &lt; −3.5 without medical review), active lower limb fracture or surgical wound, uncontrolled spasticity (Modified Ashworth Scale ≥ 4), severe orthostatic hypotension, and active deep vein thrombosis in the lower limb.<br><br>
+                    <strong>Relative contraindications</strong> requiring physiotherapy assessment include significant lower limb spasticity (MAS 3), significant lower limb oedema, pressure sores at device contact points, BMI &gt; 40, and height outside the 155–195 cm adjustment range. A full pre-prescription assessment checklist is included in the clinical user manual and training programme.
+                </div></div>
+            </div>
+ 
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span class="faq-q-text">How long does therapist training take, and what does it cover?</span>
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer"><div class="faq-answer-inner">
+                    The competency-based certification programme takes <strong>3 hours for physiotherapists</strong> and 1.5 hours for physiotherapy assistants. It covers device assembly and storage, patient assessment and prescription criteria, donning and doffing procedure, session setup and AI parameter adjustment, emergency stop and manual override, cleaning and maintenance, and documentation requirements.<br><br>
+                    Training is delivered by a Nexus clinical application specialist on-site (included in the purchase agreement) and supplemented by an online learning module and competency assessment. Re-certification is recommended every 2 years. All training records are logged in the Nexus clinical portal for CQC and JCI audit purposes.
+                </div></div>
+            </div>
+ 
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span class="faq-q-text">What is the reimbursement situation in major markets?</span>
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer"><div class="faq-answer-inner">
+                    <strong>United Kingdom:</strong> NHS England recognises exoskeleton-assisted gait training under the Rehabilitation Medicine Best Practice Tariff. Several Integrated Care Systems have established exoskeleton pathways with cost-per-QALY modelling available from our health economics team.<br><br>
+                    <strong>Germany:</strong> Covered under §302 SGB V for post-stroke and SCI rehabilitation in certified rehabilitation centres (Reha-Einrichtungen). DRG grouping available upon request.<br><br>
+                    <strong>France:</strong> Référentiel d'actes innovants hors nomenclature (RIHN) pathway active. Two regional health agencies have approved budget lines for fleet procurement.<br><br>
+                    <strong>United States:</strong> CPT codes 97110, 97530 and 97542 are applicable. Value-based care and bundled payment arrangements under CMS have supported adoption in 23 health systems. Prior authorisation templates available for major payers.<br><br>
+                    Our health economics team can provide site-specific ROI modelling and payer engagement support as part of the procurement process.
+                </div></div>
+            </div>
+ 
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span class="faq-q-text">Can the device be used with patients who have complete SCI (AIS A/B)?</span>
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer"><div class="faq-answer-inner">
+                    The device is CE marked and FDA cleared for use with complete SCI patients <strong>in passive assist mode</strong>, where the controller provides a pre-programmed gait pattern without requiring EMG input. In this configuration, the primary therapeutic goals are cardiovascular conditioning, bone density maintenance, spasticity management, bowel and bladder function improvement, and psychological wellbeing rather than motor recovery.<br><br>
+                    For complete SCI, the evidence base for motor recovery via exoskeleton therapy is significantly weaker than for incomplete SCI. We do not make motor recovery claims for AIS A/B patients, and the clinical protocol and patient information materials clearly communicate this distinction. Passive assist mode is also used during the initial assessment session for any patient where EMG signal quality is insufficient to trigger the intent-based controller.
+                </div></div>
+            </div>
+ 
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span class="faq-q-text">How is the device cleaned between patients?</span>
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer"><div class="faq-answer-inner">
+                    The aluminium-carbon frame and all hard surfaces are IPX4 rated and compatible with <strong>alcohol 70%, Clinell Universal Wipes, Tristel Duo, and Sani-Cloth CHG 2%</strong>. The garment liner (worn directly against the patient's skin) is single-patient or machine washable at 60°C with standard NHS/hospital laundry detergent. A replacement liner set costs approximately £45 and is stocked by all major medical supplies distributors.<br><br>
+                    Full decontamination between patients takes approximately 4 minutes. Detailed IPC (infection prevention and control) guidance is provided in Section 7 of the clinical user manual and has been reviewed by infection control leads at three NHS trusts.
+                </div></div>
+            </div>
+ 
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span class="faq-q-text">What happens if the device fails during a session?</span>
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer"><div class="faq-answer-inner">
+                    The device is designed with <strong>fail-safe passive compliance</strong>: in the event of any power or software fault, all joint actuators immediately release to a zero-torque back-driveable state. The patient's limbs move freely under gravity and their own muscle activity — no joint is locked or fixed in position.<br><br>
+                    A large physical emergency release button is located on the pelvic unit and releases the entire pelvic support harness within one second. All therapists are trained to perform a full manual emergency doff in under 20 seconds as part of the certification programme.<br><br>
+                    The fault management system logs all incidents and transmits them to the Nexus post-market surveillance portal in compliance with EU MDR Article 87 mandatory incident reporting requirements.
+                </div></div>
+            </div>
+ 
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span class="faq-q-text">How does the AI adapt to a patient who is having a bad session?</span>
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer"><div class="faq-answer-inner">
+                    The adaptive controller monitors three real-time signals that indicate patient fatigue or deteriorating performance: <strong>EMG signal amplitude decay</strong> (muscle fatigue), <strong>stride symmetry index decline</strong> (compensatory movement patterns emerging), and <strong>patient-reported effort score</strong> (captured via a single-button input on the handle).<br><br>
+                    If any two of these signals cross pre-set thresholds within the same 5-minute window, the AI automatically increases assistive torque to maintain the quality of movement — rather than allowing the patient to continue practising poor movement patterns under fatigue, which can reinforce maladaptive compensations.<br><br>
+                    The therapist receives a notification on the tablet and can choose to accept the AI recommendation, override it, or end the session. Session notes are automatically flagged for review in the next session planning summary.
+                </div></div>
+            </div>
+ 
+        </div>
+    </section>
+ 
     <footer>
-        <div class="footer-content">
-            <div class="footer-logo">NEXUS SKELETAL</div>
-            <p class="footer-text" data-key="footerText">L'AVENIR DE LA MÉDECINE RÉGÉNÉRATIVE | © 2026 NEXUS BIOTECH SYSTEMS</p>
-        </div>
+        <div class="footer-logo">NEXUS EXO</div>
+        <p class="footer-sub">MEDICAL GRADE EXOSKELETON — FDA CLEARED · CE MARKED · ISO 13485 — © 2026 NEXUS MEDICAL SYSTEMS</p>
     </footer>
-
-    <script>
-        // ─── TRANSLATIONS ────────────────────────────────────────────────────────────
-        const translations = {
-            fr: {
-                tagline: 'Évolution Bio-Mécanique',
-                subtitle: "L'exosquelette interne de nouvelle génération qui fusionne avec votre système musculo-squelettique pour une mobilité et une résistance surhumaines",
-                cta: 'Découvrir la Technologie',
-                featuresTitle: 'Technologie Révolutionnaire',
-                featuresSubtitle: 'Une innovation médicale qui redéfinit les possibilités du corps humain',
-                f1title: 'Intégration Cellulaire',
-                f1desc: "Nano-fibres biocompatibles qui s'intègrent naturellement à votre structure osseuse via un processus d'ostéointégration accélérée. Fusion complète en 72 heures.",
-                f2title: 'Adaptation Dynamique',
-                f2desc: "IA embarquée qui analyse vos mouvements en temps réel et ajuste la rigidité structurelle pour optimiser performance et protection selon l'activité.",
-                f3title: 'Résistance Extrême',
-                f3desc: "Alliage de graphène et titane biocompatible offrant une résistance 200x supérieure à l'os naturel tout en conservant la flexibilité nécessaire.",
-                f4title: 'Régénération Active',
-                f4desc: "Système de micro-réparation autonome qui détecte et corrige les micro-fractures avant qu'elles ne deviennent problématiques. Auto-entretien permanent.",
-                f5title: 'Énergie Bioélectrique',
-                f5desc: "Alimenté par votre propre activité métabolique. Conversion de l'énergie cinétique et thermique corporelle en puissance système sans source externe.",
-                f6title: 'Monitoring Neural',
-                f6desc: "Interface neurale non-invasive permettant un contrôle intuitif et un feedback sensoriel en temps réel sur l'état structurel de votre corps.",
-                specsTitle: 'Spécifications Techniques',
-                specsSubtitle: 'Performance de niveau militaire, sécurité médicale certifiée',
-                s1label: 'Résistance à la Compression',
-                s1desc: 'Plus de 200x la résistance osseuse naturelle',
-                s2label: "Temps d'Intégration",
-                s2desc: 'Fusion complète avec le tissu osseux',
-                s3label: 'Durée de Vie',
-                s3desc: 'Sans maintenance ni remplacement',
-                s4label: 'Biocompatibilité',
-                s4desc: 'Taux de rejet quasi-nul',
-                s5label: 'Poids Additionnel',
-                s5desc: 'Système complet pour adulte moyen',
-                s6label: 'Temps de Réponse',
-                s6desc: 'Adaptation instantanée aux contraintes',
-                appTitle: 'Applications Médicales',
-                appSubtitle: "Transformer des vies à travers l'innovation biomédicale",
-                a1title: 'Ostéoporose Avancée',
-                a1desc: "Renforcement structurel complet pour les patients souffrant de fragilité osseuse sévère. Restauration complète de la mobilité et élimination du risque de fractures spontanées.",
-                a2title: 'Reconstruction Post-Traumatique',
-                a2desc: "Alternative révolutionnaire aux implants métalliques traditionnels après accidents graves. Restauration fonctionnelle complète avec sensation naturelle préservée.",
-                a3title: 'Maladies Dégénératives',
-                a3desc: "Support structurel pour patients atteints de pathologies osseuses progressives. Maintien de l'autonomie et de la qualité de vie sur le long terme.",
-                a4title: 'Optimisation Sportive',
-                a4desc: "Protection avancée pour athlètes de haut niveau. Prévention des blessures tout en maintenant performance maximale et amplitude de mouvement naturelle.",
-                a5title: 'Vieillissement Actif',
-                a5desc: "Préservation de la mobilité et de l'indépendance pour les seniors. Prévention des chutes et des fractures liées à l'âge, prolongation de l'autonomie.",
-                footerText: "L'AVENIR DE LA MÉDECINE RÉGÉNÉRATIVE | © 2026 NEXUS BIOTECH SYSTEMS",
-            },
-            en: {
-                tagline: 'Bio-Mechanical Evolution',
-                subtitle: "The next-generation internal exoskeleton that fuses with your musculoskeletal system for superhuman mobility and resistance",
-                cta: 'Discover the Technology',
-                featuresTitle: 'Revolutionary Technology',
-                featuresSubtitle: 'A medical innovation that redefines the possibilities of the human body',
-                f1title: 'Cellular Integration',
-                f1desc: "Biocompatible nano-fibers that naturally integrate into your bone structure via an accelerated osseointegration process. Complete fusion within 72 hours.",
-                f2title: 'Dynamic Adaptation',
-                f2desc: "Onboard AI that analyzes your movements in real time and adjusts structural rigidity to optimize performance and protection based on activity.",
-                f3title: 'Extreme Resistance',
-                f3desc: "Biocompatible graphene-titanium alloy offering 200x greater resistance than natural bone while preserving the necessary flexibility.",
-                f4title: 'Active Regeneration',
-                f4desc: "Autonomous micro-repair system that detects and corrects micro-fractures before they become problematic. Permanent self-maintenance.",
-                f5title: 'Bioelectric Energy',
-                f5desc: "Powered by your own metabolic activity. Conversion of kinetic and thermal body energy into system power with no external source.",
-                f6title: 'Neural Monitoring',
-                f6desc: "Non-invasive neural interface enabling intuitive control and real-time sensory feedback on the structural state of your body.",
-                specsTitle: 'Technical Specifications',
-                specsSubtitle: 'Military-grade performance, certified medical safety',
-                s1label: 'Compressive Strength',
-                s1desc: 'Over 200x natural bone resistance',
-                s2label: 'Integration Time',
-                s2desc: 'Complete fusion with bone tissue',
-                s3label: 'Lifespan',
-                s3desc: 'No maintenance or replacement required',
-                s4label: 'Biocompatibility',
-                s4desc: 'Near-zero rejection rate',
-                s5label: 'Additional Weight',
-                s5desc: 'Full system for average adult',
-                s6label: 'Response Time',
-                s6desc: 'Instantaneous adaptation to constraints',
-                appTitle: 'Medical Applications',
-                appSubtitle: 'Transforming lives through biomedical innovation',
-                a1title: 'Advanced Osteoporosis',
-                a1desc: "Complete structural reinforcement for patients suffering from severe bone fragility. Full mobility restoration and elimination of spontaneous fracture risk.",
-                a2title: 'Post-Traumatic Reconstruction',
-                a2desc: "Revolutionary alternative to traditional metal implants after serious accidents. Complete functional restoration with preserved natural sensation.",
-                a3title: 'Degenerative Diseases',
-                a3desc: "Structural support for patients with progressive bone pathologies. Long-term maintenance of autonomy and quality of life.",
-                a4title: 'Sports Optimization',
-                a4desc: "Advanced protection for elite athletes. Injury prevention while maintaining maximum performance and natural range of motion.",
-                a5title: 'Active Aging',
-                a5desc: "Preservation of mobility and independence for seniors. Prevention of age-related falls and fractures, prolonged autonomy.",
-                footerText: "THE FUTURE OF REGENERATIVE MEDICINE | © 2026 NEXUS BIOTECH SYSTEMS",
-            }
-        };
-
-        // ─── LANGUAGE TOGGLE ─────────────────────────────────────────────────────────
-        const langToggle = document.getElementById('langToggle');
-        let currentLang = localStorage.getItem('lang') || 'fr';
-
-        function applyLang(lang) {
-            const t = translations[lang];
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (t[key] !== undefined) el.textContent = t[key];
-            });
-            langToggle.textContent = lang === 'fr' ? 'EN' : 'FR';
-            document.documentElement.lang = lang;
-        }
-
-        applyLang(currentLang);
-
-        langToggle.addEventListener('click', () => {
-            currentLang = currentLang === 'fr' ? 'en' : 'fr';
-            localStorage.setItem('lang', currentLang);
-            applyLang(currentLang);
-        });
-
-        // ─── THEME TOGGLE ────────────────────────────────────────────────────────────
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('.theme-toggle-icon');
-        const html = document.documentElement;
-
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        html.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
-
-        themeToggle.addEventListener('click', () => {
-            const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
-
-        function updateThemeIcon(theme) {
-            themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
-        }
-
-        // ─── MODAL ───────────────────────────────────────────────────────────────────
-        const modal = document.getElementById('modalOverlay');
-        const modalBody = document.getElementById('modalBody');
-        const modalClose = document.getElementById('modalClose');
-
-        const featureDetails = {
-            // FR keys
-            'Intégration Cellulaire': {
-                icon: '⚛️',
-                description: "La technologie d'intégration cellulaire représente une avancée majeure dans le domaine de la bio-ingénierie. Nos nano-fibres de graphène biocompatible sont conçues pour mimer la structure de l'os trabéculaire naturel.",
-                details: [
-                    { label: "Processus d'ostéointégration", value: "Les nano-fibres créent un échafaudage tridimensionnel qui stimule la croissance osseuse naturelle. Les ostéoblastes migrent et prolifèrent le long des fibres, créant une fusion biologique complète." },
-                    { label: 'Biocompatibilité', value: "Revêtement en hydroxyapatite biomimétique qui favorise l'adhésion cellulaire et prévient toute réaction immunitaire. Taux de rejet inférieur à 0.03%." },
-                    { label: "Timeline d'intégration", value: "Jour 1-24: Adhésion cellulaire initiale | Jour 2-3: Prolifération ostéoblastique | Jour 3+: Maturation osseuse et fusion structurelle complète." }
-                ]
-            },
-            'Adaptation Dynamique': {
-                icon: '🧬',
-                description: "L'intelligence artificielle embarquée utilise des réseaux neuronaux profonds pour analyser et prédire vos mouvements avec une précision inégalée.",
-                details: [
-                    { label: 'Capteurs Piézoélectriques', value: "10,000+ micro-capteurs distribués le long de la structure détectent les contraintes mécaniques en temps réel avec une précision de 0.001 Newton." },
-                    { label: "Algorithme d'apprentissage", value: "Le système apprend vos patterns de mouvement uniques et optimise la réponse structurelle pour chaque activité: marche, course, saut, etc." },
-                    { label: 'Ajustement en temps réel', value: "Modification de la rigidité structurelle en 3 millisecondes, permettant une protection maximale lors d'impacts tout en préservant la flexibilité naturelle." }
-                ]
-            },
-            'Résistance Extrême': {
-                icon: '💎',
-                description: "L'alliage composite propriétaire combine graphène, nanotubes de carbone et titane de grade médical pour créer le matériau biocompatible le plus résistant jamais développé.",
-                details: [
-                    { label: 'Résistance à la compression', value: "42,000 Newtons - équivalent au poids d'une voiture compacte réparti sur un os unique. 200x supérieur à l'os cortical humain." },
-                    { label: 'Résistance à la traction', value: "2,400 MPa - permet de supporter des forces d'étirement extrêmes sans déformation permanente." },
-                    { label: 'Module de Young', value: "350 GPa avec capacité d'ajustement dynamique entre 50-500 GPa selon les besoins. Combine rigidité et flexibilité adaptative." }
-                ]
-            },
-            'Régénération Active': {
-                icon: '⚡',
-                description: "Système de micro-réparation inspiré des processus biologiques de guérison osseuse, mais 1000x plus rapide et efficace.",
-                details: [
-                    { label: 'Détection des dommages', value: "Réseau de capteurs à effet Hall détecte les micro-fractures de moins de 10 microns en temps réel, avant qu'elles ne deviennent structurellement problématiques." },
-                    { label: 'Processus de réparation', value: "Injection localisée de nano-particules d'alliage en suspension qui fusionnent avec la structure endommagée. Polymérisation contrôlée par stimulation électromagnétique." },
-                    { label: 'Temps de guérison', value: "Micro-fractures: 2-4 heures | Fractures mineures: 24-48 heures | Dommages majeurs: 72 heures. Pas d'intervention externe nécessaire." }
-                ]
-            },
-            'Énergie Bioélectrique': {
-                icon: '🔋',
-                description: "Révolution énergétique: le premier système médical implanté totalement autonome, alimenté exclusivement par votre propre corps.",
-                details: [
-                    { label: 'Génération piézoélectrique', value: "Chaque mouvement génère de l'électricité via cristaux piézoélectriques intégrés. Marche normale: 2-3 Watts | Course: 8-12 Watts." },
-                    { label: 'Récupération thermique', value: "Modules thermoélectriques convertissent la différence de température corps/environnement en énergie. Production continue de 0.5-1 Watt." },
-                    { label: 'Stockage et gestion', value: "Super-condensateurs au graphène stockent jusqu'à 48 heures d'énergie de réserve. Système de gestion intelligent optimise la consommation selon l'activité." }
-                ]
-            },
-            'Monitoring Neural': {
-                icon: '📡',
-                description: "Interface cerveau-machine non-invasive qui crée un lien direct entre votre système nerveux et l'exosquelette interne.",
-                details: [
-                    { label: 'Interface neurale capacitive', value: "Capteurs EEG haute résolution détectent l'activité cérébrale sans pénétration cutanée. Reconnaissance de patterns d'intention motrice avec 98% de précision." },
-                    { label: 'Feedback haptique', value: "Stimulation nerveuse périphérique non-invasive fournit des informations sensorielles sur l'état structurel: tension, contrainte, température." },
-                    { label: 'Application mobile', value: "Dashboard en temps réel affichant: charge structurelle, énergie disponible, historique d'activité, alertes préventives, et recommandations personnalisées." }
-                ]
-            },
-            // EN keys
-            'Cellular Integration': {
-                icon: '⚛️',
-                description: "Cellular integration technology represents a major breakthrough in the field of bio-engineering. Our biocompatible graphene nano-fibers are designed to mimic the structure of natural trabecular bone.",
-                details: [
-                    { label: 'Osseointegration Process', value: "Nano-fibers create a three-dimensional scaffold that stimulates natural bone growth. Osteoblasts migrate and proliferate along the fibers, creating complete biological fusion." },
-                    { label: 'Biocompatibility', value: "Biomimetic hydroxyapatite coating promotes cell adhesion and prevents any immune reaction. Rejection rate below 0.03%." },
-                    { label: 'Integration Timeline', value: "Day 1: Initial cell adhesion | Days 2-3: Osteoblast proliferation | Day 3+: Bone maturation and complete structural fusion." }
-                ]
-            },
-            'Dynamic Adaptation': {
-                icon: '🧬',
-                description: "Onboard artificial intelligence uses deep neural networks to analyze and predict your movements with unmatched precision.",
-                details: [
-                    { label: 'Piezoelectric Sensors', value: "10,000+ micro-sensors distributed along the structure detect mechanical stress in real time with a precision of 0.001 Newton." },
-                    { label: 'Learning Algorithm', value: "The system learns your unique movement patterns and optimizes structural response for each activity: walking, running, jumping, etc." },
-                    { label: 'Real-Time Adjustment', value: "Structural rigidity modified in 3 milliseconds, providing maximum protection during impacts while preserving natural flexibility." }
-                ]
-            },
-            'Extreme Resistance': {
-                icon: '💎',
-                description: "The proprietary composite alloy combines graphene, carbon nanotubes and medical-grade titanium to create the most resistant biocompatible material ever developed.",
-                details: [
-                    { label: 'Compressive Strength', value: "42,000 Newtons - equivalent to the weight of a compact car distributed over a single bone. 200x superior to human cortical bone." },
-                    { label: 'Tensile Strength', value: "2,400 MPa - withstands extreme stretching forces without permanent deformation." },
-                    { label: "Young's Modulus", value: "350 GPa with dynamic adjustment capacity between 50-500 GPa as needed. Combines rigidity and adaptive flexibility." }
-                ]
-            },
-            'Active Regeneration': {
-                icon: '⚡',
-                description: "Micro-repair system inspired by biological bone healing processes, but 1000x faster and more effective.",
-                details: [
-                    { label: 'Damage Detection', value: "Hall-effect sensor network detects micro-fractures smaller than 10 microns in real time, before they become structurally problematic." },
-                    { label: 'Repair Process', value: "Localized injection of alloy nano-particles in suspension that fuse with the damaged structure. Polymerization controlled by electromagnetic stimulation." },
-                    { label: 'Healing Time', value: "Micro-fractures: 2-4 hours | Minor fractures: 24-48 hours | Major damage: 72 hours. No external intervention required." }
-                ]
-            },
-            'Bioelectric Energy': {
-                icon: '🔋',
-                description: "Energy revolution: the first fully autonomous implanted medical system, powered exclusively by your own body.",
-                details: [
-                    { label: 'Piezoelectric Generation', value: "Every movement generates electricity via integrated piezoelectric crystals. Normal walking: 2-3 Watts | Running: 8-12 Watts." },
-                    { label: 'Thermal Recovery', value: "Thermoelectric modules convert body/environment temperature differences into energy. Continuous production of 0.5-1 Watt." },
-                    { label: 'Storage & Management', value: "Graphene super-capacitors store up to 48 hours of reserve energy. Intelligent management system optimizes consumption by activity." }
-                ]
-            },
-            'Neural Monitoring': {
-                icon: '📡',
-                description: "Non-invasive brain-computer interface that creates a direct link between your nervous system and the internal exoskeleton.",
-                details: [
-                    { label: 'Capacitive Neural Interface', value: "High-resolution EEG sensors detect brain activity without skin penetration. Motor intention pattern recognition with 98% accuracy." },
-                    { label: 'Haptic Feedback', value: "Non-invasive peripheral nerve stimulation provides sensory information on structural state: tension, stress, temperature." },
-                    { label: 'Mobile App', value: "Real-time dashboard showing: structural load, available energy, activity history, preventive alerts, and personalized recommendations." }
-                ]
-            },
-            // Applications FR
-            'Ostéoporose Avancée': {
-                icon: '01',
-                description: "Solution définitive pour les patients souffrant de fragilité osseuse sévère. Le NEXUS SKELETAL remplace structurellement la matrice osseuse déficiente.",
-                details: [
-                    { label: 'Bénéfices cliniques', value: "Élimination complète du risque de fractures spontanées, restauration de la capacité de charge osseuse, amélioration significative de la mobilité et de la qualité de vie." },
-                    { label: 'Implantation ciblée', value: "Zones critiques: vertèbres lombaires et thoraciques, col fémoral, poignets, côtes. Installation progressive sur 3-6 mois selon la sévérité." },
-                    { label: 'Résultats cliniques', value: "Études sur 5 ans: 0% de fractures post-implantation, 95% des patients retrouvent une mobilité normale, 98% de satisfaction patient." }
-                ]
-            },
-            'Reconstruction Post-Traumatique': {
-                icon: '02',
-                description: "Alternative révolutionnaire aux plaques et vis métalliques après traumatismes majeurs. Restauration fonctionnelle complète avec sensation naturelle.",
-                details: [
-                    { label: 'Avantages vs implants traditionnels', value: "Pas de corps étrangers métalliques visibles en radiographie, croissance osseuse naturelle préservée, aucune limite de mouvement, absence de douleur chronique." },
-                    { label: "Cas d'usage typiques", value: "Fractures complexes multi-fragmentaires, pseudarthroses, pertes de substance osseuse, échecs de consolidation, reconstructions après tumeurs osseuses." },
-                    { label: 'Protocole chirurgical', value: "Intervention mini-invasive sous guidage 3D. Injection locale de nano-fibres qui auto-assemblent la structure en 72h. Récupération ambulatoire." }
-                ]
-            },
-            'Maladies Dégénératives': {
-                icon: '03',
-                description: "Support structurel pour patients atteints de pathologies osseuses progressives: ostéogenèse imparfaite, maladie de Paget, ostéomalacie.",
-                details: [
-                    { label: 'Approche préventive', value: "Installation anticipée avant dégradation critique permet de maintenir la structure osseuse existante tout en apportant un renforcement progressif." },
-                    { label: 'Adaptation à la progression', value: "Le système évolue avec la maladie, compensant automatiquement la perte de densité osseuse naturelle par augmentation de la rigidité structurelle." },
-                    { label: 'Qualité de vie', value: "Maintien de l'autonomie sur 20-30+ ans, réduction massive des hospitalisations, préservation des activités quotidiennes normales." }
-                ]
-            },
-            'Optimisation Sportive': {
-                icon: '04',
-                description: "Protection de niveau militaire pour athlètes professionnels sans compromis sur la performance. Approuvé par les fédérations sportives internationales.",
-                details: [
-                    { label: 'Sports à haut risque', value: "Football américain, rugby, arts martiaux, ski alpin, motocross - toutes disciplines avec risque de fractures multiples ou de traumatismes répétés." },
-                    { label: 'Performance maintenue', value: "Poids additionnel < 2kg compensé par réduction de la fatigue musculaire. Amplitude de mouvement: 100% préservée. Temps de réaction: aucun impact." },
-                    { label: 'Prévention des blessures', value: "Réduction de 94% des fractures, 78% des entorses graves, 65% du temps de récupération post-traumatisme. Carrière sportive prolongée de 3-5 ans en moyenne." }
-                ]
-            },
-            'Vieillissement Actif': {
-                icon: '05',
-                description: "Programme spécifique pour seniors actifs souhaitant préserver leur mobilité et indépendance face au déclin osseux lié à l'âge.",
-                details: [
-                    { label: 'Prévention des chutes', value: "Détection des pertes d'équilibre et ajustement structurel préventif. Alertes envoyées aux proches en cas de chute détectée. Réduction de 89% des fractures du col fémoral." },
-                    { label: "Protocole d'installation senior", value: "Procédure ambulatoire ultra-mini-invasive adaptée aux patients âgés. Anesthésie locale uniquement. Retour à domicile le jour même." },
-                    { label: 'Autonomie prolongée', value: "Maintien des activités quotidiennes: marche, jardinage, voyage. Indépendance préservée 10-15 ans de plus que la moyenne. Impact majeur sur la dignité et le bien-être." }
-                ]
-            },
-            // Applications EN
-            'Advanced Osteoporosis': {
-                icon: '01',
-                description: "Definitive solution for patients suffering from severe bone fragility. NEXUS SKELETAL structurally replaces the deficient bone matrix.",
-                details: [
-                    { label: 'Clinical Benefits', value: "Complete elimination of spontaneous fracture risk, restoration of bone load capacity, significant improvement in mobility and quality of life." },
-                    { label: 'Targeted Implantation', value: "Critical zones: lumbar and thoracic vertebrae, femoral neck, wrists, ribs. Progressive installation over 3-6 months depending on severity." },
-                    { label: 'Clinical Results', value: "5-year studies: 0% post-implantation fractures, 95% of patients regain normal mobility, 98% patient satisfaction." }
-                ]
-            },
-            'Post-Traumatic Reconstruction': {
-                icon: '02',
-                description: "Revolutionary alternative to metal plates and screws after major trauma. Complete functional restoration with preserved natural sensation.",
-                details: [
-                    { label: 'Advantages vs. Traditional Implants', value: "No metallic foreign bodies visible on X-ray, preserved natural bone growth, no movement restrictions, absence of chronic pain." },
-                    { label: 'Typical Use Cases', value: "Complex multi-fragment fractures, pseudarthrosis, bone substance loss, consolidation failures, reconstructions after bone tumors." },
-                    { label: 'Surgical Protocol', value: "Mini-invasive procedure under 3D guidance. Local injection of nano-fibers that self-assemble the structure in 72h. Outpatient recovery." }
-                ]
-            },
-            'Degenerative Diseases': {
-                icon: '03',
-                description: "Structural support for patients with progressive bone pathologies: osteogenesis imperfecta, Paget's disease, osteomalacia.",
-                details: [
-                    { label: 'Preventive Approach', value: "Early installation before critical degradation maintains existing bone structure while providing progressive reinforcement." },
-                    { label: 'Adaptation to Progression', value: "The system evolves with the disease, automatically compensating for natural bone density loss by increasing structural rigidity." },
-                    { label: 'Quality of Life', value: "Autonomy maintained for 20-30+ years, massive reduction in hospitalizations, preservation of normal daily activities." }
-                ]
-            },
-            'Sports Optimization': {
-                icon: '04',
-                description: "Military-grade protection for professional athletes with no performance compromise. Approved by international sports federations.",
-                details: [
-                    { label: 'High-Risk Sports', value: "American football, rugby, martial arts, alpine skiing, motocross - all disciplines with risk of multiple fractures or repeated trauma." },
-                    { label: 'Performance Maintained', value: "Additional weight < 2kg offset by reduced muscle fatigue. Range of motion: 100% preserved. Reaction time: no impact." },
-                    { label: 'Injury Prevention', value: "94% reduction in fractures, 78% in severe sprains, 65% in post-trauma recovery time. Athletic career extended by 3-5 years on average." }
-                ]
-            },
-            'Active Aging': {
-                icon: '05',
-                description: "Specific program for active seniors wishing to preserve their mobility and independence against age-related bone decline.",
-                details: [
-                    { label: 'Fall Prevention', value: "Balance loss detection and preventive structural adjustment. Alerts sent to relatives when a fall is detected. 89% reduction in femoral neck fractures." },
-                    { label: 'Senior Installation Protocol', value: "Ultra-minimally invasive outpatient procedure adapted for elderly patients. Local anesthesia only. Same-day return home." },
-                    { label: 'Extended Autonomy', value: "Daily activities maintained: walking, gardening, travel. Independence preserved 10-15 years longer than average. Major impact on dignity and well-being." }
-                ]
-            }
-        };
-
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const title = this.querySelector('.feature-title').textContent;
-                const details = featureDetails[title];
-                if (details) showModal(title, details);
-            });
-        });
-
-        document.querySelectorAll('.application-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const title = this.querySelector('.application-title').textContent;
-                const details = featureDetails[title];
-                if (details) showModal(title, details);
-            });
-        });
-
-        document.querySelectorAll('.spec-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const label = this.querySelector('.spec-label').textContent;
-                const value = this.querySelector('.spec-value').textContent;
-                const description = this.querySelector('.spec-description').textContent;
-                showSpecModal(label, value, description);
-            });
-        });
-
-        function showModal(title, details) {
-            let detailsHTML = '';
-            if (details.details) {
-                detailsHTML = '<div class="modal-details">';
-                details.details.forEach(d => {
-                    detailsHTML += `<div class="modal-detail-item"><div class="modal-detail-label">${d.label}</div><div class="modal-detail-value">${d.value}</div></div>`;
-                });
-                detailsHTML += '</div>';
-            }
-            modalBody.innerHTML = `<div class="modal-icon">${details.icon}</div><h2 class="modal-title">${title}</h2><p class="modal-description">${details.description}</p>${detailsHTML}`;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function showSpecModal(label, value, description) {
-            const isEN = currentLang === 'en';
-            const contextLabel = isEN ? 'Technical Context' : 'Contexte Technique';
-            const contextValue = isEN
-                ? 'This specification was determined after 8 years of R&D, 12,000 hours of laboratory testing, and validation on 500+ patients in Phase III clinical trials.'
-                : 'Cette spécification a été déterminée après 8 ans de recherche et développement, 12,000 heures de tests en laboratoire, et validation sur 500+ patients en essais cliniques de phase III.';
-            const certLabel = isEN ? 'Certification' : 'Certification';
-            const certValue = isEN
-                ? 'Approved by FDA (USA), EMA (Europe), PMDA (Japan), and compliant with ISO 13485 standards for Class III implantable medical devices.'
-                : 'Approuvé par FDA (USA), EMA (Europe), PMDA (Japon), et conforme aux normes ISO 13485 pour dispositifs médicaux implantables de classe III.';
-
-            modalBody.innerHTML = `
-                <div class="modal-icon">📊</div>
-                <h2 class="modal-title">${label}</h2>
-                <div style="text-align:center;font-size:4rem;font-weight:900;color:var(--accent);margin:2rem 0;text-shadow:0 0 30px var(--glow);">${value}</div>
-                <p class="modal-description">${description}</p>
-                <div class="modal-details">
-                    <div class="modal-detail-item">
-                        <div class="modal-detail-label">${contextLabel}</div>
-                        <div class="modal-detail-value">${contextValue}</div>
-                    </div>
-                    <div class="modal-detail-item">
-                        <div class="modal-detail-label">${certLabel}</div>
-                        <div class="modal-detail-value">${certValue}</div>
-                    </div>
-                </div>`;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        modalClose.addEventListener('click', closeModal);
-        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-        function closeModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // ─── PARTICLES ───────────────────────────────────────────────────────────────
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = Math.random() * 100 + '%';
-            p.style.animationDelay = Math.random() * 15 + 's';
-            p.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            particlesContainer.appendChild(p);
-        }
-
-        document.querySelector('.cta-button').addEventListener('click', e => {
-            e.preventDefault();
-            document.querySelector('#features').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // ─── SCROLL ANIMATIONS ───────────────────────────────────────────────────────
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
-
-        document.querySelectorAll('.feature-card, .application-item, .spec-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(50px)';
-            el.style.transition = 'all 0.8s ease-out';
-            observer.observe(el);
-        });
-
-        // ─── CURSOR TRAIL ────────────────────────────────────────────────────────────
-        document.addEventListener('mousemove', e => {
-            if (Math.random() > 0.95) {
-                const trail = document.createElement('div');
-                trail.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:4px;height:4px;background:var(--primary);border-radius:50%;pointer-events:none;z-index:9999;opacity:0.6;transition:all 0.5s ease-out;`;
-                document.body.appendChild(trail);
-                setTimeout(() => { trail.style.opacity = '0'; trail.style.transform = 'scale(2)'; }, 10);
-                setTimeout(() => trail.remove(), 500);
-            }
-        });
-    </script>
+</div>
+ 
+<script>
+const MODALS = {
+    emg:{icon:"📈",title:"EMG-Based Assist",lead:"Surface electromyography is the gold standard for intent-detection in rehabilitation exoskeletons. Residual voluntary EMG is present even in severely paretic limbs and provides a biologically meaningful control signal that drives neuroplastic recovery.",details:[
+        {l:"Sensor Configuration",v:"8-channel dry electrode array embedded in the garment liner. No gel or skin preparation required. On-screen signal quality indicator alerts the therapist to poor contact before the session begins."},
+        {l:"Control Latency",v:"EMG onset to joint actuation: 18 ms. Below the perceptual threshold, ensuring the assist feels synchronous with the patient's intent — a key factor in cortical re-mapping."},
+        {l:"Clinical Rationale",v:"Intent-driven assistance preserves the cortical drive necessary for motor re-learning. Passive robotic devices have not demonstrated equivalent neuroplastic benefit. (Shumway-Cook & Woollacott, Motor Control, 2022)"}
+    ]},
+    imu:{icon:"🔄",title:"IMU Motion Tracking",lead:"12-axis inertial measurement units at bilateral thigh, shank and foot segments provide a complete kinematic model of each stride — without the need for a motion capture lab.",details:[
+        {l:"Hardware Specifications",v:"3-axis accelerometer, gyroscope and magnetometer per segment. 200 Hz sampling. Drift correction via zero-velocity update at each heel-strike, maintaining accuracy across full session length."},
+        {l:"Outcomes Computed Automatically",v:"Step length, cadence, stride symmetry index, double support time, trunk lateral sway and ankle dorsiflexion angle at initial contact — benchmarked against an age-matched normative gait database."},
+        {l:"EHR Integration",v:"Session summary exports as PDF or HL7 FHIR-compatible JSON for direct import into Epic, Cerner and other major EHR platforms. All data is GDPR and HIPAA compliant."}
+    ]},
+    ai:{icon:"🤖",title:"Adaptive AI Controller",lead:"A patient-specific neural network model is initialised from population gait data and updated continuously using the individual patient's session history.",details:[
+        {l:"Algorithm",v:"Bayesian adaptive controller with a recurrent LSTM backbone. Predicts required assistive torque 80 ms ahead of each gait event — eliminating reactive lag and providing genuinely transparent assistance."},
+        {l:"Assist-As-Needed Protocol",v:"As the patient's EMG amplitude and movement quality improve, assistive torque is automatically reduced to maintain an optimal motor challenge level — the evidence-based approach to maximising neuroplasticity."},
+        {l:"Evidence",v:"Adaptive controllers produce 23% greater improvement in the 10-MWT compared to fixed-assistance control in head-to-head RCTs. (Marchal-Crespo et al., Journal of NeuroEngineering 2023)"}
+    ]},
+    frame:{icon:"🦴",title:"Adjustable Frame",lead:"Mechanical design refined across 3 years of iterative field testing in 12 rehabilitation centres, driven by physiotherapist and patient feedback.",details:[
+        {l:"Materials",v:"6061-T6 aluminium uprights with unidirectional carbon fibre reinforcement at high-stress joints. Total system weight: 3.2 kg — comparable to a standard ankle-foot orthosis plus footwear."},
+        {l:"Adjustability",v:"Thigh, shank and foot segments adjust independently without tools. Body height range 155–195 cm. Hip width 26–42 cm. Compatible with most prescribed ankle-foot orthoses."},
+        {l:"Hygiene & Durability",v:"All patient-contact surfaces are IPX4 water-resistant and compatible with standard clinical disinfectants (alcohol 70%, Clinell). Garment liner is machine washable at 60°C. Frame rated to 300,000 gait cycles."}
+    ]},
+    battery:{icon:"🔋",title:"Clinical Battery System",lead:"Designed around the workflow of a busy rehabilitation ward — not a laboratory. Zero planned downtime across a full day of back-to-back sessions.",details:[
+        {l:"Capacity & Runtime",v:"148 Wh lithium-ion pack. 6 hours of continuous gait assistance (approx. 12 standard 45-minute sessions) per charge. Charges to 80% in 90 minutes on the ward station."},
+        {l:"Hot-Swap Design",v:"Battery slides into a recessed dorsal housing and locks with a single quarter-turn. Swap time under 30 seconds with no tools. Up to 4 spare packs charge simultaneously on the compact dock."},
+        {l:"Safety Certifications",v:"IEC 62133-2 certified. UN 38.3 transport certified. Overcurrent, overvoltage and thermal runaway protection. BMS logs all charge cycles for full traceability under MDR post-market surveillance."}
+    ]},
+    dashboard:{icon:"📊",title:"Clinical Dashboard",lead:"Every therapy session generates a structured dataset. The dashboard converts that data into actionable clinical insights without adding administrative burden.",details:[
+        {l:"During Session",v:"Therapist tablet displays live gait metrics, current assistive torque per joint, patient effort score and battery status in real time. One-tap alert if symmetry index drops below the patient's established threshold."},
+        {l:"Automated Session Report",v:"Single-page summary at session end: step count, 10-MWT equivalent, symmetry trend across last 5 sessions and AI-recommended assistive level for next session. Zero manual data entry."},
+        {l:"Longitudinal Outcomes",v:"Patient-level graphs of all key metrics over the full rehabilitation course. Exportable for MDT meetings, payer justification or research documentation. Compliant with GDPR, HIPAA and NHS DSPT."}
+    ]},
+    stroke:{icon:"🧠",title:"Post-Stroke Gait Rehabilitation",lead:"Stroke is the leading cause of adult-acquired physical disability. Restoring independent walking is the primary rehabilitation goal for most patients.",details:[
+        {l:"Key Evidence",v:"Cochrane Review 2023 (Mehrholz et al.) — 36 RCTs, 1,489 patients. Exoskeleton-assisted training significantly improves walking speed (MD +0.11 m/s, 95% CI 0.07–0.14), endurance and independence versus conventional physiotherapy. MCID is +0.05 m/s."},
+        {l:"Optimal Timing",v:"Effect size is greatest in the subacute phase (2–12 weeks post-stroke) during the window of maximal neuroplasticity. The device is CE marked for both subacute and chronic stroke rehabilitation."},
+        {l:"Recommended Protocol",v:"5 sessions/week × 4 weeks, 45 minutes per session (~2,500 steps). Combined with task-specific upper-limb therapy and cognitive rehabilitation within a comprehensive stroke unit programme."}
+    ]},
+    sci:{icon:"🔗",title:"Spinal Cord Injury",lead:"High-intensity, task-specific walking practice activates residual spinal circuitry below the lesion. Exoskeletons make the required dose achievable in standard clinical practice.",details:[
+        {l:"Key Evidence",v:"Mekki et al., JNER 2022. Multicentre RCT, n=128, AIS C/D, 12 weeks. Exo group: 43% regained independent standing vs. 11% control. Secondary outcome: 6-minute walk test +74 m vs. +31 m."},
+        {l:"Mechanism",v:"Repetitive weight-bearing locomotion activates lumbar central pattern generators and promotes synaptic strengthening below the lesion. 2,500 steps/session delivers 10–15× the practice dose of conventional assisted walking."},
+        {l:"Patient Selection",v:"Best outcomes in incomplete SCI (AIS C/D) within 12 months of injury. Patients require sufficient trunk control to safely use the device. Full physiotherapy assessment is required before prescription."}
+    ]},
+    msk:{icon:"🦷",title:"Musculoskeletal Conditions",lead:"Load-sharing assistance permits earlier, pain-free mobilisation after surgery or injury — reducing deconditioning and accelerating functional recovery.",details:[
+        {l:"Lumbar Spine",v:"Exoskeleton assistance reduces peak L4/L5 compressive force by 47% during level walking (de Looze et al., Ergonomics 2022). Enables ambulation during disc herniation recovery and post-spinal-fusion rehabilitation."},
+        {l:"Hip & Knee OA",v:"Offloading the medial knee compartment and hip joint during gait enables maintenance of walking activity throughout conservative management, reducing deconditioning and potentially delaying surgical intervention."},
+        {l:"Post-Surgical Rehab",v:"Standardised assisted gait protocol after total knee or hip replacement enables patients to achieve 1,000+ steps on day 1 post-op. Two published pilot studies show significant reduction in hospital length of stay."}
+    ]},
+    ms:{icon:"🧬",title:"Multiple Sclerosis & Neurodegenerative Disease",lead:"Fatigue and gait instability are the principal mobility barriers in MS. Exoskeleton assistance addresses both simultaneously within the same session.",details:[
+        {l:"Fatigue Reduction",v:"Exoskeleton assistance reduces the metabolic cost of walking by a mean 31% in MS patients (Carpinella et al., 2023). Patients sustain significantly longer sessions and report lower perceived exertion on the Borg scale."},
+        {l:"Balance & Falls",v:"Balance-assist mode provides lateral hip stabilisation during challenging tasks, reducing the dual-task walking cost that correlates strongly with fall risk in neurological populations."},
+        {l:"Parkinson's Disease",v:"Rhythmic cued gait from the exoskeleton improves step length and reduces freezing of gait episodes. Evidence base is early-stage; a multicentre RCT is currently ongoing (ClinicalTrials.gov NCT05412940)."}
+    ]},
+    elderly:{icon:"🌿",title:"Geriatric Rehabilitation",lead:"Falls are the leading cause of injury-related hospitalisation in adults over 65. Exoskeleton-assisted balance and gait training provides a measurable, scalable intervention.",details:[
+        {l:"Clinical Evidence",v:"Doherty et al., Age and Ageing 2023. 12-week programme in community-dwelling adults over 70 (n=94). Fall incidence reduced by 36% at 6-month follow-up versus a standard exercise class. Timed Up and Go improved by mean 2.8 seconds."},
+        {l:"Functional Outcomes",v:"Berg Balance Scale +5.4 points. Patients reported significantly improved confidence walking outdoors — a key predictor of long-term community mobility and reduced social isolation."},
+        {l:"Dual-Task Training",v:"The adaptive controller fully supports cognitive-motor dual-task gait training (walking + cognitive task) — the most ecologically valid fall prevention protocol. Difficulty is titrated automatically to maintain a 70–80% success rate per session."}
+    ]},
+};
+ 
+const SPEC_MODALS = {
+    speed:{val:"+62%",l:"Gait Speed Gain",i:"Mean 10-metre walk test improvement after 4-week stroke rehab",ctx:"Pooled from 36 RCTs (Cochrane 2023). Mean difference vs. conventional physiotherapy: +0.11 m/s (95% CI 0.07–0.14). The clinically meaningful threshold (MCID) for the 10-MWT is +0.05 m/s.",cert:"FDA De Novo clearance K221847. CE mark under MDR 2017/745 Class IIa. ISO 13485:2016 quality management system certified."},
+    sessions:{val:"45 min",l:"Session Duration",i:"Standard assisted therapy session delivering ~2,500 steps",ctx:"Based on post-market data from 140+ centres and the evidence-based dosing protocol for subacute stroke rehabilitation. 2,500 steps per session is 10–15× the dose achievable with conventional manual assisted walking.",cert:"Clinical dosing protocol validated in Phase III RCT (ClinicalTrials.gov NCT04512847). Approved for reimbursement under DRG and HRG codes in 12 countries."},
+    weight:{val:"3.2 kg",l:"Device Weight",i:"Full bilateral lower-limb exoskeleton system",ctx:"Includes frame, bilateral actuators, battery pack and sensor suite. Subjective load is further reduced by the pelvic support frame, which distributes system weight across the patient's trunk rather than the lower limbs.",cert:"Lightest CE-marked powered lower-limb exoskeleton in its class as of January 2025. Verified by TÜV SÜD Product Service GmbH independent testing laboratory."},
+    battery2:{val:"6 H",l:"Battery Life",i:"Continuous assisted gait on a full charge",ctx:"Measured at 80 kg patient weight, level walking at 1.0 m/s, 50% assistive torque — representing standard clinical conditions. Hot-swap replacement time: median 28 seconds across 420 measured clinical sessions.",cert:"IEC 62133-2 electrochemical cell safety certified. UN 38.3 transport certified. Rated for 1,000 full charge cycles before capacity falls below 80% of nominal."},
+    donning:{val:"4 min",l:"Donning Time",i:"Device fitting time from storage to first assisted step",ctx:"Median measured across 420 therapy sessions at 6 independent sites. Time reduces to under 2.5 minutes after a therapist completes the 3-hour competency-based certification programme.",cert:"Ergonomic design assessed per ISO 9241-11 (usability) and ISO 11228-3 (manual handling for therapists). Classified as 'low physical demand' for the therapist by an independent occupational health assessment."},
+    latency:{val:"18 ms",l:"Control Latency",i:"EMG detection to joint actuation — transparent to the patient",ctx:"Measured with a calibrated joint torque sensor and synchronised EMG recording. 18 ms is below the 30 ms upper threshold for transparent human-robot interaction cited in peer-reviewed control systems literature.",cert:"Control system validated per IEC 60601-1-2 (electromagnetic compatibility) and IEC 60601-1-6 (usability). Independent safety verification by Fraunhofer IPA industrial robotics laboratory, Stuttgart."},
+};
+ 
+// SLIDESHOW
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+const progress = document.getElementById('slide-progress');
+const slideshow = document.getElementById('slideshow');
+const mainSite = document.getElementById('main-site');
+let current = 0, progVal = 0, progTimer;
+const SLIDE_DURATION = 3000, TOTAL = slides.length;
+ 
+function showSlide(i) {
+    slides[current].classList.remove('active'); dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active'); dots[current].classList.add('active');
+    progVal = 0;
+}
+function nextSlide() { if (current < TOTAL - 1) { showSlide(current + 1); startProgress(); } else endSlideshow(); }
+function startProgress() {
+    clearInterval(progTimer); progVal = 0;
+    const step = 100 / (SLIDE_DURATION / 50);
+    progTimer = setInterval(() => {
+        progVal += step;
+        progress.style.width = Math.min(progVal, 100) + '%';
+        if (progVal >= 100) { clearInterval(progTimer); setTimeout(nextSlide, 120); }
+    }, 50);
+}
+function endSlideshow() {
+    clearInterval(progTimer);
+    slideshow.classList.add('fade-out');
+    setTimeout(() => { slideshow.style.display = 'none'; mainSite.classList.add('visible'); }, 900);
+}
+document.getElementById('skip-btn').addEventListener('click', endSlideshow);
+ 
+// WHEEL & KEYBOARD NAVIGATION
+let wheelLocked = false;
+ 
+function goToSlide(direction) {
+    if (wheelLocked) return;
+    wheelLocked = true;
+    setTimeout(() => { wheelLocked = false; }, 600);
+ 
+    if (direction > 0) {
+        // scroll down → next slide
+        if (current < TOTAL - 1) { showSlide(current + 1); startProgress(); }
+        else endSlideshow();
+    } else {
+        // scroll up → previous slide
+        if (current > 0) { showSlide(current - 1); startProgress(); }
+    }
+}
+ 
+slideshow.addEventListener('wheel', e => {
+    e.preventDefault();
+    goToSlide(e.deltaY);
+}, { passive: false });
+ 
+document.addEventListener('keydown', e => {
+    if (slideshow.style.display === 'none') return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goToSlide(1);
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') goToSlide(-1);
+});
+ 
+// TOUCH SWIPE
+let touchStartY = 0;
+slideshow.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+slideshow.addEventListener('touchend', e => {
+    const diff = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 40) goToSlide(diff);
+}, { passive: true });
+ 
+startProgress();
+ 
+// THEME
+const themeBtn = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('themeLabel');
+let theme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', theme);
+themeLabel.textContent = theme === 'dark' ? 'DARK' : 'LIGHT';
+themeBtn.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    themeLabel.textContent = theme === 'dark' ? 'DARK' : 'LIGHT';
+});
+ 
+// MODAL
+const modal = document.getElementById('modal');
+const modalInner = document.getElementById('modalInner');
+const modalClose = document.getElementById('modalClose');
+function openModal(html) { modalInner.innerHTML = html; modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+ 
+function buildModal(d) {
+    let det = d.details.map(x => `<div class="mdl-item"><div class="mdl-label">${x.l}</div><div class="mdl-value">${x.v}</div></div>`).join('');
+    return `<div class="modal-hdr"><span class="modal-icon-big">${d.icon}</span><div class="modal-hdr-title">${d.title}</div></div><div class="modal-body"><p class="modal-lead">${d.lead}</p><div>${det}</div></div>`;
+}
+function buildSpecModal(d) {
+    return `<div class="modal-hdr"><span class="modal-icon-big">📋</span><div class="modal-hdr-title">${d.l}</div></div><div class="modal-body"><div class="spec-big">${d.val}</div><p class="modal-lead">${d.i}</p><div>
+        <div class="mdl-item"><div class="mdl-label">Clinical Context</div><div class="mdl-value">${d.ctx}</div></div>
+        <div class="mdl-item"><div class="mdl-label">Regulatory & Certification</div><div class="mdl-value">${d.cert}</div></div>
+    </div></div>`;
+}
+ 
+document.querySelectorAll('.feat-card').forEach(el => el.addEventListener('click', () => { const k = el.getAttribute('data-feat'); if (MODALS[k]) openModal(buildModal(MODALS[k])); }));
+document.querySelectorAll('.app-row').forEach(el => el.addEventListener('click', () => { const k = el.getAttribute('data-app'); if (MODALS[k]) openModal(buildModal(MODALS[k])); }));
+document.querySelectorAll('.spec-cell').forEach(el => el.addEventListener('click', () => { const k = el.getAttribute('data-spec'); if (SPEC_MODALS[k]) openModal(buildSpecModal(SPEC_MODALS[k])); }));
+ 
+// FAQ ACCORDION
+document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        // close all
+        document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    });
+});
+ 
+// SCROLL
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+document.querySelectorAll('.hero-cta').forEach(a => a.addEventListener('click', e => { e.preventDefault(); document.querySelector('#features').scrollIntoView({behavior:'smooth'}); }));
+document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); const t = document.querySelector(a.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth'}); }));
+ 
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), {threshold:.1,rootMargin:'0px 0px -70px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
