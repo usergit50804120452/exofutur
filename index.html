@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEXUS EXO | Medical Exoskeleton — Clinical Grade</title>
+    <!-- Inline SVG favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23050d12'/%3E%3Ccircle cx='32' cy='32' r='26' fill='none' stroke='%2300bcd4' stroke-width='1' stroke-dasharray='3 2' opacity='.5'/%3E%3Cpath d='M25,18 L22,24 L21,32 L22,40 L20,46 L22,51 L25,53 L32,53 L39,53 L42,51 L44,46 L42,40 L43,32 L42,24 L39,18 Z' fill='none' stroke='%2300bcd4' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M22,27 L16,30 L14,37 L16,42 L21,44' fill='none' stroke='%2326a69a' stroke-width='1.2' stroke-linecap='round'/%3E%3Cpath d='M42,27 L48,30 L50,37 L48,42 L43,44' fill='none' stroke='%2326a69a' stroke-width='1.2' stroke-linecap='round'/%3E%3Cpath d='M27,18 L26,13 L32,10 L38,13 L37,18' fill='none' stroke='%2300bcd4' stroke-width='1.3' stroke-linejoin='round'/%3E%3Ccircle cx='21' cy='32' r='3' fill='none' stroke='%2300bcd4' stroke-width='1'/%3E%3Ccircle cx='43' cy='32' r='3' fill='none' stroke='%2300bcd4' stroke-width='1'/%3E%3Ccircle cx='32' cy='40' r='3.5' fill='none' stroke='%2326a69a' stroke-width='1.2'/%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -39,7 +41,7 @@
             background:var(--dark);color:var(--text);
             overflow-x:hidden;transition:background .4s,color .4s;
         }
- 
+
         /* ── SLIDESHOW ── */
         #slideshow{position:fixed;inset:0;z-index:9999;background:var(--dark);overflow:hidden;}
         #slideshow.fade-out{animation:ssOut .9s ease forwards;}
@@ -120,7 +122,7 @@
             padding:.42rem 1rem;cursor:pointer;transition:all .3s;z-index:10000;
         }
         #skip-btn:hover{color:var(--c1);border-color:var(--c1);}
- 
+
         /* ── MAIN SITE ── */
         #main-site{opacity:0;transition:opacity 1s ease;}
         #main-site.visible{opacity:1;}
@@ -150,7 +152,7 @@
         }
         .nav-links a:hover{color:var(--c1);}
         .nav-links a:hover::after{transform:scaleX(1);}
- 
+
         /* ── THEME SWITCH ── */
         .theme-switch{
             display:flex;align-items:center;gap:.55rem;
@@ -201,7 +203,7 @@
             animation:gridDrift 30s linear infinite;
         }
         @keyframes gridDrift{0%{background-position:0 0;}100%{background-position:55px 55px;}}
- 
+
         /* HERO */
         .hero{
             position:relative;min-height:100vh;
@@ -286,7 +288,7 @@
         .exo-data.bl{bottom:10%;left:5%;}
         .exo-data.br{bottom:10%;right:5%;text-align:right;}
         .exo-data span{display:block;color:var(--sub);font-size:.52rem;margin-top:.2rem;}
- 
+
         section{position:relative;z-index:1;}
         .section-head{text-align:center;padding:6rem 2rem 4rem;}
         .section-tag{
@@ -306,7 +308,7 @@
             max-width:620px;margin:1rem auto 0;font-size:1.04rem;font-weight:300;
             color:var(--sub);letter-spacing:.04em;line-height:1.7;
         }
- 
+
         /* FEATURES */
         .features-wrap{
             max-width:1380px;margin:0 auto;padding:0 2rem 8rem;
@@ -334,7 +336,7 @@
             opacity:0;transform:translateX(-8px);transition:all .3s;
         }
         .feat-card:hover .feat-arrow{opacity:1;transform:translateX(0);}
- 
+
         /* EVIDENCE STRIP */
         .evidence-strip{
             background:var(--dark2);
@@ -355,7 +357,7 @@
             color:var(--sub);text-transform:uppercase;margin-top:.35rem;
         }
         .ev-source{font-size:.75rem;color:var(--border);margin-top:.25rem;font-style:italic;}
- 
+
         /* SPECS */
         .specs-section{background:var(--dark2);padding:6rem 2rem;}
         .specs-grid{
@@ -378,7 +380,7 @@
         .spec-lbl{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.22em;color:var(--sub);text-transform:uppercase;margin-bottom:.7rem;}
         .spec-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.9rem,3.8vw,3rem);color:var(--c1);line-height:1;text-shadow:0 0 18px var(--glow1);margin-bottom:.45rem;}
         .spec-info{font-size:.9rem;font-weight:300;color:var(--sub);line-height:1.5;}
- 
+
         /* APPLICATIONS */
         .apps-section{padding:4rem 2rem 8rem;}
         .apps-list{max-width:980px;margin:0 auto;}
@@ -405,7 +407,7 @@
             opacity:0;transform:translateX(-10px);transition:all .3s;display:inline-block;
         }
         .app-row:hover .app-more{opacity:1;transform:translateX(0);}
- 
+
         footer{
             border-top:1px solid var(--border);padding:3.5rem 2rem;
             text-align:center;position:relative;z-index:1;
@@ -415,7 +417,7 @@
             color:var(--c1);text-shadow:0 0 25px var(--glow1);margin-bottom:.9rem;
         }
         .footer-sub{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.26em;color:var(--sub);text-transform:uppercase;}
- 
+
         /* MODAL */
         .modal-wrap{
             position:fixed;inset:0;z-index:8000;
@@ -447,10 +449,10 @@
         .mdl-label{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.22em;color:var(--c1);text-transform:uppercase;margin-bottom:.45rem;}
         .mdl-value{font-size:.97rem;font-weight:300;color:var(--text);line-height:1.7;}
         .spec-big{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:4.5rem;color:var(--c1);text-shadow:0 0 25px var(--glow1);margin:1.2rem 0;letter-spacing:.05em;}
- 
+
         .reveal{opacity:0;transform:translateY(35px);transition:opacity .7s ease,transform .7s ease;}
         .reveal.in{opacity:1;transform:none;}
- 
+
         /* ── WHY COMPONENTS ── */
         .why-section{padding:6rem 2rem 8rem;background:var(--dark);}
         .why-grid{
@@ -497,7 +499,7 @@
         }
         .why-vs-item:last-child{border-bottom:none;}
         .why-vs-item.bad-item{color:rgba(232,244,248,.3);text-decoration:line-through;text-decoration-color:rgba(232,244,248,.2);}
- 
+
         /* ── COMPARISON TABLE ── */
         .compare-section{background:var(--dark2);padding:6rem 2rem 8rem;}
         .compare-wrap{max-width:1000px;margin:0 auto;overflow-x:auto;}
@@ -534,7 +536,7 @@
             border-left:2px solid var(--c1);
             border-right:2px solid var(--c1);
         }
- 
+
         /* ── DESIGN PHILOSOPHY ── */
         .philosophy-section{padding:6rem 2rem 8rem;background:var(--dark);}
         .philosophy-inner{max-width:1100px;margin:0 auto;}
@@ -573,7 +575,7 @@
             font-style:italic;font-size:.9rem;color:var(--sub);
             background:rgba(0,188,212,.03);
         }
- 
+
         /* ── FAQ ── */
         .faq-section{background:var(--dark2);padding:6rem 2rem 8rem;}
         .faq-list{max-width:860px;margin:0 auto;}
@@ -606,7 +608,7 @@
             font-size:.97rem;font-weight:300;color:var(--sub);line-height:1.8;
         }
         .faq-answer-inner strong{color:var(--text);font-weight:600;}
- 
+
         @media(max-width:900px){
             .hero{grid-template-columns:1fr;padding-top:8rem;text-align:center;}
             .hero-sub{margin:0 auto 2.5rem;}
@@ -618,13 +620,13 @@
     </style>
 </head>
 <body>
- 
+
 <!-- ══════════════════════════════════════════
      SLIDESHOW — 8 SLIDES
 ══════════════════════════════════════════ -->
 <div id="slideshow">
     <div id="slide-progress" style="width:0%"></div>
- 
+
     <!-- S1 — Identity -->
     <div class="slide active" data-index="0">
         <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
@@ -642,7 +644,7 @@
         <div class="slide-title">NEXUS<br>EXO</div>
         <div class="slide-sub">A clinically validated external exoskeleton engineered to restore mobility, accelerate rehabilitation and measurably improve patient outcomes.</div>
     </div>
- 
+
     <!-- S2 — The clinical problem -->
     <div class="slide" data-index="1">
         <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
@@ -655,7 +657,7 @@
         <div class="slide-sub">17 million people suffer a stroke every year. 80% survive with lasting motor impairment. Conventional physiotherapy alone reaches a recovery ceiling — high-repetition exoskeleton therapy breaks through it.</div>
         <div class="slide-source">Source: World Stroke Organization, Global Report 2023</div>
     </div>
- 
+
     <!-- S3 — Gait recovery evidence -->
     <div class="slide" data-index="2">
         <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
@@ -673,7 +675,7 @@
         </div>
         <div class="slide-source">Source: Mehrholz et al., Cochrane Database of Systematic Reviews 2023</div>
     </div>
- 
+
     <!-- S4 — SCI evidence -->
     <div class="slide" data-index="3">
         <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
@@ -692,7 +694,7 @@
         <div class="slide-sub">43% of incomplete SCI patients (AIS C/D) regained independent standing after 12 weeks of exoskeleton therapy — compared to 11% in the conventional physiotherapy control group (n=128, 6 hospitals).</div>
         <div class="slide-source">Source: Mekki et al., Journal of NeuroEngineering and Rehabilitation 2022</div>
     </div>
- 
+
     <!-- S5 — Musculoskeletal -->
     <div class="slide" data-index="4">
         <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
@@ -709,7 +711,7 @@
         </div>
         <div class="slide-source">Source: de Looze et al., Ergonomics 2022 — 26 workplace and clinical studies</div>
     </div>
- 
+
     <!-- S6 — Elderly / falls -->
     <div class="slide" data-index="5">
         <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
@@ -725,7 +727,7 @@
         <div class="slide-sub">Falls are the leading cause of injury-related hospitalisation in adults over 65. A 12-week exoskeleton balance programme reduced fall incidence by 36% at 6-month follow-up in community-dwelling adults over 70.</div>
         <div class="slide-source">Source: Doherty et al., Age and Ageing 2023 (n=94)</div>
     </div>
- 
+
     <!-- S7 — Technology -->
     <div class="slide" data-index="6">
         <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
@@ -743,7 +745,7 @@
             <div class="stat-box"><div class="stat-num">AI</div><div class="stat-lbl">Adaptive assist-as-needed</div></div>
         </div>
     </div>
- 
+
     <!-- S8 — Certifications & reach -->
     <div class="slide" data-index="7">
         <div class="slide-bg"><svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
@@ -763,7 +765,7 @@
             <div class="stat-box"><div class="stat-num">FDA</div><div class="stat-lbl">Cleared + CE marked</div></div>
         </div>
     </div>
- 
+
     <div id="slide-dots">
         <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
         <div class="dot"></div><div class="dot"></div><div class="dot"></div>
@@ -771,7 +773,7 @@
     </div>
     <button id="skip-btn">SKIP ↓</button>
 </div>
- 
+
 <!-- MAIN SITE -->
 <div id="main-site">
     <div class="modal-wrap" id="modal">
@@ -780,11 +782,24 @@
             <div id="modalInner"></div>
         </div>
     </div>
- 
+
     <div class="bg-grid"></div>
- 
+
     <nav id="nav">
-        <div class="nav-logo">NEXUS EXO</div>
+        <a href="#home" class="nav-logo" style="text-decoration:none;display:flex;align-items:center;gap:.7rem;">
+            <svg width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;filter:drop-shadow(0 0 6px rgba(0,188,212,.4));">
+                <circle cx="32" cy="32" r="26" fill="none" stroke="var(--c1)" stroke-width="1" stroke-dasharray="3 2" opacity=".5"/>
+                <path d="M25,18 L22,24 L21,32 L22,40 L20,46 L22,51 L25,53 L32,53 L39,53 L42,51 L44,46 L42,40 L43,32 L42,24 L39,18 Z" fill="rgba(0,188,212,0.07)" stroke="var(--c1)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M22,27 L16,30 L14,37 L16,42 L21,44" fill="none" stroke="var(--c2)" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M42,27 L48,30 L50,37 L48,42 L43,44" fill="none" stroke="var(--c2)" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M27,18 L26,13 L32,10 L38,13 L37,18" fill="none" stroke="var(--c1)" stroke-width="1.3" stroke-linejoin="round"/>
+                <circle cx="21" cy="32" r="3" fill="rgba(0,188,212,.12)" stroke="var(--c1)" stroke-width="1"/>
+                <circle cx="43" cy="32" r="3" fill="rgba(0,188,212,.12)" stroke="var(--c1)" stroke-width="1"/>
+                <circle cx="32" cy="40" r="3.5" fill="rgba(38,166,154,.12)" stroke="var(--c2)" stroke-width="1.2"/>
+                <rect x="28" y="29" width="8" height="5" rx="1" fill="none" stroke="var(--c1)" stroke-width=".9" opacity=".7"/>
+            </svg>
+            <span>NEXUS EXO</span>
+        </a>
         <ul class="nav-links">
             <li><a href="#features">Technology</a></li>
             <li><a href="#why">Why Nexus</a></li>
@@ -800,7 +815,7 @@
             <span class="theme-switch-label" id="themeLabel">DARK</span>
         </button>
     </nav>
- 
+
     <section class="hero" id="home">
         <div class="hero-left">
             <div class="hero-badge">
@@ -843,7 +858,7 @@
             </div>
         </div>
     </section>
- 
+
     <!-- FEATURES -->
     <section id="features">
         <div class="section-head">
@@ -896,7 +911,7 @@
             </div>
         </div>
     </section>
- 
+
     <!-- EVIDENCE STRIP -->
     <div class="evidence-strip">
         <div class="evidence-grid">
@@ -927,7 +942,7 @@
             </div>
         </div>
     </div>
- 
+
     <!-- SPECS -->
     <section class="specs-section" id="specs">
         <div class="section-head">
@@ -968,7 +983,7 @@
             </div>
         </div>
     </section>
- 
+
     <!-- APPLICATIONS -->
     <section class="apps-section" id="apps">
         <div class="section-head">
@@ -1019,7 +1034,7 @@
             </div>
         </div>
     </section>
- 
+
     <!-- ══════════════════════════════════════════
          WHY THESE COMPONENTS
     ══════════════════════════════════════════ -->
@@ -1030,7 +1045,7 @@
             <p class="section-sub">Every design decision is traceable to a specific clinical requirement. Here is the evidence behind each major choice.</p>
         </div>
         <div class="why-grid">
- 
+
             <div class="why-card reveal">
                 <span class="why-card-tag">Sensing — Why EMG over position control?</span>
                 <div class="why-card-title">Surface EMG</div>
@@ -1053,7 +1068,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="why-card reveal">
                 <span class="why-card-tag">Structure — Why aluminium-carbon composite?</span>
                 <div class="why-card-title">Frame Material</div>
@@ -1076,7 +1091,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="why-card reveal">
                 <span class="why-card-tag">Power — Why lithium-ion over tethered power?</span>
                 <div class="why-card-title">Onboard Battery</div>
@@ -1099,7 +1114,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="why-card reveal">
                 <span class="why-card-tag">Intelligence — Why on-device AI vs. cloud processing?</span>
                 <div class="why-card-title">Edge AI Controller</div>
@@ -1122,10 +1137,10 @@
                     </div>
                 </div>
             </div>
- 
+
         </div>
     </section>
- 
+
     <!-- ══════════════════════════════════════════
          COMPARISON TABLE
     ══════════════════════════════════════════ -->
@@ -1210,7 +1225,7 @@
             </table>
         </div>
     </section>
- 
+
     <!-- ══════════════════════════════════════════
          DESIGN PHILOSOPHY
     ══════════════════════════════════════════ -->
@@ -1257,7 +1272,7 @@
             </div>
         </div>
     </section>
- 
+
     <!-- ══════════════════════════════════════════
          FAQ
     ══════════════════════════════════════════ -->
@@ -1268,7 +1283,7 @@
             <p class="section-sub">Common questions from rehabilitation teams, procurement departments and clinical leads</p>
         </div>
         <div class="faq-list">
- 
+
             <div class="faq-item reveal">
                 <button class="faq-question">
                     <span class="faq-q-text">Which patients are contraindicated for exoskeleton therapy?</span>
@@ -1279,7 +1294,7 @@
                     <strong>Relative contraindications</strong> requiring physiotherapy assessment include significant lower limb spasticity (MAS 3), significant lower limb oedema, pressure sores at device contact points, BMI &gt; 40, and height outside the 155–195 cm adjustment range. A full pre-prescription assessment checklist is included in the clinical user manual and training programme.
                 </div></div>
             </div>
- 
+
             <div class="faq-item reveal">
                 <button class="faq-question">
                     <span class="faq-q-text">How long does therapist training take, and what does it cover?</span>
@@ -1290,7 +1305,7 @@
                     Training is delivered by a Nexus clinical application specialist on-site (included in the purchase agreement) and supplemented by an online learning module and competency assessment. Re-certification is recommended every 2 years. All training records are logged in the Nexus clinical portal for CQC and JCI audit purposes.
                 </div></div>
             </div>
- 
+
             <div class="faq-item reveal">
                 <button class="faq-question">
                     <span class="faq-q-text">What is the reimbursement situation in major markets?</span>
@@ -1304,7 +1319,7 @@
                     Our health economics team can provide site-specific ROI modelling and payer engagement support as part of the procurement process.
                 </div></div>
             </div>
- 
+
             <div class="faq-item reveal">
                 <button class="faq-question">
                     <span class="faq-q-text">Can the device be used with patients who have complete SCI (AIS A/B)?</span>
@@ -1315,7 +1330,7 @@
                     For complete SCI, the evidence base for motor recovery via exoskeleton therapy is significantly weaker than for incomplete SCI. We do not make motor recovery claims for AIS A/B patients, and the clinical protocol and patient information materials clearly communicate this distinction. Passive assist mode is also used during the initial assessment session for any patient where EMG signal quality is insufficient to trigger the intent-based controller.
                 </div></div>
             </div>
- 
+
             <div class="faq-item reveal">
                 <button class="faq-question">
                     <span class="faq-q-text">How is the device cleaned between patients?</span>
@@ -1326,7 +1341,7 @@
                     Full decontamination between patients takes approximately 4 minutes. Detailed IPC (infection prevention and control) guidance is provided in Section 7 of the clinical user manual and has been reviewed by infection control leads at three NHS trusts.
                 </div></div>
             </div>
- 
+
             <div class="faq-item reveal">
                 <button class="faq-question">
                     <span class="faq-q-text">What happens if the device fails during a session?</span>
@@ -1338,7 +1353,7 @@
                     The fault management system logs all incidents and transmits them to the Nexus post-market surveillance portal in compliance with EU MDR Article 87 mandatory incident reporting requirements.
                 </div></div>
             </div>
- 
+
             <div class="faq-item reveal">
                 <button class="faq-question">
                     <span class="faq-q-text">How does the AI adapt to a patient who is having a bad session?</span>
@@ -1350,16 +1365,16 @@
                     The therapist receives a notification on the tablet and can choose to accept the AI recommendation, override it, or end the session. Session notes are automatically flagged for review in the next session planning summary.
                 </div></div>
             </div>
- 
+
         </div>
     </section>
- 
+
     <footer>
         <div class="footer-logo">NEXUS EXO</div>
         <p class="footer-sub">MEDICAL GRADE EXOSKELETON — FDA CLEARED · CE MARKED · ISO 13485 — © 2026 NEXUS MEDICAL SYSTEMS</p>
     </footer>
 </div>
- 
+
 <script>
 const MODALS = {
     emg:{icon:"📈",title:"EMG-Based Assist",lead:"Surface electromyography is the gold standard for intent-detection in rehabilitation exoskeletons. Residual voluntary EMG is present even in severely paretic limbs and provides a biologically meaningful control signal that drives neuroplastic recovery.",details:[
@@ -1418,7 +1433,7 @@ const MODALS = {
         {l:"Dual-Task Training",v:"The adaptive controller fully supports cognitive-motor dual-task gait training (walking + cognitive task) — the most ecologically valid fall prevention protocol. Difficulty is titrated automatically to maintain a 70–80% success rate per session."}
     ]},
 };
- 
+
 const SPEC_MODALS = {
     speed:{val:"+62%",l:"Gait Speed Gain",i:"Mean 10-metre walk test improvement after 4-week stroke rehab",ctx:"Pooled from 36 RCTs (Cochrane 2023). Mean difference vs. conventional physiotherapy: +0.11 m/s (95% CI 0.07–0.14). The clinically meaningful threshold (MCID) for the 10-MWT is +0.05 m/s.",cert:"FDA De Novo clearance K221847. CE mark under MDR 2017/745 Class IIa. ISO 13485:2016 quality management system certified."},
     sessions:{val:"45 min",l:"Session Duration",i:"Standard assisted therapy session delivering ~2,500 steps",ctx:"Based on post-market data from 140+ centres and the evidence-based dosing protocol for subacute stroke rehabilitation. 2,500 steps per session is 10–15× the dose achievable with conventional manual assisted walking.",cert:"Clinical dosing protocol validated in Phase III RCT (ClinicalTrials.gov NCT04512847). Approved for reimbursement under DRG and HRG codes in 12 countries."},
@@ -1427,7 +1442,7 @@ const SPEC_MODALS = {
     donning:{val:"4 min",l:"Donning Time",i:"Device fitting time from storage to first assisted step",ctx:"Median measured across 420 therapy sessions at 6 independent sites. Time reduces to under 2.5 minutes after a therapist completes the 3-hour competency-based certification programme.",cert:"Ergonomic design assessed per ISO 9241-11 (usability) and ISO 11228-3 (manual handling for therapists). Classified as 'low physical demand' for the therapist by an independent occupational health assessment."},
     latency:{val:"18 ms",l:"Control Latency",i:"EMG detection to joint actuation — transparent to the patient",ctx:"Measured with a calibrated joint torque sensor and synchronised EMG recording. 18 ms is below the 30 ms upper threshold for transparent human-robot interaction cited in peer-reviewed control systems literature.",cert:"Control system validated per IEC 60601-1-2 (electromagnetic compatibility) and IEC 60601-1-6 (usability). Independent safety verification by Fraunhofer IPA industrial robotics laboratory, Stuttgart."},
 };
- 
+
 // SLIDESHOW
 const slides = document.querySelectorAll('.slide');
 const dots = document.querySelectorAll('.dot');
@@ -1436,7 +1451,7 @@ const slideshow = document.getElementById('slideshow');
 const mainSite = document.getElementById('main-site');
 let current = 0, progVal = 0, progTimer;
 const SLIDE_DURATION = 3000, TOTAL = slides.length;
- 
+
 function showSlide(i) {
     slides[current].classList.remove('active'); dots[current].classList.remove('active');
     current = i;
@@ -1459,15 +1474,15 @@ function endSlideshow() {
     setTimeout(() => { slideshow.style.display = 'none'; mainSite.classList.add('visible'); }, 900);
 }
 document.getElementById('skip-btn').addEventListener('click', endSlideshow);
- 
+
 // WHEEL & KEYBOARD NAVIGATION
 let wheelLocked = false;
- 
+
 function goToSlide(direction) {
     if (wheelLocked) return;
     wheelLocked = true;
     setTimeout(() => { wheelLocked = false; }, 600);
- 
+
     if (direction > 0) {
         // scroll down → next slide
         if (current < TOTAL - 1) { showSlide(current + 1); startProgress(); }
@@ -1477,18 +1492,18 @@ function goToSlide(direction) {
         if (current > 0) { showSlide(current - 1); startProgress(); }
     }
 }
- 
+
 slideshow.addEventListener('wheel', e => {
     e.preventDefault();
     goToSlide(e.deltaY);
 }, { passive: false });
- 
+
 document.addEventListener('keydown', e => {
     if (slideshow.style.display === 'none') return;
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goToSlide(1);
     if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') goToSlide(-1);
 });
- 
+
 // TOUCH SWIPE
 let touchStartY = 0;
 slideshow.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
@@ -1496,9 +1511,9 @@ slideshow.addEventListener('touchend', e => {
     const diff = touchStartY - e.changedTouches[0].clientY;
     if (Math.abs(diff) > 40) goToSlide(diff);
 }, { passive: true });
- 
+
 startProgress();
- 
+
 // THEME
 const themeBtn = document.getElementById('themeToggle');
 const themeLabel = document.getElementById('themeLabel');
@@ -1511,7 +1526,7 @@ themeBtn.addEventListener('click', () => {
     localStorage.setItem('theme', theme);
     themeLabel.textContent = theme === 'dark' ? 'DARK' : 'LIGHT';
 });
- 
+
 // MODAL
 const modal = document.getElementById('modal');
 const modalInner = document.getElementById('modalInner');
@@ -1521,7 +1536,7 @@ function closeModal() { modal.classList.remove('open'); document.body.style.over
 modalClose.addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
- 
+
 function buildModal(d) {
     let det = d.details.map(x => `<div class="mdl-item"><div class="mdl-label">${x.l}</div><div class="mdl-value">${x.v}</div></div>`).join('');
     return `<div class="modal-hdr"><span class="modal-icon-big">${d.icon}</span><div class="modal-hdr-title">${d.title}</div></div><div class="modal-body"><p class="modal-lead">${d.lead}</p><div>${det}</div></div>`;
@@ -1532,11 +1547,11 @@ function buildSpecModal(d) {
         <div class="mdl-item"><div class="mdl-label">Regulatory & Certification</div><div class="mdl-value">${d.cert}</div></div>
     </div></div>`;
 }
- 
+
 document.querySelectorAll('.feat-card').forEach(el => el.addEventListener('click', () => { const k = el.getAttribute('data-feat'); if (MODALS[k]) openModal(buildModal(MODALS[k])); }));
 document.querySelectorAll('.app-row').forEach(el => el.addEventListener('click', () => { const k = el.getAttribute('data-app'); if (MODALS[k]) openModal(buildModal(MODALS[k])); }));
 document.querySelectorAll('.spec-cell').forEach(el => el.addEventListener('click', () => { const k = el.getAttribute('data-spec'); if (SPEC_MODALS[k]) openModal(buildSpecModal(SPEC_MODALS[k])); }));
- 
+
 // FAQ ACCORDION
 document.querySelectorAll('.faq-question').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1547,13 +1562,13 @@ document.querySelectorAll('.faq-question').forEach(btn => {
         if (!isOpen) item.classList.add('open');
     });
 });
- 
+
 // SCROLL
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
 document.querySelectorAll('.hero-cta').forEach(a => a.addEventListener('click', e => { e.preventDefault(); document.querySelector('#features').scrollIntoView({behavior:'smooth'}); }));
 document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); const t = document.querySelector(a.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth'}); }));
- 
+
 const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), {threshold:.1,rootMargin:'0px 0px -70px 0px'});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
